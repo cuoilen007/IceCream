@@ -1,0 +1,74 @@
+﻿@model IceCreamClient.Models.Recipe
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!--Page Title-->
+<section class="page-title centred" style="background-image: url(assets/images/background/page-title.jpg);">
+    <div class="auto-container">
+        <div class="content-box">
+            <div class="title">
+                <h1>Recipe</h1>
+            </div>
+            <ul class="bread-crumb clearfix">
+                <li><a href="index.html">Home</a></li>
+                <li>Recipe</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-lg-6 col-ml-12">
+            <div class="row">
+                <!-- Textual inputs start -->
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">CREATE RECIPE</h4>
+                            <form asp-action="Create" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label asp-for="Title" class="col-form-label"></label>
+                                    <input class="form-control" type="text" asp-for="Title">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Ingredents" class="col-form-label"></label>
+                                    <input class="form-control" type="text" asp-for="Ingredents">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Preparation" class="col-form-label"></label>
+                                    <input class="form-control" type="text" asp-for="Preparation">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Thumbnail</label>
+                                    <input class="form-control" type="file" name="imageFile">
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Paying Status</label>
+                                    <select asp-for="PayingRequired">
+                                        <option value="0" selected="selected">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Active Status</label>
+                                    <select asp-for="Status">
+                                        <option value="0" selected="selected">No</option>
+                                        <option value="1">Yes</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create" class="form-control" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Textual inputs end -->
+            </div>
+        </div>
+    </div>
+</div>
+

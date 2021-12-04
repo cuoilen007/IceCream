@@ -45,6 +45,26 @@ namespace IceCreamApi.Controllers
         [HttpPost("/api/recipe")]
         public async Task<ActionResult> createRecipe(Recipe recipe)
         {
+            if (recipe.Thumbnail == null || recipe.Thumbnail == "")
+            {
+                _context.Add(new Recipe
+                {
+                    Title = recipe.Title,
+                    Ingredents = recipe.Ingredents,
+                    Preparation = recipe.Preparation,
+                    PayingRequired = recipe.PayingRequired,
+                    Status = recipe.Status,
+                    CreatedBy = recipe.CreatedBy,
+                });
+
+                if (await _context.SaveChangesAsync() > 0)
+                {
+                    return Ok();
+                }
+
+                return BadRequest();
+            }
+
             _context.Add(new Recipe
             {
                 Title = recipe.Title,
