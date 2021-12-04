@@ -1,0 +1,98 @@
+﻿@model IceCreamClient.Models.Recipe
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>@Model.Title</h1>
+
+<!-- blog-post -->
+<section class="blog-post centred" style="background-image: url(assets/images/background/blog-1.jpg);">
+    <div class="post-inner">
+        <span class="category">Bakery</span>
+        <h2>Keeping a healthy diet is important</h2>
+        <ul class="post-info clearfix">
+            <li>on 16 Jul, 2020</li>
+            <li>/</li>
+            <li><a href="index.html">by admin</a></li>
+        </ul>
+    </div>
+</section>
+<!-- blog-post end -->
+<!-- sidebar-page-container -->
+<section class="sidebar-page-container sec-pad-2 blog-details">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-8 col-md-12 col-sm-12 content-side">
+                @*content*@
+                <div class="blog-details-content">
+                    <div class="inner-box">
+                        
+                        <blockquote>
+                            <i class="icon-Quote"></i>
+                            <p>“@Model.Ingredents”</p>
+                        </blockquote>
+                        <div class="text">
+                            <h3>Preparation</h3>
+                            <p>@Model.Preparation</p>
+                        </div>
+                    </div>
+                    <div class="post-share-option clearfix">
+                        <div class="text pull-left"><h3>We Are Social On:</h3></div>
+                        <ul class="social-links pull-right clearfix">
+                            <li><a href="blog-details.html"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="blog-details.html"><i class="fab fa-twitter"></i></a></li>
+                            <li><a href="blog-details.html"><i class="fab fa-google-plus-g"></i></a></li>
+                        </ul>
+                    </div>
+                    @*end content*@
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 sidebar-side">
+                <div class="blog-sidebar default-sidebar">
+                    <div class="sidebar-widget search-widget">
+                        <div class="widget-title">
+                            <h3>Search</h3>
+                        </div>
+                        <div class="widget-content">
+                            <form action="blog-details.html" method="post" class="search-form">
+                                <div class="form-group">
+                                    <input type="search" name="search-field" placeholder="Search" required="">
+                                    <button type="submit"><i class="fas fa-search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="sidebar-widget sidebar-categories">
+                        <div class="widget-title">
+                            <h3>Flavor</h3>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="categories-list clearfix">
+                                <li><a href="blog-details.html">Vanilla</a></li>
+                                <li><a href="blog-details.html">Chocolate</a></li>
+                                <li><a href="blog-details.html">Chocolate chip</a></li>
+                                <li><a href="blog-details.html">Strawberry</a></li>
+                                <li><a href="blog-details.html">Mango</a></li>
+                                <li><a href="blog-details.html">Coffee</a></li>
+                                <li><a href="blog-details.html">Cherry</a></li>
+                                <li><a href="blog-details.html">Butterscotch</a></li>
+                                <li><a href="blog-details.html">Walnut</a></li>
+                                <li><a href="blog-details.html">Vanilla and strawberry (two in one)</a></li>
+                                <li><a href="blog-details.html">Pistachio</a></li>
+                                <li><a href="blog-details.html">Banana</a></li>
+                                <li><a href="blog-details.html">Banana Chocolate chip</a></li>
+                                <li><a href="blog-details.html">Chocolate almond</a></li>
+                                <li><a href="blog-details.html">Chocolate truffle</a></li>
+                                <li><a href="blog-details.html">Kiwi fruit</a></li>
+                                <li><a href="blog-details.html">Pineapple</a></li>
+                                <li><a href="blog-details.html">Fruit and nut</a></li>
+                                <li><a href="blog-details.html">Cashew Caramel crunch</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- sidebar-page-container end -->
