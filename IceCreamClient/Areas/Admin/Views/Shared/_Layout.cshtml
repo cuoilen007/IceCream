@@ -20,8 +20,16 @@
     <link rel="stylesheet" href="/Admin/Data/assets/css/default-css.css">
     <link rel="stylesheet" href="/Admin/Data/assets/css/styles.css">
     <link rel="stylesheet" href="/Admin/Data/assets/css/responsive.css">
+
+    @if (IsSectionDefined("Styles"))
+    {
+    RenderSection("Styles");
+    }
     <!-- modernizr css -->
     <script src="/Admin/Data/assets/js/vendor/modernizr-2.8.3.min.js"></script>
+
+    @* CK EDITOR *@
+    <script src="/Admin/Data/ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
@@ -55,9 +63,12 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>Sidebar
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="ti-layout-sidebar-left"></i><span>
+                                        Sidebar
                                         Types
-                                    </span></a>
+                                    </span>
+                                </a>
                                 <ul class="collapse">
                                     <li><a href="index.html">Left Sidebar</a></li>
                                     <li><a href="index3-horizontalmenu.html">Horizontal Sidebar</a></li>
@@ -101,8 +112,10 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
-                                    <span>Tables</span></a>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="fa fa-table"></i>
+                                    <span>Tables</span>
+                                </a>
                                 <ul class="collapse">
                                     <li><a href="table-basic.html">basic table</a></li>
                                     <li><a href="table-layout.html">table layout</a></li>
@@ -130,12 +143,17 @@
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-align-left"></i> <span>Multi
-                                        level menu</span></a>
+                                <a href="javascript:void(0)" aria-expanded="true">
+                                    <i class="fa fa-align-left"></i> <span>
+                                        Multi
+                                        level menu
+                                    </span>
+                                </a>
                                 <ul class="collapse">
                                     <li><a href="#">Item level (1)</a></li>
                                     <li><a href="#">Item level (1)</a></li>
-                                    <li><a href="#" aria-expanded="true">Item level (1)</a>
+                                    <li>
+                                        <a href="#" aria-expanded="true">Item level (1)</a>
                                         <ul class="collapse">
                                             <li><a href="#">Item level (2)</a></li>
                                             <li><a href="#">Item level (2)</a></li>
@@ -163,7 +181,7 @@
                             <span></span>
                             <span></span>
                         </div>
-                      
+
                     </div>
                     <!-- profile info & task notification -->
                     <div class="col-md-6 col-sm-4 clearfix">
@@ -229,14 +247,14 @@
                                     </div>
                                 </div>
                             </li>
-        
+
                         </ul>
                     </div>
                 </div>
             </div>
             <!-- header area end -->
             @RenderBody()
-         
+
         </div>
         <!-- main content area end -->
         <!-- footer area start-->
@@ -266,7 +284,8 @@
                             <h4>Rashed sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -277,7 +296,8 @@
                             <h4>Added</h4>
                             <span class="time"><i class="ti-time"></i>7 Minutes Ago</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consectetur.
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -297,7 +317,8 @@
                             <h4>Member waiting for you Attention</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -308,7 +329,8 @@
                             <h4>You Added Kaji Patha few minutes ago</h4>
                             <span class="time"><i class="ti-time"></i>01 minutes ago</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -319,7 +341,8 @@
                             <h4>Ratul Hamba sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>Hello sir , where are you, i am egerly waiting for you.
+                        <p>
+                            Hello sir , where are you, i am egerly waiting for you.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -330,7 +353,8 @@
                             <h4>Rashed sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -350,7 +374,8 @@
                             <h4>Rashed sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -361,7 +386,8 @@
                             <h4>Rashed sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>
+                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                 </div>
@@ -460,6 +486,11 @@
     <!-- others plugins -->
     <script src="/Admin/Data/assets/js/plugins.js"></script>
     <script src="/Admin/Data/assets/js/scripts.js"></script>
+    @if (IsSectionDefined("Scripts"))
+    {
+        RenderSection("Scripts");
+    }
+
 </body>
 
 </html>

@@ -52,8 +52,8 @@ namespace IceCreamApi.Controllers
                     Title = recipe.Title,
                     Ingredents = recipe.Ingredents,
                     Preparation = recipe.Preparation,
-                    PayingRequired = recipe.PayingRequired,
-                    Status = recipe.Status,
+                    PayingRequired = Convert.ToBoolean(recipe.PayingRequired) ? true : false,
+                    Status = Convert.ToBoolean(recipe.Status) ? true : false,
                     CreatedBy = recipe.CreatedBy,
                 });
 
@@ -71,8 +71,8 @@ namespace IceCreamApi.Controllers
                 Ingredents = recipe.Ingredents,
                 Preparation = recipe.Preparation,
                 Thumbnail = recipe.Thumbnail,
-                PayingRequired = recipe.PayingRequired,
-                Status = recipe.Status,
+                PayingRequired = Convert.ToBoolean(recipe.PayingRequired) ? true : false,
+                Status = Convert.ToBoolean(recipe.Status) ? true : false,
                 CreatedBy = recipe.CreatedBy,
             });
 
