@@ -1,0 +1,358 @@
+﻿@model IEnumerable<IceCreamClient.Models.Book>
+
+@{
+    ViewData["Title"] = "ShowBooks";
+}
+
+<h1>ShowBooks</h1>
+<div>
+    @*<p>
+            <a asp-action="Create">Create New</a>
+        </p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BookId)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Title)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Author)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Price)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Image)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Active)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CreateAt)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+        @foreach (var item in Model) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BookId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Image)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreateAt)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+        }
+            </tbody>
+        </table>*@
+</div>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <title></title>
+</head>
+
+<body>
+    @* menu *@
+    <!-- main header -->
+    <header class="main-header style-one style-five">
+        <!-- header-lower -->
+        <div class="header-lower">
+            <div class="outer-box">
+                <div class="logo-box">
+                    <figure class="logo"><a href="index.html"><img src="assets/images/logo-5.png" alt=""></a></figure>
+                </div>
+                <div class="menu-area">
+                    <!--Mobile Navigation Toggler-->
+                    <div class="mobile-nav-toggler">
+                        <i class="icon-bar"></i>
+                        <i class="icon-bar"></i>
+                        <i class="icon-bar"></i>
+                    </div>
+                    <nav class="main-menu navbar-expand-md navbar-light">
+                        <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
+                            <ul class="navigation clearfix">
+                                <li class="dropdown">
+                                    <a href="index.html">Home</a>
+                                    <ul>
+                                        <li><a href="index.html">Ice Cream Shop</a></li>
+                                        <li><a href="index-2.html">Cake Shop</a></li>
+                                        <li><a href="index-3.html">Coffe Shop</a></li>
+                                        <li><a href="index-4.html">Bread Shop</a></li>
+                                        <li><a href="index-onepage.html">OnePage Home</a></li>
+                                        <li><a href="index-rtl.html">RTL Home</a></li>
+                                        <li class="dropdown">
+                                            <a href="index.html">Header Style</a>
+                                            <ul>
+                                                <li><a href="index.html">Header Style 01</a></li>
+                                                <li><a href="index-2.html">Header Style 02</a></li>
+                                                <li><a href="index-3.html">Header Style 03</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="current dropdown">
+                                    <a href="index.html">Shop</a>
+                                    <ul>
+                                        <li><a href="shop-1.html">Shop Page 01</a></li>
+                                        <li><a href="shop-2.html">Shop Page 02</a></li>
+                                        <li><a href="shop-details.html">Shop Details</a></li>
+                                        <li><a href="cart.html">Cart Page</a></li>
+                                        <li><a href="checkout.html">Checkout Page</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="index.html">Pages</a>
+                                    <ul>
+                                        <li><a href="about.html">About Us</a></li>
+                                        <li><a href="service.html">Our Services</a></li>
+                                        <li><a href="gallery-1.html">Gallery Page 01</a></li>
+                                        <li><a href="gallery-2.html">Gallery Page 02</a></li>
+                                        <li><a href="gallery-3.html">Gallery Page 03</a></li>
+                                        <li><a href="team.html">Our Team</a></li>
+                                        <li><a href="our-menu.html">Our Menu</a></li>
+                                        <li><a href="testimonial.html">Testimonials</a></li>
+                                        <li><a href="faq.html">Faq's</a></li>
+                                        <li><a href="error.html">404</a></li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="index.html">Elements</a>
+                                    <div class="megamenu">
+                                        <div class="row clearfix">
+                                            <div class="col-xl-6 col-lg-12 col-md-12 column">
+                                                <ul>
+                                                    <li><h4>Elements 1</h4></li>
+                                                    <li><a href="about-element-1.html">About Block 01</a></li>
+                                                    <li><a href="about-element-2.html">About Block 02</a></li>
+                                                    <li><a href="service-element-1.html">Service Block 01</a></li>
+                                                    <li><a href="service-element-2.html">Service Block 02</a></li>
+                                                    <li><a href="shop-element-1.html">Shop Block 01</a></li>
+                                                    <li><a href="shop-element-2.html">Shop Block 02</a></li>
+                                                    <li><a href="news-element-1.html">News Block 01</a></li>
+                                                    <li><a href="news-element-2.html">News Block 02</a></li>
+                                                </ul>
+                                            </div>
+                                            <div class="col-xl-6 col-lg-12 col-md-12 column">
+                                                <ul>
+                                                    <li><h4>Elements 2</h4></li>
+                                                    <li><a href="feature-element-1.html">Feature Block 01</a></li>
+                                                    <li><a href="feature-element-2.html">Feature Block 02</a></li>
+                                                    <li><a href="project-element-1.html">Project Block 01</a></li>
+                                                    <li><a href="project-element-2.html">Project Block 02</a></li>
+                                                    <li><a href="team-element-1.html">Team Block 01</a></li>
+                                                    <li><a href="team-element-2.html">Team Block 02</a></li>
+                                                    <li><a href="testimonial-element.html">Testimonial Block</a></li>
+                                                    <li><a href="clients-element.html">Clients Block</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="index.html">Blog</a>
+                                    <ul>
+                                        <li><a href="blog-grid.html">Blog Grid</a></li>
+                                        <li><a href="blog-masonry.html">Blog Masonry</a></li>
+                                        <li><a href="blog-standard.html">Blog Standard</a></li>
+                                        <li><a href="blog-details.html">Blog Details</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="contact.html">Contact</a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+                <ul class="menu-right-content clearfix">
+                    <li class="search-box-outer">
+                        <div class="dropdown">
+                            <button class="search-box-btn" style="background-image: url(assets/images/icons/icon-bg-6.png);" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-Search"></i></button>
+                            <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
+                                <div class="form-container">
+                                    <form method="post" action="blog.html">
+                                        <div class="form-group">
+                                            <input type="search" name="search-field" value="" placeholder="Search...." required="">
+                                            <button type="submit" class="search-btn"><span class="fas fa-search"></span></button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="user-btn">
+                        <a href="index.html" style="background-image: url(assets/images/icons/icon-bg-6.png);">
+                            <i class="icon-Profile"></i>
+                        </a>
+                    </li>
+                    <li class="cart-btn">
+                        <a href="shop-1.html" style="background-image: url(assets/images/icons/icon-bg-6.png);">
+                            <i class="icon-Bag"></i>
+                            <span>3</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <!--end header-->
+    <!-- shop-page-section -->
+    <section class="shop-page-section shop-page-1">
+        <div class="auto-container">
+            <div class="row clearfix">
+                <div class="col-lg-3 col-md-12 col-sm-12 sidebar-side">
+                    <div class="shop-sidebar default-sidebar">
+                        <div class="sidebar-widget sidebar-search">
+                            <form action="shop-1.html" method="post" class="search-form">
+                                <div class="form-group">
+                                    <input type="search" name="search-field" placeholder="Search..." required="">
+                                    <button type="submit"><i class="icon-Search"></i></button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="sidebar-widget sidebar-categories">
+                            <div class="widget-title">
+                                <h3>Shop by Categories</h3>
+                            </div>
+                            <div class="widget-content">
+                                <ul class="categories-list clearfix">
+                                    <li><a href="blog-details.html">Coffee</a></li>
+                                    <li><a href="blog-details.html">Pastry Cake</a></li>
+                                    <li><a href="blog-details.html">Birthday Cake</a></li>
+                                    <li><a href="blog-details.html">Sandwiches</a></li>
+                                    <li><a href="blog-details.html">Donuts Cake</a></li>
+                                    <li><a href="blog-details.html">Bargar</a></li>
+                                    <li><a href="blog-details.html">Ice Cream</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        @* remove price-filter to fix error preloader stuck *@
+                        <div class="sidebar-widget post-widget">
+                            <div class="widget-title">
+                                <h3>Featured Products</h3>
+                            </div>
+                            <div class="post-inner">
+                                <div class="post">
+                                    <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-1.jpg" alt=""></a></figure>
+                                    <h5><a href="shop-details.html">Vanilla Ice Cream</a></h5>
+                                    <p>$50.00</p>
+                                </div>
+                                <div class="post">
+                                    <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-2.jpg" alt=""></a></figure>
+                                    <h5><a href="shop-details.html">Donuts Cake</a></h5>
+                                    <p>$35.00</p>
+                                </div>
+                                <div class="post">
+                                    <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-3.jpg" alt=""></a></figure>
+                                    <h5><a href="shop-details.html">Corne Ice Cream</a></h5>
+                                    <p>$60.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-12 col-sm-12 content-side">
+                    <div class="our-shop">
+                        <div class="item-shorting clearfix">
+                            <div class="left-column pull-left clearfix">
+                                <div class="text"><p>Showing 1–12 of 50 Results</p></div>
+                            </div>
+                            <div class="right-column pull-right clearfix">
+                                <div class="short-box clearfix">
+                                    <p>Short by</p>
+                                    <div class="select-box">
+                                        <select class="wide">
+                                            <option data-display="Popularity">Popularity</option>
+                                            <option value="1">New Collection</option>
+                                            <option value="2">Top Sell</option>
+                                            <option value="4">Top Ratted</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="menu-box">
+                                    <a href="shop.html"><i class="icon-Menu"></i></a>
+                                    <a href="shop.html"><i class="icon-List-View"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        @* Book *@
+                        @foreach (var item in Model)
+                        {
+                            <div class="row clearfix">
+                                <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                                    <div class="shop-block-one">
+                                        <div class="inner-box">
+                                            <figure class="image-box">
+                                                <img src="~/assets/images/resource/shop/shop-1.jpg" alt="">
+                                            </figure>
+                                            <div class="lower-content">
+                                                <span class="price-box">$100</span>
+                                                <h3><a href="shop-details.html">@Html.DisplayFor(modelItem => item.Title)</a></h3>
+                                                <ul class="rating clearfix">
+                                                    <li><i class="icon-Star"></i></li>
+                                                    <li><i class="icon-Star"></i></li>
+                                                    <li><i class="icon-Star"></i></li>
+                                                    <li><i class="icon-Star"></i></li>
+                                                    <li><i class="icon-Star"></i></li>
+                                                </ul>
+                                                <div class="cart-btn"><a href="shop-details.html" class="theme-btn-two">Add to cart</a></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                            @* End book *@
+
+                            <div class="pagination-wrapper centred">
+                                <ul class="pagination">
+                                    <li><a href="shop-1.html">Prev</a></li>
+                                    <li><a href="shop-1.html">1</a></li>
+                                    <li><a href="shop-1.html" class="active">2</a></li>
+                                    <li><a href="shop-1.html">3</a></li>
+                                    <li><a href="shop-1.html">4</a></li>
+                                    <li><a href="shop-1.html">5</a></li>
+                                    <li><a href="shop-1.html">Next</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- shop-page-section end -->
+</body>
+</html>
