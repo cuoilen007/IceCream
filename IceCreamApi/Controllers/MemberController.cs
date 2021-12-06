@@ -44,5 +44,18 @@ namespace IceCreamApi.Controllers
             await db.SaveChangesAsync();
             return Ok(member);                                          
         }
+
+        [HttpGet("All")]
+        public async Task<ActionResult> GetAllUsers()
+        {
+            var foundUsers = await db.Members.ToListAsync();
+
+            if (foundUsers == null)
+            {
+                return NotFound("User not found.");
+            }
+
+            return Ok(foundUsers);
+        }
     }
 }
