@@ -29,7 +29,7 @@ namespace IceCreamClient.Controllers
             {
                 HttpClient client = _factory.CreateClient();
                 var result = await client.GetAsync(API_URl + $"/api/Member/Login/{Username}/{Password}");
-                if(result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+                if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var data = await result.Content.ReadAsStringAsync();
                     var member = JsonConvert.DeserializeObject<Member>(data);
@@ -55,12 +55,107 @@ namespace IceCreamClient.Controllers
                 var stringContent = new StringContent(memberJson, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync(API_URl + "/api/Member/Register", stringContent);
                 client.Dispose();
-                if (result.IsSuccessStatusCode && result.StatusCode != System.Net.HttpStatusCode.OK)
+                if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     return RedirectToAction("Index", "Home");
-                }                
+                }
             }
             return View();
+        }
+        [HttpGet]
+        public async Task<IActionResult> Detail(string id)
+
+        {
+            HttpClient client = _factory.CreateClient();
+            var result = await client.GetAsync(API_URl + $"/api/Member/Detail/{id}");
+            client.Dispose();
+            if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var data = await result.Content.ReadAsStringAsync();
+                var member = JsonConvert.DeserializeObject<Member>(data);
+                client.Dispose();
+                return View(member);
+            }
+            return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(string id)
+
+        {
+            HttpClient client = _factory.CreateClient();
+            var result = await client.GetAsync(API_URl + $"/api/Member/Detail/{id}");
+            client.Dispose();
+            if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var data = await result.Content.ReadAsStringAsync();
+                var member = JsonConvert.DeserializeObject<Member>(data);
+                client.Dispose();
+                return View(member);
+            }
+            return NoContent();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(Member member)
+        {
+            HttpClient client = _factory.CreateClient();
+            var memberJson = JsonConvert.SerializeObject(member);
+            var stringContent = new StringContent(memberJson, Encoding.UTF8, "application/json");
+            var result = await client.PostAsync(API_URl + $"/api/Member/Update", stringContent);
+            client.Dispose();
+            if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                client.Dispose();
+                return View("Detail", member.Id.ToString());
+            }
+            return NoContent();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePassword(string id)
+        {
+            HttpClient client = _factory.CreateClient();
+            var result = await client.GetAsync(API_URl + $"/api/Member/Detail/{id}");
+            client.Dispose();
+            if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var data = await result.Content.ReadAsStringAsync();
+                var member = JsonConvert.DeserializeObject<Member>(data);
+                client.Dispose();
+                return View(member);
+            }
+            return NoContent();
+        }
+
+        //view data khoong chay
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(string id, string OldPassword, string NewPassword1, string NewPassword2)
+        {
+            if (NewPassword1 != null && NewPassword2 != null && NewPassword1 == NewPassword2)
+            {
+                HttpClient client = _factory.CreateClient();
+                var result = await client.GetAsync(API_URl + $"/api/Member/Password/{id}/{OldPassword}/{NewPassword1}");
+                client.Dispose();
+                if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    client.Dispose();
+                    ViewData["ChangePassSuccess"] = "Change password successfully";
+                    return RedirectToAction("ChangePassword", "Member", id);
+                }
+                else
+                {
+                    ViewData["ChangePassError"] = "Old Password doesn't correct";
+                    return RedirectToAction("ChangePassword", "Member", id);
+                }
+            }
+            else
+            {
+                ViewData["ChangePassError"] = "New Password must match to each other";
+                return RedirectToAction("ChangePassword", "Member", id);
+            }
+
         }
     }
 }

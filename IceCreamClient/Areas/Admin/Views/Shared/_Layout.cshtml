@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>srtdash - SEO Dashboard</title>
+    <title>Datatable - srtdash</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/png" href="/Admin/Data/assets/images/icon/favicon.ico">
     <link rel="stylesheet" href="/Admin/Data/assets/css/bootstrap.min.css">
@@ -13,23 +13,20 @@
     <link rel="stylesheet" href="/Admin/Data/assets/css/metisMenu.css">
     <link rel="stylesheet" href="/Admin/Data/assets/css/owl.carousel.min.css">
     <link rel="stylesheet" href="/Admin/Data/assets/css/slicknav.min.css">
-    <!-- amchart css -->
+    <!-- amcharts css -->
     <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
-    <!-- others css -->
+    <!-- Start datatable css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+    <!-- style css -->
     <link rel="stylesheet" href="/Admin/Data/assets/css/typography.css">
     <link rel="stylesheet" href="/Admin/Data/assets/css/default-css.css">
     <link rel="stylesheet" href="/Admin/Data/assets/css/styles.css">
     <link rel="stylesheet" href="/Admin/Data/assets/css/responsive.css">
-
-    @if (IsSectionDefined("Styles"))
-    {
-    RenderSection("Styles");
-    }
     <!-- modernizr css -->
     <script src="/Admin/Data/assets/js/vendor/modernizr-2.8.3.min.js"></script>
-
-    @* CK EDITOR *@
-    <script src="/Admin/Data/ckeditor/ckeditor.js"></script>
 </head>
 
 <body>
@@ -54,21 +51,18 @@
                 <div class="menu-inner">
                     <nav>
                         <ul class="metismenu" id="menu">
-                            <li class="active">
+                            <li>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-dashboard"></i><span>dashboard</span></a>
                                 <ul class="collapse">
                                     <li><a href="index.html">ICO dashboard</a></li>
                                     <li><a href="index2.html">Ecommerce dashboard</a></li>
-                                    <li class="active"><a href="index3.html">SEO dashboard</a></li>
+                                    <li><a href="index3.html">SEO dashboard</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="ti-layout-sidebar-left"></i><span>
-                                        Sidebar
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="ti-layout-sidebar-left"></i><span>Sidebar
                                         Types
-                                    </span>
-                                </a>
+                                    </span></a>
                                 <ul class="collapse">
                                     <li><a href="index.html">Left Sidebar</a></li>
                                     <li><a href="index3-horizontalmenu.html">Horizontal Sidebar</a></li>
@@ -111,15 +105,13 @@
                                     <li><a href="themify.html">themify icons</a></li>
                                 </ul>
                             </li>
-                            <li>
-                                <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="fa fa-table"></i>
-                                    <span>Tables</span>
-                                </a>
+                            <li class="active">
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-table"></i>
+                                    <span>Tables</span></a>
                                 <ul class="collapse">
                                     <li><a href="table-basic.html">basic table</a></li>
                                     <li><a href="table-layout.html">table layout</a></li>
-                                    <li><a href="datatable.html">datatable</a></li>
+                                    <li class="active"><a href="datatable.html">datatable</a></li>
                                 </ul>
                             </li>
                             <li><a href="maps.html"><i class="ti-map-alt"></i> <span>maps</span></a></li>
@@ -138,22 +130,24 @@
                                     <li><a href="screenlock2.html">Lock Screen 2</a></li>
                                     <li><a href="reset-pass.html">reset password</a></li>
                                     <li><a href="pricing.html">Pricing</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-exclamation-triangle"></i>
+                                    <span>Error</span></a>
+                                <ul class="collapse">
                                     <li><a href="404.html">Error 404</a></li>
+                                    <li><a href="403.html">Error 403</a></li>
                                     <li><a href="500.html">Error 500</a></li>
                                 </ul>
                             </li>
                             <li>
-                                <a href="javascript:void(0)" aria-expanded="true">
-                                    <i class="fa fa-align-left"></i> <span>
-                                        Multi
-                                        level menu
-                                    </span>
-                                </a>
+                                <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-align-left"></i> <span>Multi
+                                        level menu</span></a>
                                 <ul class="collapse">
                                     <li><a href="#">Item level (1)</a></li>
                                     <li><a href="#">Item level (1)</a></li>
-                                    <li>
-                                        <a href="#" aria-expanded="true">Item level (1)</a>
+                                    <li><a href="#" aria-expanded="true">Item level (1)</a>
                                         <ul class="collapse">
                                             <li><a href="#">Item level (2)</a></li>
                                             <li><a href="#">Item level (2)</a></li>
@@ -181,7 +175,12 @@
                             <span></span>
                             <span></span>
                         </div>
-
+                        <div class="search-box pull-left">
+                            <form action="#">
+                                <input type="text" name="search" placeholder="Search..." required>
+                                <i class="ti-search"></i>
+                            </form>
+                        </div>
                     </div>
                     <!-- profile info & task notification -->
                     <div class="col-md-6 col-sm-4 clearfix">
@@ -247,14 +246,93 @@
                                     </div>
                                 </div>
                             </li>
-
+                            <li class="dropdown">
+                                <i class="fa fa-envelope-o dropdown-toggle" data-toggle="dropdown"><span>3</span></i>
+                                <div class="dropdown-menu notify-box nt-enveloper-box">
+                                    <span class="notify-title">You have 3 new notifications <a href="#">view all</a></span>
+                                    <div class="nofity-list">
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb">
+                                                <img src="/Admin/Data/assets/images/author/author-img1.jpg" alt="image">
+                                            </div>
+                                            <div class="notify-text">
+                                                <p>Aglae Mayer</p>
+                                                <span class="msg">Hey I am waiting for you...</span>
+                                                <span>3:15 PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb">
+                                                <img src="/Admin/Data/assets/images/author/author-img2.jpg" alt="image">
+                                            </div>
+                                            <div class="notify-text">
+                                                <p>Aglae Mayer</p>
+                                                <span class="msg">When you can connect with me...</span>
+                                                <span>3:15 PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb">
+                                                <img src="/Admin/Data/assets/images/author/author-img3.jpg" alt="image">
+                                            </div>
+                                            <div class="notify-text">
+                                                <p>Aglae Mayer</p>
+                                                <span class="msg">I missed you so much...</span>
+                                                <span>3:15 PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb">
+                                                <img src="/Admin/Data/assets/images/author/author-img4.jpg" alt="image">
+                                            </div>
+                                            <div class="notify-text">
+                                                <p>Aglae Mayer</p>
+                                                <span class="msg">Your product is completely Ready...</span>
+                                                <span>3:15 PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb">
+                                                <img src="/Admin/Data/assets/images/author/author-img2.jpg" alt="image">
+                                            </div>
+                                            <div class="notify-text">
+                                                <p>Aglae Mayer</p>
+                                                <span class="msg">Hey I am waiting for you...</span>
+                                                <span>3:15 PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb">
+                                                <img src="/Admin/Data/assets/images/author/author-img1.jpg" alt="image">
+                                            </div>
+                                            <div class="notify-text">
+                                                <p>Aglae Mayer</p>
+                                                <span class="msg">Hey I am waiting for you...</span>
+                                                <span>3:15 PM</span>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="notify-item">
+                                            <div class="notify-thumb">
+                                                <img src="/Admin/Data/assets/images/author/author-img3.jpg" alt="image">
+                                            </div>
+                                            <div class="notify-text">
+                                                <p>Aglae Mayer</p>
+                                                <span class="msg">Hey I am waiting for you...</span>
+                                                <span>3:15 PM</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="settings-btn">
+                                <i class="ti-settings"></i>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
             <!-- header area end -->
-            @RenderBody()
-
+           @RenderBody()
         </div>
         <!-- main content area end -->
         <!-- footer area start-->
@@ -284,8 +362,7 @@
                             <h4>Rashed sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -296,8 +373,7 @@
                             <h4>Added</h4>
                             <span class="time"><i class="ti-time"></i>7 Minutes Ago</span>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur.
+                        <p>Lorem ipsum dolor sit amet consectetur.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -317,8 +393,7 @@
                             <h4>Member waiting for you Attention</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -329,8 +404,7 @@
                             <h4>You Added Kaji Patha few minutes ago</h4>
                             <span class="time"><i class="ti-time"></i>01 minutes ago</span>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -341,8 +415,7 @@
                             <h4>Ratul Hamba sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>
-                            Hello sir , where are you, i am egerly waiting for you.
+                        <p>Hello sir , where are you, i am egerly waiting for you.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -353,8 +426,7 @@
                             <h4>Rashed sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -374,8 +446,7 @@
                             <h4>Rashed sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                     <div class="timeline-task">
@@ -386,8 +457,7 @@
                             <h4>Rashed sent you an email</h4>
                             <span class="time"><i class="ti-time"></i>09:35</span>
                         </div>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse distinctio itaque at.
                         </p>
                     </div>
                 </div>
@@ -462,35 +532,15 @@
     <script src="/Admin/Data/assets/js/jquery.slimscroll.min.js"></script>
     <script src="/Admin/Data/assets/js/jquery.slicknav.min.js"></script>
 
-    <!-- start chart js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-    <!-- start highcharts js -->
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="https://code.highcharts.com/modules/export-data.js"></script>
-    <!-- start amcharts -->
-    <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
-    <script src="https://www.amcharts.com/lib/3/ammap.js"></script>
-    <script src="https://www.amcharts.com/lib/3/maps/js/worldLow.js"></script>
-    <script src="https://www.amcharts.com/lib/3/serial.js"></script>
-    <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
-    <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-    <!-- all line chart activation -->
-    <script src="/Admin/Data/assets/js/line-chart.js"></script>
-    <!-- all pie chart -->
-    <script src="/Admin/Data/assets/js/pie-chart.js"></script>
-    <!-- all bar chart -->
-    <script src="/Admin/Data/assets/js/bar-chart.js"></script>
-    <!-- all map chart -->
-    <script src="/Admin/Data/assets/js/maps.js"></script>
+    <!-- Start datatable js -->
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap.min.js"></script>
     <!-- others plugins -->
     <script src="/Admin/Data/assets/js/plugins.js"></script>
     <script src="/Admin/Data/assets/js/scripts.js"></script>
-    @if (IsSectionDefined("Scripts"))
-    {
-        RenderSection("Scripts");
-    }
-
 </body>
 
 </html>
