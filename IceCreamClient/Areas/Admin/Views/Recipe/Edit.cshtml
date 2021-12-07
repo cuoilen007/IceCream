@@ -1,0 +1,138 @@
+﻿@model IceCreamClient.Models.Recipe
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<!-- page title area start -->
+<div class="page-title-area">
+    <div class="row align-items-center">
+        <div class="col-sm-6">
+            <div class="breadcrumbs-area clearfix">
+                <h4 class="page-title pull-left">Dashboard</h4>
+                <ul class="breadcrumbs pull-left">
+                    <li><a href="index.html">Home</a></li>
+                    <li><span>Recipe</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-6 clearfix">
+            <div class="user-profile pull-right">
+                <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
+                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#">Message</a>
+                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="#">Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content-inner">
+    <div class="row">
+        <div class="col-lg-6 col-ml-12">
+            <div class="row">
+                <!-- Textual inputs start -->
+                <div class="col-12 mt-5">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="header-title">UPDATE RECIPE</h4>
+                            @if (ViewData["Error"] != null)
+                            {
+                                <div>
+                                    <p style="color: darkred; font-weight: bold;">@ViewData["Error"]</p>
+                                </div>
+                            }
+                            <form asp-action="Update" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label asp-for="Title" class="col-form-label"></label>
+                                    <input class="form-control" type="text" asp-for="Title" value="@Model.Title">
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Description" class="col-form-label"></label>
+                                    <textarea class="form-control" asp-for="Description">@Model.Description</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Ingredents" class="col-form-label"></label>
+                                    <textarea class="form-control" id="Ingredents" asp-for="Ingredents">@Model.Ingredents</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Preparation" class="col-form-label"></label>
+                                    <textarea class="form-control" id="Preparation" asp-for="Preparation">@Model.Preparation</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Thumbnail</label>
+                                    <input class="form-control" type="file" name="imageFile">
+                                    <img src="~/images/recipe/clark-icecream-articleLarge.jpg" height="100" width="100" />
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Category</label>
+                                    <select asp-for="CategoryID" class="form-control">
+                                        @if (Model.CategoryID == 1)
+                                        {
+                                            <option value="1" selected="selected">Ice Cream</option>
+                                            <option value="2">Dessert</option>
+                                        }
+                                        else if (Model.CategoryID == 2)
+                                        {
+                                            <option value="1">Ice Cream</option>
+                                            <option value="2" selected="selected">Dessert</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Paying Status</label>
+                                    <select asp-for="PayingRequired" class="form-control">
+                                        @if (Model.PayingRequired == false)
+                                        {
+                                            <option value="0" selected="selected">No</option>
+                                            <option value="1">Yes</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="0">No</option>
+                                            <option value="1" selected="selected">Yes</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-form-label">Active Status</label>
+                                    <select asp-for="Status" class="form-control">
+                                        @if (Model.Status == false)
+                                        {
+                                            <option value="0" selected="selected">No</option>
+                                            <option value="1">Yes</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="0">No</option>
+                                            <option value="1" selected="selected">Yes</option>
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create" class="form-control" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- Textual inputs end -->
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+    var editor = '';
+    $(document).ready(function () {
+        editor = CKEDITOR.replace('Preparation');
+        editor = CKEDITOR.replace('Ingredents');
+    });
+    </script>
+}
+
+
+

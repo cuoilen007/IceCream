@@ -40,41 +40,58 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title">CREATE RECIPE</h4>
-                            <form asp-action="Create" enctype="multipart/form-data">
-                                <div class="form-group">
-                                    <label asp-for="Title" class="col-form-label"></label>
-                                    <input class="form-control" type="text" asp-for="Title">
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Ingredents"  class="col-form-label"></label>
-                                    <textarea class="form-control" id="Ingredents" asp-for="Ingredents"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Preparation"  class="col-form-label"></label>
-                                    <textarea class="form-control" id="Preparation" asp-for="Preparation"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Thumbnail</label>
-                                    <input class="form-control" type="file" name="imageFile">
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Paying Status</label>
-                                    <select asp-for="PayingRequired">
-                                        <option value="0" selected="selected">No</option>
-                                        <option value="1">Yes</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="col-form-label">Active Status</label>
-                                    <select asp-for="Status">
-                                        <option value="0" selected="selected">No</option>
-                                        <option value="1">Yes</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Create" class="form-control" />
-                                </div>
-                            </form>
+                            @if (ViewData["Error"] != null)
+            {
+                <div>
+                    <p style="color: darkred; font-weight: bold;">@ViewData["Error"]</p>
+                </div>
+            } 
+                        <form asp-action="Create" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label asp-for="Title" class="col-form-label"></label>
+                                <input class="form-control" type="text" asp-for="Title">
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description" class="col-form-label"></label>
+                                <textarea class="form-control" asp-for="Description"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Ingredents" class="col-form-label"></label>
+                                <textarea class="form-control" id="Ingredents" asp-for="Ingredents"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Preparation" class="col-form-label"></label>
+                                <textarea class="form-control" id="Preparation" asp-for="Preparation"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Thumbnail</label>
+                                <input class="form-control" type="file" name="imageFile">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Category</label>
+                                <select asp-for="CategoryID" class="form-control">
+                                    <option value="1" selected="selected">Ice Cream</option>
+                                    <option value="2">Dessert</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Paying Status</label>
+                                <select asp-for="PayingRequired" class="form-control">
+                                    <option value="0" selected="selected">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Active Status</label>
+                                <select asp-for="Status" class="form-control">
+                                    <option value="0" selected="selected">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="submit" value="Create" class="form-control" />
+                            </div>
+                        </form>
                         </div>
                     </div>
                 </div>

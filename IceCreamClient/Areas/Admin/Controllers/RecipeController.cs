@@ -61,18 +61,15 @@ namespace IceCreamClient.Areas.Admin.Controllers
         {
             if (imageFile != null)
             {
-                var upload = Path.Combine(env.ContentRootPath, "images/recipe");
-                var filepath = Path.Combine(upload, imageFile.FileName);
+                var filepath = Path.Combine("wwwroot/images/recipe/", imageFile.FileName);
                 Stream stream = new FileStream(filepath, FileMode.Create);
                 await imageFile.CopyToAsync(stream);
-                recipe.Thumbnail = filepath;
+                recipe.Thumbnail = "~/images/recipe/" + imageFile.FileName;
                 stream.Close();
             }
             else
             {
-                var upload = Path.Combine(env.ContentRootPath, "images/recipe");
-                var filepath = Path.Combine(upload, "image_not_found.png");
-                recipe.Thumbnail = filepath;
+                recipe.Thumbnail = "~/images/recipe/" + imageFile.FileName; ;
             }
 
             var json = JsonConvert.SerializeObject(recipe);
@@ -101,8 +98,20 @@ namespace IceCreamClient.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(int RecipeId, Recipe recipe)
+        public async Task<IActionResult> Update(int RecipeId, Recipe recipe, IFormFile imageFile)
         {
+            if (imageFile != null)
+            {
+                var filepath = Path.Combine("wwwroot/images/recipe/", imageFile.FileName);
+                Stream stream = new FileStream(filepath, FileMode.Create);
+                await imageFile.CopyToAsync(stream);
+                recipe.Thumbnail = "~/images/recipe/" + imageFile.FileName;
+                stream.Close();
+            }
+            else
+            {
+                recipe.Thumbnail = "";
+            }
             var json = JsonConvert.SerializeObject(recipe);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PutAsync($"/api/recipe/{RecipeId}", content);
