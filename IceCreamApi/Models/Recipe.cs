@@ -15,5 +15,7 @@ namespace IceCreamApi.Models
         public bool? PayingRequired { get; set; }
         public bool? Status { get; set; }
         public string CreatedBy { get; set; }
+        public string Description { get; set; }
+        public int CategoryID { get; set; }
     }
 }

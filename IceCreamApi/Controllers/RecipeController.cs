@@ -52,6 +52,8 @@ namespace IceCreamApi.Controllers
                     Title = recipe.Title,
                     Ingredents = recipe.Ingredents,
                     Preparation = recipe.Preparation,
+                    Description = recipe.Description,
+                    CategoryID = recipe.CategoryID,
                     PayingRequired = Convert.ToBoolean(recipe.PayingRequired) ? true : false,
                     Status = Convert.ToBoolean(recipe.Status) ? true : false,
                     CreatedBy = recipe.CreatedBy,
@@ -71,6 +73,8 @@ namespace IceCreamApi.Controllers
                 Ingredents = recipe.Ingredents,
                 Preparation = recipe.Preparation,
                 Thumbnail = recipe.Thumbnail,
+                Description = recipe.Description,
+                CategoryID = recipe.CategoryID,
                 PayingRequired = Convert.ToBoolean(recipe.PayingRequired) ? true : false,
                 Status = Convert.ToBoolean(recipe.Status) ? true : false,
                 CreatedBy = recipe.CreatedBy,
@@ -91,19 +95,38 @@ namespace IceCreamApi.Controllers
             {
                 return BadRequest();
             }
-
-            _context.Entry(recipe).State = EntityState.Modified;
-
-            try
+            var updateRecipe = await _context.Recipes.SingleOrDefaultAsync(r => r.RecipeId == id);
+            if (recipe.Thumbnail == "")
             {
-                await _context.SaveChangesAsync();
-            }
-            catch
-            {
-                return NotFound();
+                updateRecipe.Title = recipe.Title;
+                updateRecipe.Ingredents = recipe.Ingredents;
+                updateRecipe.Preparation = recipe.Preparation;
+                updateRecipe.Description = recipe.Description;
+                updateRecipe.CategoryID = recipe.CategoryID;
+                updateRecipe.PayingRequired = Convert.ToBoolean(recipe.PayingRequired) ? true : false;
+                updateRecipe.Status = Convert.ToBoolean(recipe.Status) ? true : false;
+                updateRecipe.CreatedBy = recipe.CreatedBy;
             }
 
-            return Ok();
+            else
+            {
+                updateRecipe.Title = recipe.Title;
+                updateRecipe.Ingredents = recipe.Ingredents;
+                updateRecipe.Preparation = recipe.Preparation;
+                updateRecipe.Thumbnail = recipe.Thumbnail;
+                updateRecipe.Description = recipe.Description;
+                updateRecipe.CategoryID = recipe.CategoryID;
+                updateRecipe.PayingRequired = Convert.ToBoolean(recipe.PayingRequired) ? true : false;
+                updateRecipe.Status = Convert.ToBoolean(recipe.Status) ? true : false;
+                updateRecipe.CreatedBy = recipe.CreatedBy;
+            }
+
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         [HttpPut("/api/recipe/status/{id}/{status}")]
