@@ -2,7 +2,7 @@
 
 namespace IceCreamClient.Models
 {
-    public class Book
+    public class BookIceCream
     {
         public int BookId { get; set; }
         public int? CatId { get; set; }
