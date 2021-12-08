@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IceCreamClient.Areas.Admin.Controllers
@@ -21,7 +22,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             HttpClient client = _factory.CreateClient();
-            var result = await client.GetAsync(API_URl + $"/api/Member/All/");
+            var result = await client.GetAsync(API_URl + $"/api/Member/All");
             if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var data = await result.Content.ReadAsStringAsync();
@@ -99,6 +100,37 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 TempData["Error"] = "Reset Member Password  Failed";
             }
             return RedirectToAction("Index");
+        }
+
+        [Area("Admin")]
+        public IActionResult AddMember()
+        {
+            return View();
+        }
+
+        [Area("Admin")]
+        [HttpPost]
+        public async Task<IActionResult> AddMember(Member member)
+        {
+            if (ModelState.IsValid)
+            {
+                HttpClient client = _factory.CreateClient();
+                var memberJson = JsonConvert.SerializeObject(member);
+                var stringContent = new StringContent(memberJson, Encoding.UTF8, "application/json");
+                var result = await client.PostAsync(API_URl + "/api/Member/Register", stringContent);
+                client.Dispose();
+                if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    TempData["Success"] = "Create new member successfully";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["Error"] = "Username already exists!";
+                }
+            }
+
+            return View();
         }
     }
 }

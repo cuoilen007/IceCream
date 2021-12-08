@@ -161,87 +161,17 @@
                         <nav class="main-menu navbar-expand-md navbar-light">
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li class="dropdown"><a href="index.html">Home</a>
-                                        <ul>
-                                            <li><a href="index.html">Ice Cream Shop</a></li>
-                                            <li><a href="index-2.html">Cake Shop</a></li>
-                                            <li><a href="index-3.html">Coffe Shop</a></li>
-                                            <li><a href="index-4.html">Bread Shop</a></li>
-                                            <li><a href="index-onepage.html">OnePage Home</a></li>
-                                            <li><a href="index-rtl.html">RTL Home</a></li>
-                                            <li class="dropdown"><a href="index.html">Header Style</a>
-                                                <ul>
-                                                    <li><a href="index.html">Header Style 01</a></li>
-                                                    <li><a href="index-2.html">Header Style 02</a></li>
-                                                    <li><a href="index-3.html">Header Style 03</a></li>
-                                                </ul>
-                                            </li>
-                                        </ul>
+                                    <li class="current"><a asp-controller="Home" asp-action="Index">Home</a>                                     
                                     </li> 
-                                    <li class="dropdown"><a href="index.html">Shop</a>
-                                        <ul>
-                                            <li><a href="shop-1.html">Shop Page 01</a></li>
-                                            <li><a href="shop-2.html">Shop Page 02</a></li>
-                                            <li><a href="shop-details.html">Shop Details</a></li>
-                                            <li><a href="cart.html">Cart Page</a></li>
-                                            <li><a href="checkout.html">Checkout Page</a></li>
-                                        </ul>
+                                    <li class="current"><a asp-controller="Recipe" asp-action="Index">Recipe</a>                                     
                                     </li>
-                                    <li class="dropdown"><a href="index.html">Pages</a>
-                                        <ul>
-                                            <li><a href="about.html">About Us</a></li>
-                                            <li><a href="service.html">Our Services</a></li>
-                                            <li><a href="gallery-1.html">Gallery Page 01</a></li>
-                                            <li><a href="gallery-2.html">Gallery Page 02</a></li>
-                                            <li><a href="gallery-3.html">Gallery Page 03</a></li>
-                                            <li><a href="team.html">Our Team</a></li>
-                                            <li><a href="our-menu.html">Our Menu</a></li>
-                                            <li><a href="testimonial.html">Testimonials</a></li>
-                                            <li><a href="faq.html">Faq's</a></li>
-                                            <li><a href="error.html">404</a></li>
-                                        </ul>
+                                    <li class="current"><a asp-controller="Book" asp-action="ShowBooks">Book</a>                                     
                                     </li>
-                                    <li class="dropdown"><a href="index.html">Elements</a>
-                                        <div class="megamenu">
-                                            <div class="row clearfix">
-                                                <div class="col-xl-6 col-lg-12 col-md-12 column">
-                                                    <ul>
-                                                        <li><h4>Elements 1</h4></li>
-                                                        <li><a href="about-element-1.html">About Block 01</a></li>
-                                                        <li><a href="about-element-2.html">About Block 02</a></li>
-                                                        <li><a href="service-element-1.html">Service Block 01</a></li>
-                                                        <li><a href="service-element-2.html">Service Block 02</a></li>
-                                                        <li><a href="shop-element-1.html">Shop Block 01</a></li>
-                                                        <li><a href="shop-element-2.html">Shop Block 02</a></li>
-                                                        <li><a href="news-element-1.html">News Block 01</a></li>
-                                                        <li><a href="news-element-2.html">News Block 02</a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="col-xl-6 col-lg-12 col-md-12 column">
-                                                    <ul>
-                                                        <li><h4>Elements 2</h4></li>
-                                                        <li><a href="feature-element-1.html">Feature Block 01</a></li>
-                                                        <li><a href="feature-element-2.html">Feature Block 02</a></li>
-                                                        <li><a href="project-element-1.html">Project Block 01</a></li>
-                                                        <li><a href="project-element-2.html">Project Block 02</a></li>
-                                                        <li><a href="team-element-1.html">Team Block 01</a></li>
-                                                        <li><a href="team-element-2.html">Team Block 02</a></li>
-                                                        <li><a href="testimonial-element.html">Testimonial Block</a></li>
-                                                        <li><a href="clients-element.html">Clients Block</a></li>
-                                                    </ul>
-                                                </div>                                    
-                                            </div>                                        
-                                        </div>
-                                    </li>   
-                                    <li class="dropdown"><a href="index.html">Blog</a>
-                                        <ul>
-                                            <li><a href="blog-grid.html">Blog Grid</a></li>
-                                            <li><a href="blog-masonry.html">Blog Masonry</a></li>
-                                            <li><a href="blog-standard.html">Blog Standard</a></li>
-                                            <li><a href="blog-details.html">Blog Details</a></li>
-                                        </ul>
-                                    </li>  
-                                    <li class="current"><a href="contact.html">Contact</a></li>
+                                    <li class="current"><a asp-controller="Home" asp-action="About">About Us</a>                                      
+                                    </li>
+                                    <li class="current"><a asp-controller="Home" asp-action="Faq">FAQ's</a>                                       
+                                    </li>    
+                                    <li class="current"><a asp-controller="Home" asp-action="Contact">Contact Us</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -249,7 +179,7 @@
                     <ul class="menu-right-content clearfix">
                         <li class="search-box-outer">
                             <div class="dropdown">
-                                <button class="search-box-btn" style="background-image: url(~/assets/images/icons/icon-bg-6.png);" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-Search"></i></button>
+                                <button class="search-box-btn" style="background-image: url(/assets/images/icons/icon-bg-6.png);" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-Search"></i></button>
                                 <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
                                     <div class="form-container">
                                         <form method="post" action="blog.html">
@@ -263,12 +193,12 @@
                             </div>
                         </li>
                         <li class="user-btn">
-                            <a asp-action="Login" asp-controller="Member" style="background-image: url(~/assets/images/icons/icon-bg-6.png);">
+                            <a asp-action="Login" asp-controller="Member" style="background-image: url(/assets/images/icons/icon-bg-6.png);">
                                 <i class="icon-Profile"></i>
                             </a>
                         </li>
                         <li class="cart-btn">
-                            <a href="shop-1.html" style="background-image: url(~/assets/images/icons/icon-bg-6.png);">
+                            <a asp-action="Index" asp-controller="Cart" style="background-image: url(/assets/images/icons/icon-bg-6.png);">
                                 <i class="icon-Bag"></i>
                                 <span>3</span>
                             </a>
@@ -291,7 +221,7 @@
                     <ul class="menu-right-content clearfix">
                         <li class="search-box-outer">
                             <div class="dropdown">
-                                <button class="search-box-btn" style="background-image: url(~/assets/images/icons/icon-bg-1.png);" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-Search"></i></button>
+                                <button class="search-box-btn" style="background-image: url(/assets/images/icons/icon-bg-1.png);" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-Search"></i></button>
                                 <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu4">
                                     <div class="form-container">
                                         <form method="post" action="blog.html">
@@ -305,12 +235,12 @@
                             </div>
                         </li>
                         <li class="user-btn">
-                            <a href="index.html" style="background-image: url(~/assets/images/icons/icon-bg-1.png);">
+                            <a href="index.html" style="background-image: url(/assets/images/icons/icon-bg-1.png);">
                                 <i class="icon-Profile"></i>
                             </a>
                         </li>
                         <li class="cart-btn">
-                            <a href="shop-1.html" style="background-image: url(~/assets/images/icons/icon-bg-1.png);">
+                            <a href="shop-1.html" style="background-image: url(/assets/images/icons/icon-bg-1.png);">
                                 <i class="icon-Bag"></i>
                                 <span>3</span>
                             </a>
@@ -346,7 +276,7 @@
 
 
         <!-- main-footer -->
-        <footer class="main-footer" style="background-image: url(~/assets/images/background/footer-1.jpg);">
+        <footer class="main-footer" style="background-image: url(/assets/images/background/footer-1.jpg);">
             <div class="auto-container">
                 <div class="subscribe-inner clearfix">
                     <div class="text pull-left">
@@ -406,7 +336,7 @@
                             </div>
                             <div class="col-lg-4 col-md-6 col-sm-12 footer-column">
                                 <div class="footer-widget shediul-widget">
-                                    <div class="border-shape" style="background-image: url(~/assets/images/shape/shape-4.png);"></div>
+                                    <div class="border-shape" style="background-image: url(/assets/images/shape/shape-4.png);"></div>
                                     <div class="widget-title">
                                         <h3>Opening hours</h3>
                                     </div>
