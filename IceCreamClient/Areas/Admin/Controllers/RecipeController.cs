@@ -69,18 +69,17 @@ namespace IceCreamClient.Areas.Admin.Controllers
             }
             else
             {
-                recipe.Thumbnail = "~/images/recipe/" + imageFile.FileName; ;
+                recipe.Thumbnail = "~/images/recipe/image_not_found.png";
             }
-
             var json = JsonConvert.SerializeObject(recipe);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
             var response = await _client.PostAsync("/api/recipe", content);
             if (response.IsSuccessStatusCode)
             {
-                ViewData["Success"] = "Update success";
+                TempData["Success"] = "Update success";
                 return RedirectToAction("Index");
             }
-            ViewData["Error"] = "Input error !";
+            TempData["Error"] = "Input error !";
             return View();
         }
 
@@ -93,7 +92,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 var result = JsonConvert.DeserializeObject<Recipe>(data);
                 return View(result);
             }
-            ViewData["Error"] = "Server error. Cannot fetch data !";
+            TempData["Error"] = "Server error. Cannot fetch data !";
             return RedirectToAction("Index");
         }
 
@@ -117,10 +116,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
             var response = await _client.PutAsync($"/api/recipe/{RecipeId}", content);
             if (response.IsSuccessStatusCode)
             {
-                ViewData["Success"] = "Update success";
+                TempData["Success"] = "Update success";
                 return RedirectToAction("Index");
-            }
-            ViewData["Error"] = "Input error !";
+                }
+            TempData["Error"] = "Input error !";
             return View();
         }
 
@@ -130,11 +129,11 @@ namespace IceCreamClient.Areas.Admin.Controllers
             var response = await _client.PutAsync($"/api/recipe/{RecipeId}/{status}", content);
             if (response.IsSuccessStatusCode)
             {
-                ViewData["Success"] = "Update success";
-                return View();
+                TempData["Success"] = "Update success";
+                return RedirectToAction("Index");
             }
-            ViewData["Error"] = "Input error !";
-            return View();
+            TempData["Error"] = "Input error !";
+            return RedirectToAction("Index"); ;
         }
 
         public async Task<IActionResult> UpdatePayingStatus(int RecipeId, bool payingStatus)
@@ -143,11 +142,11 @@ namespace IceCreamClient.Areas.Admin.Controllers
             var response = await _client.PutAsync($"/api/recipe/payingRequired/{RecipeId}/{payingStatus}", content);
             if (response.IsSuccessStatusCode)
             {
-                ViewData["Success"] = "Update success";
-                return View();
+                TempData["Success"] = "Update success";
+                return RedirectToAction("Index");
             }
-            ViewData["Error"] = "Input error !";
-            return View();
+            TempData["Error"] = "Input error !";
+            return RedirectToAction("Index");
         }
     }
 }

@@ -40,12 +40,12 @@
                     <div class="card">
                         <div class="card-body">
                             <h4 class="header-title">CREATE RECIPE</h4>
-                            @if (ViewData["Error"] != null)
-            {
-                <div>
-                    <p style="color: darkred; font-weight: bold;">@ViewData["Error"]</p>
-                </div>
-            } 
+                            @if (TempData["Error"] != null)
+                            {
+                                <div>
+                                    <p style="color: darkred; font-weight: bold;">@TempData["Error"]</p>
+                                </div>
+                            } 
                         <form asp-action="Create" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label asp-for="Title" class="col-form-label"></label>
@@ -102,12 +102,14 @@
 </div>
 
 @section Scripts {
-<script>
-    var editor = '';
-    $(document).ready(function () {
-        editor = CKEDITOR.replace('Preparation');
-        editor = CKEDITOR.replace('Ingredents');
-    });
-</script>
+    <script src="/Admin/Data/ckeditor/ckeditor.js"></script>
+    <script>
+
+        var editor = '';
+        $(document).ready(function () {
+            editor = CKEDITOR.replace('Preparation');
+            editor = CKEDITOR.replace('Ingredents');
+        });
+    </script>
 }
 

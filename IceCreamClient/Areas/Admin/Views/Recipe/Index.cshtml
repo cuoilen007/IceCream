@@ -37,10 +37,16 @@
             <div class="card">
                 <div class="card-body">
                     <h4 class="header-title">Recipe List</h4>
-                    @if (ViewData["Error"] != null)
+                    @if (TempData["Error"] != null)
                     {
                         <div>
-                            <p style="color: darkred; font-weight: bold;">@ViewData["Error"]</p>
+                            <p style="color: darkred; font-weight: bold;">@TempData["Error"]</p>
+                        </div>
+                    }
+                    @if (TempData["Success"] != null)
+                    {
+                        <div>
+                            <p style="color: darkgreen; font-weight: bold;">@TempData["Success"]</p>
                         </div>
                     }
                     <div class="data-tables datatable-primary">
@@ -52,8 +58,7 @@
                                     <th>Created By</th>
                                     <th>Paying Required</th>
                                     <th>Status</th>
-                                    <th>Ingredents</th>
-                                    <th></th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,9 +68,26 @@
                                         <td>@item.Title</td>
                                         <td>@item.Description</td>
                                         <td>@item.CreatedBy</td>
-                                        <td>@item.PayingRequired</td>
-                                        <td>@item.Status</td>
-                                        <td>@item.Ingredents</td>
+                                        <td>
+                                            @if (item.PayingRequired == true)
+                                            {
+                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="false" class="btn btn-danger">Deactivate</a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="true" class="btn btn-success">Activate</a>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (item.Status == true)
+                                            {
+                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="false" class="btn btn-danger">Deactivate</a>
+                                            }
+                                            else
+                                            {
+                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="true" class="btn btn-success">Activate</a>
+                                            }
+                                        </td>
                                         <td><a asp-action="Edit" asp-route-RecipeId="@item.RecipeId">Edit</a></td>
                                     </tr>
                                 }

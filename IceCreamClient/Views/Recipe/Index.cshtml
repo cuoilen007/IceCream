@@ -29,181 +29,20 @@
                         <div class="inner-box">
                             <figure class="image-box">
                                 <span class="category">Ice Cream</span>
-                                <a asp-action="Details" asp-route-id="@item.RecipeId"><img src="@item.Thumbnail" alt=""></a>
+                                <a asp-action="Details" asp-route-id="@item.RecipeId"><img src="@item.Thumbnail"></a>
                             </figure>
                             <div class="lower-content">
                                 <ul class="post-info clearfix">
                                     <li><a asp-action="Details" asp-route-id="@item.RecipeId">@item.CreatedBy</a></li>
                                 </ul>
                                 <h3><a asp-action="Details" asp-route-id="@item.RecipeId">@item.Title</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
+                                <p>@item.Description</p>
                                 <div class="btn-box"><a asp-action="Details" asp-route-id="@item.RecipeId" class="theme-btn-two">Read More</a></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
-                
-                @*<div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <span class="category">Bakery</span>
-                                <a href="blog-details.html"><img src="assets/images/news/news-2.jpg" alt=""></a>
-                            </figure>
-                            <div class="lower-content">
-                                <ul class="post-info clearfix">
-                                    <li>on 9 Jul, 2020</li>
-                                    <li>/</li>
-                                    <li><a href="blog-details.html">by admin</a></li>
-                                </ul>
-                                <h3><a href="blog-details.html">Disclosing the secrets of success in Bagery.</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
-                                <div class="btn-box"><a href="blog-details.html" class="theme-btn-two">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="600ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <span class="category">Bakery</span>
-                                <a href="blog-details.html"><img src="assets/images/news/news-3.jpg" alt=""></a>
-                            </figure>
-                            <div class="lower-content">
-                                <ul class="post-info clearfix">
-                                    <li>on 8 Jul, 2020</li>
-                                    <li>/</li>
-                                    <li><a href="blog-details.html">by admin</a></li>
-                                </ul>
-                                <h3><a href="blog-details.html">Great food is not just eating energy.</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
-                                <div class="btn-box"><a href="blog-details.html" class="theme-btn-two">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <span class="category">Bakery</span>
-                                <a href="blog-details.html"><img src="assets/images/news/news-4.jpg" alt=""></a>
-                            </figure>
-                            <div class="lower-content">
-                                <ul class="post-info clearfix">
-                                    <li>on 7 Jul, 2020</li>
-                                    <li>/</li>
-                                    <li><a href="blog-details.html">by admin</a></li>
-                                </ul>
-                                <h3><a href="blog-details.html">I’ve prioritized taking care of my mind.</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
-                                <div class="btn-box"><a href="blog-details.html" class="theme-btn-two">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <span class="category">Bakery</span>
-                                <a href="blog-details.html"><img src="assets/images/news/news-5.jpg" alt=""></a>
-                            </figure>
-                            <div class="lower-content">
-                                <ul class="post-info clearfix">
-                                    <li>on 6 Jul, 2020</li>
-                                    <li>/</li>
-                                    <li><a href="blog-details.html">by admin</a></li>
-                                </ul>
-                                <h3><a href="blog-details.html">Baking can be done with a few things.</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
-                                <div class="btn-box"><a href="blog-details.html" class="theme-btn-two">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="600ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <span class="category">Bakery</span>
-                                <a href="blog-details.html"><img src="assets/images/news/news-6.jpg" alt=""></a>
-                            </figure>
-                            <div class="lower-content">
-                                <ul class="post-info clearfix">
-                                    <li>on 5 Jul, 2020</li>
-                                    <li>/</li>
-                                    <li><a href="blog-details.html">by admin</a></li>
-                                </ul>
-                                <h3><a href="blog-details.html">15 Easy Coffee Recipes And Drink Ideas.</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
-                                <div class="btn-box"><a href="blog-details.html" class="theme-btn-two">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="00ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <span class="category">Bakery</span>
-                                <a href="blog-details.html"><img src="assets/images/news/news-7.jpg" alt=""></a>
-                            </figure>
-                            <div class="lower-content">
-                                <ul class="post-info clearfix">
-                                    <li>on 4 Jul, 2020</li>
-                                    <li>/</li>
-                                    <li><a href="blog-details.html">by admin</a></li>
-                                </ul>
-                                <h3><a href="blog-details.html">The smell of good bread baking.</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
-                                <div class="btn-box"><a href="blog-details.html" class="theme-btn-two">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="400ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <span class="category">Bakery</span>
-                                <a href="blog-details.html"><img src="assets/images/news/news-8.jpg" alt=""></a>
-                            </figure>
-                            <div class="lower-content">
-                                <ul class="post-info clearfix">
-                                    <li>on 3 Jul, 2020</li>
-                                    <li>/</li>
-                                    <li><a href="blog-details.html">by admin</a></li>
-                                </ul>
-                                <h3><a href="blog-details.html">Keeping a healthy diet is important.</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
-                                <div class="btn-box"><a href="blog-details.html" class="theme-btn-two">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 news-block">
-                    <div class="news-block-one wow fadeInUp animated animated" data-wow-delay="600ms" data-wow-duration="1500ms">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <span class="category">Bakery</span>
-                                <a href="blog-details.html"><img src="assets/images/news/news-9.jpg" alt=""></a>
-                            </figure>
-                            <div class="lower-content">
-                                <ul class="post-info clearfix">
-                                    <li>on 2 Jul, 2020</li>
-                                    <li>/</li>
-                                    <li><a href="blog-details.html">by admin</a></li>
-                                </ul>
-                                <h3><a href="blog-details.html">Eating is one of the great beauties.</a></h3>
-                                <p>Accusan enim ipsam voluptam quia voluptas sit aspern odit aut sed quia consequnt.</p>
-                                <div class="btn-box"><a href="blog-details.html" class="theme-btn-two">Read More</a></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>*@
+            }            
             </div>
             <div class="pagination-wrapper centred">
                 <ul class="pagination">
