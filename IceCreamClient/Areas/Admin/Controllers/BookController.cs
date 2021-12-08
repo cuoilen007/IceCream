@@ -1,8 +1,11 @@
 ﻿using IceCreamClient.Models;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -15,10 +18,12 @@ namespace IceCreamClient.Areas.Admin.Controllers
     {
         const string BASE_URL = "http://localhost:47255";
         IHttpClientFactory factory;
+        IWebHostEnvironment env; //upload image
 
-        public BookController(IHttpClientFactory factory)
+        public BookController(IHttpClientFactory factory, IWebHostEnvironment env)
         {
             this.factory = factory;
+            this.env = env;
         }
 
         //view book
@@ -41,14 +46,39 @@ namespace IceCreamClient.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBook(BookIceCream book)
+        public async Task<IActionResult> CreateBook(BookIceCream book, IFormFile Image)
         {
-            HttpClient client = factory.CreateClient();
-            var customerJson = JsonConvert.SerializeObject(book);
-            var stringContent = new StringContent(customerJson, Encoding.UTF8, "application/json");
-            var result = await client.PostAsync(BASE_URL + "/api/book/", stringContent);
-            client.Dispose();
-            return View("Index");
+            if (ModelState.IsValid)
+            {
+                HttpClient client = factory.CreateClient();//tạo và nhận data
+
+                if (Image != null)
+                    {
+                    //ADD IMAGE
+                    //upload file
+                    string filename = Image.FileName;
+
+                    //auto check and create folder
+                    var imagesFolder = Path.Combine(env.WebRootPath, "images/book");
+                    if (!Directory.Exists(imagesFolder))
+                    {
+                        Directory.CreateDirectory(imagesFolder);
+                    }
+
+                    var filePath = Path.Combine(imagesFolder, filename);
+                    var stream = new FileStream(filePath, FileMode.Create);
+                    await Image.CopyToAsync(stream);
+                    book.Image = filename;
+                }
+
+                //create book
+                var bookJson = JsonConvert.SerializeObject(book);
+                var stringContent = new StringContent(bookJson, Encoding.UTF8, "application/json");
+                var result = await client.PostAsync(BASE_URL + "/api/book/", stringContent);
+                client.Dispose();
+                return RedirectToAction("ShowBooks");
+            }
+            return View();
         }
         //end create
 

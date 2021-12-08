@@ -20,18 +20,7 @@ namespace IceCreamClient.Controllers
             this.factory = factory;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        //menu
-        public IActionResult Menu()
-        {
-            return View();
-        }
-
-        //view book
+        //view list book
         public async Task<IActionResult> ShowBooks()
         {
             HttpClient client = factory.CreateClient();//tạo và nhận data
