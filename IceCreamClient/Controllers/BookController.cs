@@ -95,16 +95,6 @@ namespace IceCreamClient.Controllers
         }
         //END UPDATE
 
-        //delete book
-        [Route("{bookId}")]
-        public async Task<IActionResult> Delete(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
-        {
-            HttpClient client = factory.CreateClient();
-            var result = await client.DeleteAsync(BASE_URL + $"/api/book/{bookId}");
-            client.Dispose();
-            return RedirectToAction("ShowBooks");
-        }
-
         //DETAILS BOOK
         public async Task<IActionResult> BookDetails(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
         {
