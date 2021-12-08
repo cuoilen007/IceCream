@@ -9,7 +9,7 @@ namespace IceCreamClient.Models
     {
         public Category()
         {
-            BookIceCreams = new HashSet<Book>();
+            BookIceCreams = new HashSet<BookIceCream>();
             Recipes = new HashSet<Recipe>();
         }
 
@@ -18,7 +18,7 @@ namespace IceCreamClient.Models
         public string Description { get; set; }
         public DateTime? CreateAt { get; set; }
 
-        public virtual ICollection<Book> BookIceCreams { get; set; }
+        public virtual ICollection<BookIceCream> BookIceCreams { get; set; }
         public virtual ICollection<Recipe> Recipes { get; set; }
     }
 }

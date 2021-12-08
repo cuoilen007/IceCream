@@ -38,7 +38,7 @@ namespace IceCreamClient.Controllers
             var result = await client.GetAsync(BASE_URL + "/api/book");
             //cần kiểm tra return code => để xem có dữ liệu hay ko? :tự làm
             var data = await result.Content.ReadAsStringAsync();
-            var books = JsonConvert.DeserializeObject<List<Book>>(data);
+            var books = JsonConvert.DeserializeObject<List<BookIceCream>>(data);
             client.Dispose();
             return View(books);//trả về view obj book hiện tại để hiển thị thông tin book, ko có sẽ bị lỗi null model khi show list bên ShowEmps.cshtml
         }
@@ -51,7 +51,7 @@ namespace IceCreamClient.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateBook(Book book)
+        public async Task<IActionResult> CreateBook(BookIceCream book)
         {
             HttpClient client = factory.CreateClient();
             var customerJson = JsonConvert.SerializeObject(book);
@@ -68,13 +68,13 @@ namespace IceCreamClient.Controllers
             HttpClient client = factory.CreateClient();
             client.BaseAddress = new Uri(BASE_URL);
             var response = await client.GetStringAsync($"/api/book/{bookId}");
-            var book = JsonConvert.DeserializeObject<Book>(response);
+            var book = JsonConvert.DeserializeObject<BookIceCream>(response);
             client.Dispose();
             return View(book);//trả về view obj customer hiện tại để hiển thị thông tin sau edit, ko có sẽ bị lỗi null model khi show list bên showEmps.cshtml
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBook(int bookId, Book book)
+        public async Task<IActionResult> UpdateBook(int bookId, BookIceCream book)
         {
             if (ModelState.IsValid)//tìm thấy
             {
@@ -112,7 +112,7 @@ namespace IceCreamClient.Controllers
             //chuyển đối tượng customer thành chuỗi json để truyền đi
             client.BaseAddress = new Uri(BASE_URL);
             var response = await client.GetStringAsync($"/api/book/{bookId}");
-            var book = JsonConvert.DeserializeObject<Book>(response);
+            var book = JsonConvert.DeserializeObject<BookIceCream>(response);
             client.Dispose();
             return View(book);
         }
