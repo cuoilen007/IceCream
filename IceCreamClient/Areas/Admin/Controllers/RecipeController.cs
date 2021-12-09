@@ -64,12 +64,12 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 var filepath = Path.Combine("wwwroot/images/recipe/", imageFile.FileName);
                 Stream stream = new FileStream(filepath, FileMode.Create);
                 await imageFile.CopyToAsync(stream);
-                recipe.Thumbnail = "~/images/recipe/" + imageFile.FileName;
+                recipe.Thumbnail = imageFile.FileName;
                 stream.Close();
             }
             else
             {
-                recipe.Thumbnail = "~/images/recipe/image_not_found.png";
+                recipe.Thumbnail = "image_not_found.png";
             }
             var json = JsonConvert.SerializeObject(recipe);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -120,13 +120,13 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 return RedirectToAction("Index");
                 }
             TempData["Error"] = "Input error !";
-            return View();
+            return RedirectToAction("Edit");
         }
 
         public async Task<IActionResult> UpdateStatus(int RecipeId, bool status)
         {
             var content = new StringContent("", Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"/api/recipe/{RecipeId}/{status}", content);
+            var response = await _client.PutAsync($"/api/recipe/status/{RecipeId}/{status}", content);
             if (response.IsSuccessStatusCode)
             {
                 TempData["Success"] = "Update success";

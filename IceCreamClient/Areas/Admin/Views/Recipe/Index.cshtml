@@ -36,7 +36,11 @@
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Recipe List</h4>
+                    <div class="row">
+                        <h4 class="header-title">Recipe List</h4>
+                        <h4 class="header-title" style="float: right;"><a asp-action="Create">Create</a></h4>
+                    </div>
+                    
                     @if (TempData["Error"] != null)
                     {
                         <div>
@@ -53,9 +57,8 @@
                         <table id="dataTable3" class="text-center">
                             <thead class="text-capitalize">
                                 <tr>
+                                    <th>No.</th>
                                     <th>Title</th>
-                                    <th>Description</th>
-                                    <th>Created By</th>
                                     <th>Paying Required</th>
                                     <th>Status</th>
                                     <th>Action</th>
@@ -65,27 +68,26 @@
                                 @foreach (var item in Model)
                                 {
                                     <tr>
+                                        <td>@item.RecipeId</td>
                                         <td>@item.Title</td>
-                                        <td>@item.Description</td>
-                                        <td>@item.CreatedBy</td>
                                         <td>
                                             @if (item.PayingRequired == true)
                                             {
-                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="false" class="btn btn-danger">Deactivate</a>
+                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="false" class="btn btn-danger" style="width: auto; height: 30px;">Deactivate</a>
                                             }
                                             else
                                             {
-                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="true" class="btn btn-success">Activate</a>
+                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="true" class="btn btn-success" style="width: auto; height: 30px;">Activate</a>
                                             }
                                         </td>
                                         <td>
                                             @if (item.Status == true)
                                             {
-                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="false" class="btn btn-danger">Deactivate</a>
+                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-status="false" class="btn btn-danger" style="width: auto; height: 30px;">Deactivate</a>
                                             }
                                             else
                                             {
-                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="true" class="btn btn-success">Activate</a>
+                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-status="true" class="btn btn-success" style="width: auto; height: 30px;">Activate</a>
                                             }
                                         </td>
                                         <td><a asp-action="Edit" asp-route-RecipeId="@item.RecipeId">Edit</a></td>

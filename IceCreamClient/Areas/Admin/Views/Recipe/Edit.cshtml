@@ -65,7 +65,7 @@
                             <div class="form-group">
                                 <label class="col-form-label">Thumbnail</label>
                                 <input class="form-control" type="file" name="imageFile">
-                                <img src="@Model.Thumbnail" height="100" width="100" />
+                                <img src="~/images/recipe/@Model.Thumbnail" height="100" width="100" />
                             </div>
                             <div class="form-group">
                                 <label class="col-form-label">Category</label>
@@ -87,13 +87,13 @@
                                 <select asp-for="PayingRequired" class="form-control">
                                     @if (Model.PayingRequired == false)
                                     {
-                                        <option value="0" selected="selected">No</option>
-                                        <option value="1">Yes</option>
+                                        <option value="false" selected="selected">No</option>
+                                        <option value="true">Yes</option>
                                     }
                                     else
                                     {
-                                        <option value="0">No</option>
-                                        <option value="1" selected="selected">Yes</option>
+                                        <option value="false">No</option>
+                                        <option value="true" selected="selected">Yes</option>
                                     }
                                 </select>
                             </div>
@@ -102,13 +102,13 @@
                                 <select asp-for="Status" class="form-control">
                                     @if (Model.Status == false)
                                     {
-                                        <option value="0" selected="selected">No</option>
-                                        <option value="1">Yes</option>
+                                        <option value="false" selected="selected">No</option>
+                                        <option value="true">Yes</option>
                                     }
                                     else
                                     {
-                                        <option value="0">No</option>
-                                        <option value="1" selected="selected">Yes</option>
+                                        <option value="false">No</option>
+                                        <option value="true" selected="selected">Yes</option>
                                     }
                                 </select>
                             </div>
