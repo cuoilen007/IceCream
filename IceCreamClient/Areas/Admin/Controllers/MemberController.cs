@@ -1,4 +1,5 @@
 ﻿using IceCreamClient.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -19,10 +20,14 @@ namespace IceCreamClient.Areas.Admin.Controllers
         }
 
         [Area("Admin")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index() 
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             HttpClient client = _factory.CreateClient();
-            var result = await client.GetAsync(API_URl + $"/api/Member/All");
+            var result = await client.GetAsync(API_URl + $"/api/Member/All/");
             if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
             {
                 var data = await result.Content.ReadAsStringAsync();
@@ -37,6 +42,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             HttpClient client = _factory.CreateClient();
             var result = await client.GetAsync(API_URl + $"/api/Member/Detail/{id}");
             if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
@@ -53,6 +62,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> Deactive(string id)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             HttpClient client = _factory.CreateClient();
             var result = await client.GetAsync(API_URl + $"/api/Member/Deactive/{id}");
             client.Dispose();
@@ -64,12 +77,16 @@ namespace IceCreamClient.Areas.Admin.Controllers
             {
                 TempData["Error"] = "Deactive Member Failed";
             }
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
         }
         [Area("Admin")]
         [HttpGet]
         public async Task<IActionResult> Active(string id)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             HttpClient client = _factory.CreateClient();
             var result = await client.GetAsync(API_URl + $"/api/Member/Active/{id}");
             client.Dispose();
@@ -88,23 +105,31 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpGet]
         public async Task<IActionResult> ResetPassword(string id)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             HttpClient client = _factory.CreateClient();
             var result = await client.GetAsync(API_URl + $"/api/Member/ResetPassword/{id}");
             client.Dispose();
             if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                TempData["Success"] = "Reset Member Password Successfull";
+                TempData["Success"] = "Reset Member Password Successfully";
             }
             else
             {
                 TempData["Error"] = "Reset Member Password  Failed";
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index" );
         }
 
         [Area("Admin")]
         public IActionResult AddMember()
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
@@ -112,6 +137,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> AddMember(Member member)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (ModelState.IsValid)
             {
                 HttpClient client = _factory.CreateClient();
@@ -129,7 +158,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
                     TempData["Error"] = "Username already exists!";
                 }
             }
-
+            
             return View();
         }
     }

@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "Cart";
+}
+
+ <!--Page Title-->
+        <section class="page-title centred" style="background-image: url(/assets/images/background/page-title.jpg);">
+            <div class="auto-container">
+                <div class="content-box">
+                    <div class="title">
+                        <h1>Cart Page</h1>
+                    </div>
+                    <ul class="bread-crumb clearfix">
+                        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                        <li>Cart Page</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!--End Page Title-->
+
+
+        <!-- cart section -->
+        <section class="cart-section cart-page">
+            <div class="auto-container">
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 table-column">
+                        <div class="table-outer">
+                            <table class="cart-table">
+                                <thead class="cart-header">
+                                    <tr>
+                                        <th colspan="4" class="prod-column">Book Name</th>
+                                        <th class="price">Price</th>
+                                        <th class="quantity">Quantity</th>
+                                        <th>Subtotal</th>
+                                    </tr>    
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="4" class="prod-column">
+                                            <div class="column-box">
+                                                <form asp-controller="Cart" asp-action="AddToCart">
+                                                <div class="remove-btn">
+                                                    <input name="Id" hidden/>
+                                                    <input name="Quantity" hidden/>
+                                                    <button type="submit" value="delete"><i class="fal fa-times"></i></button>                                                  
+                                                </div>
+                                                </form>
+                                                <div class="prod-thumb">
+                                                    <a href="cart"><img src="~/assets/images/resource/shop/cart-1.jpg" alt=""></a>
+                                                </div>
+                                                <div class="prod-title">
+                                                    Vanilla Ice Cream
+                                                </div>    
+                                            </div>
+                                        </td>
+                                        <td class="price">$100.00</td>
+                                        <td class="qty">
+                                            @*bo class quantity-spiner di*@
+                                            <div class="item-quantity">
+                                                <form asp-controller="Cart" asp-action="AddToCart">
+                                                <input class="quantity-spinner" type="number" value="1" name="quantity" min=1>
+                                                </form>
+                                            </div>
+                                        </td>
+                                        <td class="sub-total">$50.00</td>                                 
+                                </tbody>    
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="cart-total">
+                    <div class="row">
+                        <div class="col-xl-5 col-lg-12 col-md-12 offset-xl-7 cart-column">
+                            <div class="total-cart-box clearfix">
+                                <h4>Cart Totals</h4>
+                                <ul class="list clearfix">
+                                    <li>Subtotal:<span>$150</span></li>
+                                    <li>Order Total:<span>$150</span></li>
+                                </ul>
+                                <a href="cart.html" class="theme-btn-one">Proceed to Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- cart section end -->
+

@@ -12,5 +12,7 @@ namespace IceCreamApi.Models
         public int? BookId { get; set; }
         public int? Price { get; set; }
         public int? Quantity { get; set; }
+
+        public virtual BookOrder BookOrder { get; set; }
     }
 }

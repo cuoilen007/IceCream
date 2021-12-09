@@ -7,11 +7,6 @@ namespace IceCreamApi.Models
 {
     public partial class Member
     {
-        public Member()
-        {
-            BookPayments = new HashSet<BookPayment>();
-        }
-
         public int Id { get; set; }
         public string Email { get; set; }
         public string Fullname { get; set; }
@@ -22,6 +17,5 @@ namespace IceCreamApi.Models
         public string Username { get; set; }
 
         public virtual MemberOption IdMemberOptionNavigation { get; set; }
-        public virtual ICollection<BookPayment> BookPayments { get; set; }
     }
 }

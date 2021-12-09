@@ -8,6 +8,7 @@ namespace IceCreamApi.Models
     public partial class BookIceCream
     {
         public int BookId { get; set; }
+        public int? CatId { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public string Description { get; set; }
@@ -15,5 +16,7 @@ namespace IceCreamApi.Models
         public string Image { get; set; }
         public bool? Active { get; set; }
         public DateTime? CreateAt { get; set; }
+
+        public virtual Category Cat { get; set; }
     }
 }

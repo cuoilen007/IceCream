@@ -19,6 +19,10 @@ namespace IceCreamClient.Controllers
         {
             _factory = factory;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> AddToCart(int id, int quantity, string button)
@@ -75,6 +79,7 @@ namespace IceCreamClient.Controllers
             //return Redirect(Request.Headers["Referer"].ToString());
             return RedirectToAction("Index", "Home");
         }
+        
 
         [HttpGet]
         public IActionResult Checkout()

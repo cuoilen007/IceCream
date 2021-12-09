@@ -17,8 +17,13 @@ namespace IceCreamApi.Models
         {
         }
 
+        public virtual DbSet<Admin> Admins { get; set; }
         public virtual DbSet<BookIceCream> BookIceCreams { get; set; }
-        public virtual DbSet<BookPayment> BookPayments { get; set; }
+        public virtual DbSet<BookOrder> BookOrders { get; set; }
+        public virtual DbSet<BookOrderDetail> BookOrderDetails { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Feedback> Feedbacks { get; set; }
         public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<MemberOption> MemberOptions { get; set; }
         public virtual DbSet<Page> Pages { get; set; }
@@ -37,10 +42,27 @@ namespace IceCreamApi.Models
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.ToTable("Admin");
+
+                entity.Property(e => e.Fullname)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Password)
+                    .HasMaxLength(200)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Username)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<BookIceCream>(entity =>
             {
                 entity.HasKey(e => e.BookId)
-                    .HasName("PK__BookIceC__3DE0C2276C50643D");
+                    .HasName("PK__BookIceC__3DE0C227AF42F483");
 
                 entity.ToTable("BookIceCream");
 
@@ -50,7 +72,11 @@ namespace IceCreamApi.Models
                     .HasMaxLength(100)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CreateAt).HasColumnType("date");
+                entity.Property(e => e.CatId).HasColumnName("CatID");
+
+                entity.Property(e => e.CreateAt)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Description).HasColumnType("text");
 
@@ -61,14 +87,19 @@ namespace IceCreamApi.Models
                 entity.Property(e => e.Title)
                     .HasMaxLength(100)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Cat)
+                    .WithMany(p => p.BookIceCreams)
+                    .HasForeignKey(d => d.CatId)
+                    .HasConstraintName("FK_CatCode");
             });
 
-            modelBuilder.Entity<BookPayment>(entity =>
+            modelBuilder.Entity<BookOrder>(entity =>
             {
-                entity.ToTable("BookPayment");
+                entity.ToTable("BookOrder");
 
                 entity.Property(e => e.Address)
-                    .HasMaxLength(200)
+                    .HasMaxLength(250)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Email)
@@ -76,17 +107,97 @@ namespace IceCreamApi.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.Fullname)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<BookOrderDetail>(entity =>
+            {
+                entity.ToTable("BookOrderDetail");
+
+                entity.HasOne(d => d.BookOrder)
+                    .WithMany(p => p.BookOrderDetails)
+                    .HasForeignKey(d => d.BookOrderId)
+                    .HasConstraintName("FK_BookOrderDetail_BookOrder");
+            });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasKey(e => e.CatId)
+                    .HasName("PK__Category__6A1C8ADA94B8DC7F");
+
+                entity.ToTable("Category");
+
+                entity.Property(e => e.CatId).HasColumnName("CatID");
+
+                entity.Property(e => e.CreateAt)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Description).HasColumnType("text");
+
+                entity.Property(e => e.Name)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Comment>(entity =>
+            {
+                entity.ToTable("Comment");
+
+                entity.Property(e => e.Content).HasColumnType("text");
+
+                entity.Property(e => e.CreateAt)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.EmailUser)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.NameUser)
+                    .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.RecipeId).HasColumnName("RecipeID");
+
+                entity.Property(e => e.Reply).HasColumnType("text");
+
+                entity.HasOne(d => d.Recipe)
+                    .WithMany(p => p.Comments)
+                    .HasForeignKey(d => d.RecipeId)
+                    .HasConstraintName("FK_RecipeID");
+            });
+
+            modelBuilder.Entity<Feedback>(entity =>
+            {
+                entity.ToTable("Feedback");
+
+                entity.Property(e => e.Content).HasColumnType("text");
+
+                entity.Property(e => e.CreateAt)
+                    .HasColumnType("date")
+                    .HasDefaultValueSql("(getdate())");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(250)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Name)
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.IdMember).HasColumnName("Id_Member");
+                entity.Property(e => e.Phone)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
 
-                entity.Property(e => e.Phone).HasMaxLength(50);
-
-                entity.HasOne(d => d.IdMemberNavigation)
-                    .WithMany(p => p.BookPayments)
-                    .HasForeignKey(d => d.IdMember)
-                    .HasConstraintName("FK_BookPayment_Member");
+                entity.Property(e => e.Subject)
+                    .HasMaxLength(150)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Member>(entity =>
@@ -152,8 +263,14 @@ namespace IceCreamApi.Models
 
                 entity.Property(e => e.RecipeId).HasColumnName("RecipeID");
 
+                entity.Property(e => e.CategoryID).HasColumnName("CategoryID");
+
                 entity.Property(e => e.CreatedBy)
                     .HasMaxLength(100)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.Description)
+                    .HasMaxLength(250)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Ingredents).HasColumnType("text");
@@ -167,6 +284,11 @@ namespace IceCreamApi.Models
                 entity.Property(e => e.Title)
                     .HasMaxLength(250)
                     .IsUnicode(false);
+
+                entity.HasOne(d => d.Category)
+                    .WithMany(p => p.Recipes)
+                    .HasForeignKey(d => d.CategoryID)
+                    .HasConstraintName("FK_Recipe_Category");
             });
 
             OnModelCreatingPartial(modelBuilder);
