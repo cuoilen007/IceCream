@@ -66,6 +66,16 @@ namespace IceCreamClient
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                //book admin route
+                endpoints.MapControllerRoute(
+                name: "AdminBook",
+                pattern: "{area:exists}/{controller=Home}/{action=ShowBooks}/{id?}");
+
+                //book route
+                endpoints.MapControllerRoute(
+                name: "defaultBook",
+                pattern: "{controller=Home}/{action=ShowBooks}/{id?}");
             });
         }
     }

@@ -1,9 +1,11 @@
 ﻿using IceCreamApi.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -14,6 +16,7 @@ namespace IceCreamApi.Controllers
     public class BookController : ControllerBase
     {
         projectContext ctx;
+        
 
         public BookController(projectContext ctx)
         {
@@ -69,20 +72,5 @@ namespace IceCreamApi.Controllers
             return NoContent();
         }
         //end update
-
-        //delete Book
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBook(int id)
-        {
-            var result = await ctx.BookIceCreams.SingleOrDefaultAsync(c => c.BookId == id);
-            if (result == null)
-            {
-                return NotFound(); //mã 404
-            }
-            ctx.BookIceCreams.Remove(result); //delete
-            await ctx.SaveChangesAsync();
-
-            return NoContent(); //trả về mã thành công
-        }
     }
 }
