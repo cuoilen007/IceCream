@@ -171,6 +171,11 @@
     <!-- others plugins -->
     <script src="/Admin/Data/assets/js/plugins.js"></script>
     <script src="/Admin/Data/assets/js/scripts.js"></script>
+
+    @if (IsSectionDefined("Scripts"))
+            {
+                @RenderSection("Scripts")
+            } 
 </body>
 
 </html>

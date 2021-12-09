@@ -29,15 +29,15 @@
                         <div class="inner-box">
                             <figure class="image-box">
                                 <span class="category">Ice Cream</span>
-                                <a asp-action="Details" asp-route-id="@item.RecipeId"><img src="~/images/recipe/@item.Thumbnail"></a>
+                                <a asp-action="Details" asp-route-RecipeId="@item.RecipeId"><img src="~/images/recipe/@item.Thumbnail" style="height: 220px; width: auto;"></a>
                             </figure>
                             <div class="lower-content">
                                 <ul class="post-info clearfix">
-                                    <li><a asp-action="Details" asp-route-id="@item.RecipeId">@item.CreatedBy</a></li>
+                                    <li><a asp-action="Details" asp-route-RecipeId="@item.RecipeId">@item.CreatedBy</a></li>
                                 </ul>
-                                <h3><a asp-action="Details" asp-route-id="@item.RecipeId">@item.Title</a></h3>
+                                <h3><a asp-action="Details" asp-route-RecipeId="@item.RecipeId">@item.Title</a></h3>
                                 <p>@item.Description</p>
-                                <div class="btn-box"><a asp-action="Details" asp-route-id="@item.RecipeId" class="theme-btn-two">Read More</a></div>
+                                <div class="btn-box"><a asp-action="Details" asp-route-RecipeId="@item.RecipeId" class="theme-btn-two">Read More</a></div>
                             </div>
                         </div>
                     </div>

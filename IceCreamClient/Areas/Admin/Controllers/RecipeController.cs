@@ -71,13 +71,16 @@ namespace IceCreamClient.Areas.Admin.Controllers
             {
                 recipe.Thumbnail = "image_not_found.png";
             }
-            var json = JsonConvert.SerializeObject(recipe);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PostAsync("/api/recipe", content);
-            if (response.IsSuccessStatusCode)
+            if (ModelState.IsValid)
             {
-                TempData["Success"] = "Update success";
-                return RedirectToAction("Index");
+                var json = JsonConvert.SerializeObject(recipe);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _client.PostAsync("/api/recipe", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Success"] = "Update success";
+                    return RedirectToAction("Index");
+                }
             }
             TempData["Error"] = "Input error !";
             return View();
@@ -111,14 +114,17 @@ namespace IceCreamClient.Areas.Admin.Controllers
             {
                 recipe.Thumbnail = "";
             }
-            var json = JsonConvert.SerializeObject(recipe);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"/api/recipe/{RecipeId}", content);
-            if (response.IsSuccessStatusCode)
+            if (ModelState.IsValid)
             {
-                TempData["Success"] = "Update success";
-                return RedirectToAction("Index");
+                var json = JsonConvert.SerializeObject(recipe);
+                var content = new StringContent(json, Encoding.UTF8, "application/json");
+                var response = await _client.PutAsync($"/api/recipe/{RecipeId}", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    TempData["Success"] = "Update success";
+                    return RedirectToAction("Index");
                 }
+            }
             TempData["Error"] = "Input error !";
             return RedirectToAction("Edit");
         }

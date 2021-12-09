@@ -37,8 +37,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <h4 class="header-title">Recipe List</h4>
-                        <h4 class="header-title" style="float: right;"><a asp-action="Create">Create</a></h4>
+                        <div class="col-sm-6">
+                            <h4 class="header-title">Recipe List</h4>
+                        </div>
+                        <div class="col-sm-6">
+                            <h4 class="header-title" style="float: right;"><a asp-action="Create" style="color: black;">Create</a></h4>
+                        </div>                      
                     </div>
                     
                     @if (TempData["Error"] != null)
@@ -73,21 +77,21 @@
                                         <td>
                                             @if (item.PayingRequired == true)
                                             {
-                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="false" class="btn btn-danger" style="width: auto; height: 30px;">Deactivate</a>
+                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="false" class="btn btn-danger btn-sm">Deactivate</a>
                                             }
                                             else
                                             {
-                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="true" class="btn btn-success" style="width: auto; height: 30px;">Activate</a>
+                                                <a asp-action="UpdatePayingStatus" asp-route-RecipeId="@item.RecipeId" asp-route-payingStatus="true" class="btn btn-success btn-sm">Activate</a>
                                             }
                                         </td>
                                         <td>
                                             @if (item.Status == true)
                                             {
-                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-status="false" class="btn btn-danger" style="width: auto; height: 30px;">Deactivate</a>
+                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-status="false" class="btn btn-danger btn-sm">Deactivate</a>
                                             }
                                             else
                                             {
-                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-status="true" class="btn btn-success" style="width: auto; height: 30px;">Activate</a>
+                                                <a asp-action="UpdateStatus" asp-route-RecipeId="@item.RecipeId" asp-route-status="true" class="btn btn-success btn-sm">Activate</a>
                                             }
                                         </td>
                                         <td><a asp-action="Edit" asp-route-RecipeId="@item.RecipeId">Edit</a></td>
