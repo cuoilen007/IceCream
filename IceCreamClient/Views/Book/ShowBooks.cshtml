@@ -108,7 +108,14 @@
                                     <div class="shop-block-one">
                                         <div class="inner-box">
                                             <figure class="image-box">
-                                                <img src="~/images/book/00009368.Loading_ArenaBackground-1.jpg" alt="No Image">
+                                                @if (item.Image != null)
+                                                {
+                                                    <img src="~/images/book/@item.Image" alt="no image" />
+                                                }
+                                                else
+                                                {
+                                                    @: No Image
+                                                }
                                             </figure>
                                             <div class="lower-content">
                                                 <span class="price-box">$100</span>

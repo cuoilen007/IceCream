@@ -33,57 +33,6 @@ namespace IceCreamClient.Controllers
         }
         //end view book
 
-        //create
-        public IActionResult CreateBook()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> CreateBook(BookIceCream book)
-        {
-            HttpClient client = factory.CreateClient();
-            var customerJson = JsonConvert.SerializeObject(book);
-            var stringContent = new StringContent(customerJson, Encoding.UTF8, "application/json");
-            var result = await client.PostAsync(BASE_URL + "/api/book/", stringContent);
-            client.Dispose();
-            return View("Menu");
-        }
-        //end create
-
-        //Update book
-        public async Task<IActionResult> UpdateBook(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
-        {
-            HttpClient client = factory.CreateClient();
-            client.BaseAddress = new Uri(BASE_URL);
-            var response = await client.GetStringAsync($"/api/book/{bookId}");
-            var book = JsonConvert.DeserializeObject<BookIceCream>(response);
-            client.Dispose();
-            return View(book);//trả về view obj customer hiện tại để hiển thị thông tin sau edit, ko có sẽ bị lỗi null model khi show list bên showEmps.cshtml
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> UpdateBook(int bookId, BookIceCream book)
-        {
-            if (ModelState.IsValid)//tìm thấy
-            {
-                HttpClient client = factory.CreateClient();
-                client.BaseAddress = new Uri(BASE_URL);
-                var json = JsonConvert.SerializeObject(book);
-                var stringContent = new StringContent(json, Encoding.UTF8,
-               "application/json");
-                var respone = await client.PutAsync("/api/book", stringContent);
-                if (respone.IsSuccessStatusCode)
-                {
-                    ViewData["error"] = "Update book Successful.";
-                }
-                client.Dispose();
-                return RedirectToAction("Menu");
-            }
-            return View();
-        }
-        //END UPDATE
-
         //DETAILS BOOK
         public async Task<IActionResult> BookDetails(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
         {
