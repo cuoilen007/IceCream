@@ -48,7 +48,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBook(BookIceCream book, IFormFile Image)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid)//validate
             {
                 HttpClient client = factory.CreateClient();//tạo và nhận data
 
@@ -109,7 +109,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateBook(int bookId, BookIceCream book, IFormFile Image)
         {
-            if (ModelState.IsValid)//tìm thấy
+            if (ModelState.IsValid)//validate
             {
                 HttpClient client = factory.CreateClient();
 
@@ -139,15 +139,15 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 client.BaseAddress = new Uri(BASE_URL);
                 var json = JsonConvert.SerializeObject(book);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                var respone = await client.PutAsync("/api/book", stringContent);
-                if (respone.IsSuccessStatusCode)
+                var result = await client.PutAsync("/api/book", stringContent);
+                if (result.IsSuccessStatusCode)
                 {
-                    ViewData["error"] = "Update book Successful.";
+                    ViewData["success"] = "Updated Book successful.";
                 }
                 client.Dispose();
-                return RedirectToAction("Index");
+                return View(book);
             }
-            return View();
+            return View(book);//trả về view obj customer hiện tại để hiển thị thông tin sau edit, ko có sẽ bị lỗi null model khi update failed
         }
         //END UPDATE
 

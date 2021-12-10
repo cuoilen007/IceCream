@@ -41,9 +41,14 @@
                         <h4 style="text-align:center">@Html.DisplayFor(model => model.Title)</h4>
                         <hr />
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-6">
+                                @if (ViewData["success"] != null)
+                                {
+                                    <h4 style="color:forestgreen">@ViewData["success"]</h4>
+                                }
                                 @* Upload Image phải có enctype="multipart/form-data" *@
                                 <form asp-action="UpdateBook" enctype="multipart/form-data">
+                                    @* display error validate in required at BookIceCream model *@
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="form-group">
                                         <input type="hidden" asp-for="BookId" class="form-control" />
@@ -53,34 +58,34 @@
                                         <select asp-for="CatId" class="form-control">
                                             @if (Model.CatId == 1)
                                             {
-                                                <option value="1" selected="selected">Ice Cream</option>
+                                                <option value="1" selected>Ice Cream</option>
                                                 <option value="2">Dessert</option>
                                             }
                                             else
                                             {
                                                 <option value="1">Ice Cream</option>
-                                                <option value="2" selected="selected">Dessert</option>
+                                                <option value="2" selected>Dessert</option>
                                             }
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Title" class="control-label"></label>
-                                        <input asp-for="Title" class="form-control" required />
+                                        <input asp-for="Title" class="form-control"/>
                                         <span asp-validation-for="Title" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Author" class="control-label"></label>
-                                        <input asp-for="Author" class="form-control" required />
+                                        <input asp-for="Author" class="form-control"/>
                                         <span asp-validation-for="Author" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Description" class="control-label"></label>
-                                        <input asp-for="Description" class="form-control" />
+                                        <textarea asp-for="Description" id="Description" class="form-control">@Model.Description</textarea>
                                         <span asp-validation-for="Description" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Price" class="control-label"></label>
-                                        <input type="number" asp-for="Price" class="form-control" required />
+                                        <input type="number" asp-for="Price" class="form-control"/>
                                         <span asp-validation-for="Price" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
@@ -99,13 +104,13 @@
                                         <select asp-for="Active" class="form-control">
                                             @if (Model.Active == true)
                                             {
-                                                <option value="true" selected="selected">Yes</option>
+                                                <option value="true" selected>Yes</option>
                                                 <option value="false">No</option>
                                             }
                                             else
                                             {
                                                 <option value="true">Yes</option>
-                                                <option value="false" selected="selected">No</option>
+                                                <option value="false" selected>No</option>
                                             }
                                         </select>
                                     </div>
@@ -120,7 +125,6 @@
                         </div>
                     </div>
                     <div>
-                        @Html.ActionLink("Update", "UpdateBook", new { bookId = Model.BookId }) |
                         <a asp-action="ShowBooks">Back to List Books</a>
                     </div>
                 </div>

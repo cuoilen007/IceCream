@@ -89,7 +89,13 @@
                                 @Html.DisplayNameFor(model => model.Image)
                             </dt>
                             <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.Image)
+                                @* hiển thị image cũ trong db trước khi update *@
+                                @if (Model.Image != null)
+                                {
+                                    <div>
+                                        <img src="~/images/book/@Model.Image" alt="picture" style="width: 100px; height: 100px;" />
+                                    </div>
+                                }
                             </dd>
                             <dt class="col-sm-2">
                                 @Html.DisplayNameFor(model => model.Active)

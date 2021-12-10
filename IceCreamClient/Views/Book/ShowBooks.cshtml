@@ -5,82 +5,6 @@
 }
 
 
-
-    @*<p>
-            <a asp-action="Create">Create New</a>
-        </p>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.BookId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Title)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Author)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Description)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Price)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Image)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Active)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CreateAt)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-        @foreach (var item in Model) {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BookId)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Title)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Author)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Description)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Image)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Active)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreateAt)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
-                </tr>
-        }
-            </tbody>
-        </table>*@
-
-
-
-
-
-
     <!--Page Title-->
         <section class="page-title centred" style="background-image: url(assets/images/background/page-title.jpg);">
             <div class="auto-container">
@@ -175,19 +99,24 @@
                                 </div>
                             </div>
                         </div>
-                        @* ShowBooks *@
-                        @foreach (var item in Model)
-                        {
-                            <div class="row clearfix">
+                        
+                        <div class="row clearfix">
+                            @* ShowBooks *@
+                            @foreach (var item in Model)
+                            {
                                 <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
                                     <div class="shop-block-one">
                                         <div class="inner-box">
                                             <figure class="image-box">
-                                                <img src="~/assets/images/resource/shop/shop-1.jpg" alt="">
+                                                <img src="~/images/book/00009368.Loading_ArenaBackground-1.jpg" alt="No Image">
                                             </figure>
                                             <div class="lower-content">
                                                 <span class="price-box">$100</span>
-                                                <h3><a href="shop-details.html">@Html.DisplayFor(modelItem => item.Title)</a></h3>
+                                                <h3>
+                                                    <a href="@Url.ActionLink("BookDetails", "Book", new { bookId = item.BookId })">
+                                                        @Html.DisplayFor(modelItem => item.Title)
+                                                    </a>
+                                                </h3>
                                                 <ul class="rating clearfix">
                                                     <li><i class="icon-Star"></i></li>
                                                     <li><i class="icon-Star"></i></li>
@@ -200,9 +129,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        }
+                            }
                             @* End ShowBooks *@
+                        </div>
 
                             <div class="pagination-wrapper centred">
                                 <ul class="pagination">
