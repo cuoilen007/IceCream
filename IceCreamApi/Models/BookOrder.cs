@@ -19,6 +19,8 @@ namespace IceCreamApi.Models
         public int? TotalPrice { get; set; }
         public string Phone { get; set; }
 
+        public bool? IsCompleted { get; set; }
+
         public virtual ICollection<BookOrderDetail> BookOrderDetails { get; set; }
     }
 }

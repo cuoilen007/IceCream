@@ -1,7 +1,7 @@
-﻿@model IEnumerable<IceCreamClient.Models.Member>
+﻿@model IEnumerable<IceCreamClient.Models.BookOrder>
 
 @{
-    ViewData["Title"] = "Member";
+    ViewData["Title"] = "Index";
 }
 
 <!-- page title area start -->
@@ -9,10 +9,9 @@
                 <div class="row align-items-center">
                     <div class="col-sm-6">
                         <div class="breadcrumbs-area clearfix">
-                            <h4 class="page-title pull-left">Dashboard</h4>
+                            <h4 class="page-title pull-left">Order</h4>
                             <ul class="breadcrumbs pull-left">
-                                <li><a asp-controller="Member" asp-action="Index">Member</a></li>
-                                <li><span>Datatable</span></li>
+                                <li><span>All Orders</span></li>
                             </ul>
                         </div>
                     </div>
@@ -36,22 +35,24 @@
                       </div>
                   </div>
              </div>
-
             <div class="main-content-inner">
                 <div class="row">
                     <!-- Dark table start -->
                     <div class="col-12 mt-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="header-title">Order</h4>                           
+                                <h4 class="header-title">All Order</h4>              
                                 <div class="data-tables">
                                     <table id="dataTable3" class="text-center">
                                         <thead class="text-capitalize">
                                             <tr>
                                                 <th>No.</th>
-                                                <th>Username</th>
                                                 <th>Fullname</th>
+                                                <th>Phone</th>
                                                 <th>Email</th>
+                                                <th>Address</th>
+                                                <th>Total Price</th>
+                                                <th>Status</th>
                                                 <th></th>
                                             </tr>
                                         </thead>
@@ -60,19 +61,17 @@
                                             @foreach (var item in Model) {
                                             <tr>
                                                 <td> @num</td>
-                                                <td> @Html.DisplayFor(modelItem => item.Username)</td>
                                                 <td> @Html.DisplayFor(modelItem => item.Fullname)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.Phone)</td>
                                                 <td> @Html.DisplayFor(modelItem => item.Email)</td>
-                                                <td>
-                                                    @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
-                                                @if(item.IsMember == true)
-                                                {
-                                                    @Html.ActionLink("Deactive","Deactive", new {  id=item.Id  }) 
+                                                <td> @Html.DisplayFor(modelItem => item.Address)</td>
+                                                <td> @Html.DisplayFor(modelItem => item.TotalPrice)</td>
+                                                @if(item.IsCompleted==true){
+                                                <td> Completed </td>
                                                 }else{
-                                                    @Html.ActionLink("Active", "Active",new {  id=item.Id  })
-                                                }   |
-                                                     @Html.ActionLink("ResetPassword", "ResetPassword",new {  id=item.Id  })
-                                                </td>
+                                                <td> Waiting </td>
+                                                }
+                                                <td> @Html.ActionLink("Details", "Details", new {  id=item.Id  }) </td>
                                             </tr>
                                             num++;
                                             }
