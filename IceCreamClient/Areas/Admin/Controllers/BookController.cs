@@ -29,6 +29,12 @@ namespace IceCreamClient.Areas.Admin.Controllers
         //view book
         public async Task<IActionResult> ShowBooks()
         {
+            //check admin login
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             HttpClient client = factory.CreateClient();//tạo và nhận data
             var result = await client.GetAsync(BASE_URL + "/api/book");
             //cần kiểm tra return code => để xem có dữ liệu hay ko? :tự làm
@@ -48,6 +54,12 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBook(BookIceCream book, IFormFile Image)
         {
+            //check admin login
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             if (ModelState.IsValid)//validate
             {
                 HttpClient client = factory.CreateClient();//tạo và nhận data
@@ -98,6 +110,12 @@ namespace IceCreamClient.Areas.Admin.Controllers
         //Update book
         public async Task<IActionResult> UpdateBook(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
         {
+            //check admin login
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             HttpClient client = factory.CreateClient();
             client.BaseAddress = new Uri(BASE_URL);
             var response = await client.GetStringAsync($"/api/book/{bookId}");
@@ -154,6 +172,12 @@ namespace IceCreamClient.Areas.Admin.Controllers
         //DETAILS BOOK
         public async Task<IActionResult> BookDetails(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
         {
+            //check admin login
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             HttpClient client = factory.CreateClient();
             //chuyển đối tượng customer thành chuỗi json để truyền đi
             client.BaseAddress = new Uri(BASE_URL);
