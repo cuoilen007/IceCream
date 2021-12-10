@@ -29,6 +29,12 @@ namespace IceCreamClient.Areas.Admin.Controllers
         //view book
         public async Task<IActionResult> ShowBooks()
         {
+            //check admin login
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             HttpClient client = factory.CreateClient();//tạo và nhận data
             var result = await client.GetAsync(BASE_URL + "/api/book");
             //cần kiểm tra return code => để xem có dữ liệu hay ko? :tự làm
@@ -48,7 +54,13 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateBook(BookIceCream book, IFormFile Image)
         {
-            if (ModelState.IsValid)
+            //check admin login
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            if (ModelState.IsValid)//validate
             {
                 HttpClient client = factory.CreateClient();//tạo và nhận data
 
@@ -98,6 +110,12 @@ namespace IceCreamClient.Areas.Admin.Controllers
         //Update book
         public async Task<IActionResult> UpdateBook(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
         {
+            //check admin login
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             HttpClient client = factory.CreateClient();
             client.BaseAddress = new Uri(BASE_URL);
             var response = await client.GetStringAsync($"/api/book/{bookId}");
@@ -109,7 +127,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateBook(int bookId, BookIceCream book, IFormFile Image)
         {
-            if (ModelState.IsValid)//tìm thấy
+            if (ModelState.IsValid)//validate
             {
                 HttpClient client = factory.CreateClient();
 
@@ -139,21 +157,27 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 client.BaseAddress = new Uri(BASE_URL);
                 var json = JsonConvert.SerializeObject(book);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                var respone = await client.PutAsync("/api/book", stringContent);
-                if (respone.IsSuccessStatusCode)
+                var result = await client.PutAsync("/api/book", stringContent);
+                if (result.IsSuccessStatusCode)
                 {
-                    ViewData["error"] = "Update book Successful.";
+                    ViewData["success"] = "Updated Book successful.";
                 }
                 client.Dispose();
-                return RedirectToAction("Index");
+                return View(book);
             }
-            return View();
+            return View(book);//trả về view obj customer hiện tại để hiển thị thông tin sau edit, ko có sẽ bị lỗi null model khi update failed
         }
         //END UPDATE
 
         //DETAILS BOOK
         public async Task<IActionResult> BookDetails(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
         {
+            //check admin login
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
             HttpClient client = factory.CreateClient();
             //chuyển đối tượng customer thành chuỗi json để truyền đi
             client.BaseAddress = new Uri(BASE_URL);
