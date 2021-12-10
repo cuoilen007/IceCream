@@ -48,11 +48,19 @@
                                 @Html.DisplayFor(model => model.BookId)
                             </dd>
                             <dt class="col-sm-2">
-                                @Html.DisplayNameFor(model => model.CatId)
+                                @Html.DisplayName("Category")
                             </dt>
-                            <dd class="col-sm-10">
-                                @Html.DisplayFor(model => model.CatId)
-                            </dd>
+                            @* Category *@
+                        <dd class="col-sm-10">
+                            @if (Model.CatId == 1)
+                            {
+                                @:Ice Cream
+                            }
+                            else
+                            {
+                                @:Desert
+                            }
+                        </dd>
                             <dt class="col-sm-2">
                                 @Html.DisplayNameFor(model => model.Title)
                             </dt>
@@ -86,6 +94,7 @@
                             <dt class="col-sm-2">
                                 @Html.DisplayNameFor(model => model.Active)
                             </dt>
+                            @* Active *@
                             <dd class="col-sm-10">
                                 @if (Model.Active == true)
                                 {

@@ -82,6 +82,19 @@ namespace IceCreamClient.Areas.Admin.Controllers
         }
         //end create
 
+        //hàm GetBook để lấy data của obj book từ db theo id
+        public async Task<BookIceCream> GetBook(int id)
+        {
+            HttpClient client = factory.CreateClient();
+            //chuyển đối tượng customer thành chuỗi json để truyền đi
+            client.BaseAddress = new Uri(BASE_URL);
+            var response = await client.GetStringAsync($"/api/book/{id}");
+            var book = JsonConvert.DeserializeObject<BookIceCream>(response);
+            client.Dispose();
+            return book;
+        }
+        //end
+
         //Update book
         public async Task<IActionResult> UpdateBook(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
         {
@@ -94,15 +107,38 @@ namespace IceCreamClient.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdateBook(int bookId, BookIceCream book)
+        public async Task<IActionResult> UpdateBook(int bookId, BookIceCream book, IFormFile Image)
         {
             if (ModelState.IsValid)//tìm thấy
             {
                 HttpClient client = factory.CreateClient();
+
+                if (Image != null) //checking if upload new image
+                {
+                    //ADD IMAGE
+                    //upload file
+                    string filename = Image.FileName;
+
+                    //auto check and create folder
+                    var imagesFolder = Path.Combine(env.WebRootPath, "images/book");
+                    if (!Directory.Exists(imagesFolder))
+                    {
+                        Directory.CreateDirectory(imagesFolder);
+                    }
+
+                    var filePath = Path.Combine(imagesFolder, filename);
+                    var stream = new FileStream(filePath, FileMode.Create);
+                    await Image.CopyToAsync(stream);
+                    book.Image = filename;
+                }
+                else//no upload new image
+                {
+                    var oldImage = await GetBook(bookId);
+                    book.Image = oldImage.Image;
+                }
                 client.BaseAddress = new Uri(BASE_URL);
                 var json = JsonConvert.SerializeObject(book);
-                var stringContent = new StringContent(json, Encoding.UTF8,
-               "application/json");
+                var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 var respone = await client.PutAsync("/api/book", stringContent);
                 if (respone.IsSuccessStatusCode)
                 {

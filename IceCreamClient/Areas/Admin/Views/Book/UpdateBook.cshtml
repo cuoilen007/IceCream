@@ -42,7 +42,8 @@
                         <hr />
                         <div class="row">
                             <div class="col-md-4">
-                                <form asp-action="UpdateBook">
+                                @* Upload Image phải có enctype="multipart/form-data" *@
+                                <form asp-action="UpdateBook" enctype="multipart/form-data">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="form-group">
                                         <input type="hidden" asp-for="BookId" class="form-control" />
@@ -64,12 +65,12 @@
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Title" class="control-label"></label>
-                                        <input asp-for="Title" class="form-control" />
+                                        <input asp-for="Title" class="form-control" required />
                                         <span asp-validation-for="Title" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Author" class="control-label"></label>
-                                        <input asp-for="Author" class="form-control" />
+                                        <input asp-for="Author" class="form-control" required />
                                         <span asp-validation-for="Author" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
@@ -79,13 +80,19 @@
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Price" class="control-label"></label>
-                                        <input asp-for="Price" class="form-control" />
+                                        <input type="number" asp-for="Price" class="form-control" required />
                                         <span asp-validation-for="Price" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Image" class="control-label"></label>
-                                        <input asp-for="Image" class="form-control" />
-                                        <span asp-validation-for="Image" class="text-danger"></span>
+                                        @* hiển thị image cũ trong db trước khi update *@
+                                        @if (Model.Image != null)
+                                        {
+                                            <div>
+                                                <img src="~/images/book/@Model.Image" alt="picture" style="width: 100px; height: 100px;" />
+                                            </div>
+                                        }
+                                        <input type="file" asp-for="Image" name="Image" class="form-control" />
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Active" class="control-label"></label>
@@ -103,9 +110,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="CreateAt" class="control-label"></label>
-                                        <input asp-for="CreateAt" class="form-control" />
-                                        <span asp-validation-for="CreateAt" class="text-danger"></span>
+                                        <input type="hidden" asp-for="CreateAt" value="@Model.CreateAt" class="form-control" />
                                     </div>
                                     <div class="form-group">
                                         <input type="submit" value="Save" class="btn btn-primary" />
@@ -125,3 +130,15 @@
     </div>
 </div>
 <!-- main content area end -->
+
+@* CKEDITOR *@
+@section Scripts {
+    <script src="/Admin/Data/ckeditor/ckeditor.js"></script>
+    <script>
+
+        var editor = '';
+        $(document).ready(function () {
+            editor = CKEDITOR.replace('Description');
+        });
+    </script>
+}

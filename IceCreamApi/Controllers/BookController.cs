@@ -50,8 +50,8 @@ namespace IceCreamApi.Controllers
         }
         //END CREATE
 
-        //update Book
-        //lấy id theo EmpId dùng cho hàm update
+        //update, details Book
+        //lấy id theo bookId dùng cho hàm update
         [HttpGet("{id}")]
         public async Task<ActionResult<BookIceCream>> GetBook(int id)
         {
@@ -63,7 +63,7 @@ namespace IceCreamApi.Controllers
             return Ok(result); //tìm thấy mã 200->299, mã 300 redirect
         }
 
-        [HttpPut]//vì dùng method Put khác method update salary nên ko sợ trùng route
+        [HttpPut]//vì dùng method Put khác method update nên ko sợ trùng route
         public async Task<ActionResult> PutUpdateBook(BookIceCream book)//đặt put ở đầu để đảm bảo put
         {
             ctx.Entry(book).State = EntityState.Modified;
