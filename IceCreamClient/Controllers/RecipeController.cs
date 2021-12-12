@@ -22,7 +22,7 @@ namespace IceCreamClient.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var response = await _client.GetAsync("/api/recipe");
+            var response = await _client.GetAsync("/api/recipe/active");
             //if (response.IsSuccessStatusCode)
             //{
                 var data = await response.Content.ReadAsStringAsync();

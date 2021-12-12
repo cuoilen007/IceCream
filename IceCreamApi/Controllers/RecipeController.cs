@@ -31,10 +31,22 @@ namespace IceCreamApi.Controllers
             return NotFound();
         }
 
+
         [HttpGet("/api/recipe/{id}")]
         public async Task<ActionResult<Recipe>> findByID(int id)
         {
             var recipe = await _context.Recipes.SingleOrDefaultAsync(r => r.RecipeId == id);
+            if (recipe != null)
+            {
+                return Ok(recipe);
+            }
+            return NotFound();
+        }
+
+        [HttpGet("/api/recipe/active")]
+        public async Task<ActionResult<Recipe>> activeRecipeList()
+        {
+            var recipe = await _context.Recipes.Where(r => r.Status == true).ToListAsync();
             if (recipe != null)
             {
                 return Ok(recipe);

@@ -29,6 +29,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var response = await _client.GetAsync("/api/recipe");
             //if (response.IsSuccessStatusCode)
             //{
@@ -41,6 +45,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
 
         public async Task<IActionResult> Details(int RecipeId)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var response = await _client.GetAsync($"/api/recipe/{RecipeId}");
             //if (response.IsSuccessStatusCode)
             //{
@@ -59,6 +67,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Recipe recipe, IFormFile imageFile)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (imageFile != null)
             {
                 var filepath = Path.Combine("wwwroot/images/recipe/", imageFile.FileName);
@@ -88,6 +100,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
 
         public async Task<IActionResult> Edit(int RecipeId)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var response = await _client.GetAsync($"/api/recipe/{RecipeId}");
             if (response.IsSuccessStatusCode)
             {
@@ -102,6 +118,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(int RecipeId, Recipe recipe, IFormFile imageFile)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             if (imageFile != null)
             {
                 var filepath = Path.Combine("wwwroot/images/recipe/", imageFile.FileName);
@@ -131,6 +151,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
 
         public async Task<IActionResult> UpdateStatus(int RecipeId, bool status)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var content = new StringContent("", Encoding.UTF8, "application/json");
             var response = await _client.PutAsync($"/api/recipe/status/{RecipeId}/{status}", content);
             if (response.IsSuccessStatusCode)
@@ -144,6 +168,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
 
         public async Task<IActionResult> UpdatePayingStatus(int RecipeId, bool payingStatus)
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             var content = new StringContent("", Encoding.UTF8, "application/json");
             var response = await _client.PutAsync($"/api/recipe/payingRequired/{RecipeId}/{payingStatus}", content);
             if (response.IsSuccessStatusCode)

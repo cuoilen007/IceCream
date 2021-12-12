@@ -11,7 +11,7 @@
                     <h1>Recipe</h1>
                 </div>
                 <ul class="bread-crumb clearfix">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a asp-action="Index" asp-controller="Home">Home</a></li>
                     <li>Recipe</li>
                 </ul>
             </div>
@@ -36,7 +36,7 @@
                                     <li><a asp-action="Details" asp-route-RecipeId="@item.RecipeId">@item.CreatedBy</a></li>
                                 </ul>
                                 <h3><a asp-action="Details" asp-route-RecipeId="@item.RecipeId">@item.Title</a></h3>
-                                <p>@item.Description</p>
+                                <p style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">@item.Description</p>
                                 <div class="btn-box"><a asp-action="Details" asp-route-RecipeId="@item.RecipeId" class="theme-btn-two">Read More</a></div>
                             </div>
                         </div>

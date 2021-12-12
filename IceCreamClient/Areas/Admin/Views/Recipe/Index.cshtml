@@ -36,15 +36,7 @@
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <h4 class="header-title">Recipe List</h4>
-                        </div>
-                        <div class="col-sm-6">
-                            <h4 class="header-title" style="float: right;"><a asp-action="Create" style="color: black;">Create</a></h4>
-                        </div>                      
-                    </div>
-                    
+                    <h4 class="header-title">Recipe List</h4>                    
                     @if (TempData["Error"] != null)
                     {
                         <div>
