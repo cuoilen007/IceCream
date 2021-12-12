@@ -1,4 +1,23 @@
-﻿
+﻿@model IceCreamClient.Models.BookOrder
+@using Newtonsoft.Json.Linq
+@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    string json = HttpContextAccessor.HttpContext.Session.GetString("cart");
+    List<Cart> listCart = new List<Cart>();
+    double? total_money = 0;
+    if (json != null)
+    {
+        JArray jsonResponse = JArray.Parse(json);
+
+        foreach (var item in jsonResponse)
+        {
+            JObject cartResult = (JObject)item;
+            listCart.Add(JsonConvert.DeserializeObject<Cart>(cartResult.ToString()));
+        }
+    }
+}
 @{
     ViewData["Title"] = "Index";
 }
@@ -21,7 +40,7 @@
         <!-- checkout-section -->
         <section class="checkout-section">
             <div class="container">
-                <form action="#" method="post" class="billing-form" id="CheckoutForm">
+                <form asp-controller="Checkout" asp-action="Checkout" method="post" class="billing-form" id="CheckoutForm">
                 <div class="row">
                     <div class="col-lg-6 col-md-12 col-sm-12 left-column">
                         <div class="inner-box">
@@ -31,25 +50,29 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                             <label>Full Name*</label>
                                             <div class="field-input">
-                                                <input type="text" name="first_name">
+                                                <input asp-for="Fullname">
+                                                <span asp-validation-for="Fullname" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                             <label>Email Address*</label>
                                             <div class="field-input">
-                                                <input type="email" name="email">
+                                                <input asp-for="Email">
+                                                <span asp-validation-for="Email" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                             <label>Phone Number*</label>
                                             <div class="field-input">
-                                                <input type="text" name="phone">
+                                                <input asp-for="Phone">
+                                                <span asp-validation-for="Phone" class="text-danger"></span>
                                             </div>
                                         </div>
                                         <div class="col-lg-12 col-md-12 col-sm-12 form-group">
                                             <label>Address*</label>
                                             <div class="field-input">
-                                                <input type="text" name="address">
+                                                <input asp-for="Address">
+                                                <span asp-validation-for="Address" class="text-danger"></span>
                                             </div>
                                         </div>                                      
                                     </div>
@@ -64,15 +87,26 @@
                                     <ul class="order-list clearfix">
                                         <li class="title clearfix">
                                             <p>Product</p>
-                                            <span>Total</span>
+                                            <span>Quantity</span>
                                         </li>
+                                        @if(listCart.Count > 0)
+                                        {
+                                            foreach(Cart cart in listCart){
+                                            total_money += cart.Price * cart.Quantity;
                                         <li>
                                             <div class="single-box clearfix">
-                                                <img src="assets/images/resource/shop/order-1.jpg" alt="">
-                                                <h6>Vanilla Ice Cream x 1</h6>
-                                                <span>$35.00</span>
+                                                <img src="~/images/book/@cart.BookIceCream.Image" alt="">
+                                                <h6>@cart.BookIceCream.Title</h6>
+                                                <span>@cart.Quantity</span>
                                             </div>
-                                        </li>                                       
+                                        </li>        
+                                            }
+                                        <li class="title clearfix">
+                                            <p>Total</p>
+                                            <span>$@total_money</span>
+                                        </li>
+                                        }
+                                                                       
                                     </ul>
                                 </div>
                             </div>
@@ -102,7 +136,7 @@
       return actions.order.create({
         purchase_units: [{
           amount: {
-            value: 30
+            value: @{@total_money}
           }
         }]
       });

@@ -29,6 +29,33 @@
 </head>
 <!-- page wrapper -->
 <body>
+@using Newtonsoft.Json.Linq
+@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    string json = HttpContextAccessor.HttpContext.Session.GetString("cart");
+    //string json_user_detail = HttpContextAccessor.HttpContext.Session.GetString("user_detail");
+    List<Cart> listCart = new List<Cart>();
+    //Member user = null;
+    if (json != null)
+    {
+        JArray jsonResponse = JArray.Parse(json);
+
+        foreach (var item in jsonResponse)
+        {
+            JObject cartResult = (JObject)item;
+            listCart.Add(JsonConvert.DeserializeObject<Cart>(cartResult.ToString()));
+        }
+    }
+
+    //if (json_user_detail != null)
+    //{
+    //    JObject jsonResponse = JObject.Parse(json_user_detail);
+    //    user = JsonConvert.DeserializeObject<Member>(json_user_detail.ToString());
+    //}
+
+}
 
     <div class="boxed_wrapper">
         <!-- preloader -->

@@ -2,7 +2,25 @@
 @{
     ViewData["Title"] = "Cart";
 }
+@using Newtonsoft.Json.Linq
+@using Newtonsoft.Json
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    string json = HttpContextAccessor.HttpContext.Session.GetString("cart");
+    List<Cart> listCart = new List<Cart>();
+    double? total_money = 0;
+    if (json != null)
+    {
+        JArray jsonResponse = JArray.Parse(json);
 
+        foreach (var item in jsonResponse)
+        {
+            JObject cartResult = (JObject)item;
+            listCart.Add(JsonConvert.DeserializeObject<Cart>(cartResult.ToString()));
+        }
+    }
+}
  <!--Page Title-->
         <section class="page-title centred" style="background-image: url(/assets/images/background/page-title.jpg);">
             <div class="auto-container">
@@ -36,34 +54,42 @@
                                     </tr>    
                                 </thead>
                                 <tbody>
+                                @if (listCart.Count > 0)
+                                {
+                                    @foreach(Cart cart in listCart){
+                                    total_money += cart.Price * cart.Quantity;  
+                                    double? sub = cart.Price * cart.Quantity; 
                                     <tr>
                                         <td colspan="4" class="prod-column">
                                             <div class="column-box">
-                                                <form asp-controller="Cart" asp-action="AddToCart">
+                                                <form asp-controller="Cart" asp-action="AddToCart" method="get">
                                                 <div class="remove-btn">
-                                                    <input name="Id" hidden/>
-                                                    <input name="Quantity" hidden/>
-                                                    <button type="submit" value="delete"><i class="fal fa-times"></i></button>                                                  
+                                                    <input name="Id" value="@cart.BookIceCream.BookId"hidden/>
+                                                    <input name="Quantity" value="@cart.Quantity" hidden/>
+                                                    <input name="button" value="delete" hidden>
+                                                    <button type="submit"><i class="fal fa-times"></i></button>                                                  
                                                 </div>
                                                 </form>
                                                 <div class="prod-thumb">
-                                                    <a href="cart"><img src="~/assets/images/resource/shop/cart-1.jpg" alt=""></a>
+                                                    <a href="cart"><img src="~/images/book/@cart.BookIceCream.Image" alt=""></a>
                                                 </div>
                                                 <div class="prod-title">
-                                                    Vanilla Ice Cream
+                                                    @cart.BookIceCream.Title
                                                 </div>    
                                             </div>
                                         </td>
-                                        <td class="price">$100.00</td>
+                                        <td class="price">$@cart.Price</td>
                                         <td class="qty">
-                                            @*bo class quantity-spiner di*@
                                             <div class="item-quantity">
                                                 <form asp-controller="Cart" asp-action="AddToCart">
-                                                <input class="quantity-spinner" type="number" value="1" name="quantity" min=1>
+                                                <input @*class="quantity-spinner"*@ type="number" value="1" name="quantity" min=1>
                                                 </form>
                                             </div>
                                         </td>
-                                        <td class="sub-total">$50.00</td>                                 
+                                        <td class="sub-total">$@sub</td>   
+                                    </tr>
+                                    }
+                                }
                                 </tbody>    
                             </table>
                         </div>
@@ -75,10 +101,9 @@
                             <div class="total-cart-box clearfix">
                                 <h4>Cart Totals</h4>
                                 <ul class="list clearfix">
-                                    <li>Subtotal:<span>$150</span></li>
-                                    <li>Order Total:<span>$150</span></li>
+                                    <li>Order Total:<span>$@total_money</span></li>
                                 </ul>
-                                <a href="cart.html" class="theme-btn-one">Proceed to Checkout</a>
+                                <a asp-action="Index" asp-controller="Checkout" class="theme-btn-one">Proceed to Checkout</a>
                             </div>
                         </div>
                     </div>
