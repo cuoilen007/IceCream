@@ -40,13 +40,9 @@
                             </div>
                             <div class="widget-content">
                                 <ul class="categories-list clearfix">
-                                    <li><a href="blog-details.html">Coffee</a></li>
-                                    <li><a href="blog-details.html">Pastry Cake</a></li>
-                                    <li><a href="blog-details.html">Birthday Cake</a></li>
-                                    <li><a href="blog-details.html">Sandwiches</a></li>
-                                    <li><a href="blog-details.html">Donuts Cake</a></li>
-                                    <li><a href="blog-details.html">Bargar</a></li>
-                                    <li><a href="blog-details.html">Ice Cream</a></li>
+                                    <li><a href="@Url.ActionLink("ShowBooks", "Book")">All</a></li>
+                                    <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = 1 })">Ice Cream</a></li>
+                                    <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = 2 })">Desert</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -104,6 +100,7 @@
                             @* ShowBooks *@
                             @foreach (var item in Model)
                             {
+<<<<<<< Updated upstream
                                 <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
                                     <div class="shop-block-one">
                                         <div class="inner-box">
@@ -139,11 +136,44 @@
                                                     </form>
 
                                                     @*<a href="shop-details.html" class="theme-btn-two">Add to cart</a>*@
+=======
+                                @if (item.Active == true)
+                                {
+                                    //show all
+                                    <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                                        <div class="shop-block-one">
+                                            <div class="inner-box">
+                                                <figure class="image-box">
+                                                    @if (item.Image != null)
+                                                    {
+                                                        <img src="~/images/book/@item.Image" alt="no image" />
+                                                    }
+                                                    else
+                                                    {
+                                                        @: No Image
+                                                    }
+                                                </figure>
+                                                <div class="lower-content">
+                                                    <span class="price-box">$100</span>
+                                                    <h3>
+                                                        <a href="@Url.ActionLink("BookDetails", "Book", new { bookId = item.BookId })">
+                                                            @Html.DisplayFor(modelItem => item.Title)
+                                                        </a>
+                                                    </h3>
+                                                    <ul class="rating clearfix">
+                                                        <li><i class="icon-Star"></i></li>
+                                                        <li><i class="icon-Star"></i></li>
+                                                        <li><i class="icon-Star"></i></li>
+                                                        <li><i class="icon-Star"></i></li>
+                                                        <li><i class="icon-Star"></i></li>
+                                                    </ul>
+                                                    <div class="cart-btn"><a href="shop-details.html" class="theme-btn-two">Add to cart</a></div>
+>>>>>>> Stashed changes
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             }
                             @* End ShowBooks *@
                         </div>
