@@ -106,5 +106,17 @@ namespace IceCreamApi.Controllers
                 return false;
             }
         }
+
+        //Related Book
+        [HttpGet("relatedBook/{number}")]
+        public async Task<ActionResult<List<Recipe>>> findLatestRecipe(int number)
+        {
+            var book = await ctx.BookIceCreams.OrderByDescending(b => b.BookId).Take(number).ToListAsync();
+            if (book != null)
+            {
+                return Ok(book);
+            }
+            return NotFound();
+        }
     }
 }

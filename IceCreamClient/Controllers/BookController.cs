@@ -54,8 +54,15 @@ namespace IceCreamClient.Controllers
             client.BaseAddress = new Uri(BASE_URL);
             var response = await client.GetStringAsync($"/api/book/{bookId}");
             var book = JsonConvert.DeserializeObject<BookIceCream>(response);
+            ViewData["Details"] = book;
+
+            //show relate book
+            var responseRelate = await client.GetStringAsync($"/api/book/relatedBook/5");
+            var relateBook = JsonConvert.DeserializeObject<List<BookIceCream>>(responseRelate);
+            ViewData["RelateBook"] = relateBook;
+
             client.Dispose();
-            return View(book);
+            return View();
         }
     }
 }
