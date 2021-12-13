@@ -34,14 +34,18 @@ namespace IceCreamClient.Controllers
 
         public async Task<IActionResult> Details(int RecipeId)
         {
-            var response = await _client.GetAsync($"/api/recipe/{RecipeId}");
-            //if (response.IsSuccessStatusCode)
-            //{
-                var data = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<Recipe>(data);
-                return View(result);
-            //}
-            //return RedirectToAction("ErrorPage");
+            var responseDetails = await _client.GetAsync($"/api/recipe/{RecipeId}");
+            var detailsData = await responseDetails.Content.ReadAsStringAsync();
+            var details = JsonConvert.DeserializeObject<Recipe>(detailsData);
+
+            var responseLatest = await _client.GetAsync("/api/recipe/latest/3");
+            var latestData = await responseLatest.Content.ReadAsStringAsync();
+            var latest = JsonConvert.DeserializeObject<List<Recipe>>(latestData);
+
+            ViewData["Details"] = details;
+            ViewData["Latest"] = latest;
+
+            return View();
         }
     }
 }

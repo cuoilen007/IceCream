@@ -43,6 +43,17 @@ namespace IceCreamApi.Controllers
             return NotFound();
         }
 
+        [HttpGet("/api/recipe/latest/{number}")]
+        public async Task<ActionResult<List<Recipe>>> findLatestRecipe(int number)
+        {
+            var recipe = await _context.Recipes.OrderByDescending(r => r.RecipeId).Take(number).ToListAsync();
+            if (recipe != null)
+            {
+                return Ok(recipe);
+            }
+            return NotFound();
+        }
+
         [HttpGet("/api/recipe/active")]
         public async Task<ActionResult<Recipe>> activeRecipeList()
         {

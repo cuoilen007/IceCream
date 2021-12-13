@@ -61,6 +61,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
 
         public IActionResult Create()
         {
+            if (HttpContext.Session.GetString("adname") == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
             return View();
         }
 
