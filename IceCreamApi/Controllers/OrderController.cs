@@ -67,18 +67,17 @@ namespace IceCreamApi.Controllers
             return Ok(neworder.Id);
         }
 
-        [HttpGet("Detail/{details}/{orderId}")]
-        public async Task<IActionResult> AddDetail(List<BookOrderDetail> details, int orderId)
+        [HttpPost("Detail")]
+        public async Task<IActionResult> AddDetail(List<BookOrderDetail> details)
         {
-            if (details == null || orderId == 0)
+            if (details == null)
             {
                 return NotFound();
             }
-            var neworder = await db.BookOrders.FirstOrDefaultAsync(o => o.Id == orderId);
             foreach (var detail in details)
             {
-                detail.BookOrderId = neworder.Id;
                 db.BookOrderDetails.Add(detail);
+                await db.SaveChangesAsync();
             }
             return Ok();
         }

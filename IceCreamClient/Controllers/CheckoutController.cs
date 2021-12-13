@@ -42,7 +42,12 @@ namespace IceCreamClient.Controllers
                 {
                     JObject cartResult = (JObject)item;
                     listCart.Add(JsonConvert.DeserializeObject<Cart>(cartResult.ToString()));
-                }               
+                }
+                foreach (Cart cart in listCart)
+                {
+                    total_money += cart.Quantity * cart.Price;
+                }
+                order.TotalPrice = Convert.ToInt32(total_money);
             }
             
 
@@ -73,9 +78,11 @@ namespace IceCreamClient.Controllers
                         order.TotalPrice = Convert.ToInt32(total_money);
                     }
 
-                    var result2 = await client.GetAsync(API_URl + $"/api/Order/Detail/{details}/{id}");
+                    var detailsJSON = JsonConvert.SerializeObject(details);
+                    var stringContent2 = new StringContent(detailsJSON, Encoding.UTF8, "application/json");
+                    var result2 = await client.PostAsync(API_URl + $"/api/Order/Detail",stringContent2);
                     client.Dispose();
-                    if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
+                    if (result2.IsSuccessStatusCode && result2.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         return RedirectToAction("Index","Home");
                     }     
