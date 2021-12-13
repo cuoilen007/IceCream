@@ -186,5 +186,20 @@ namespace IceCreamClient.Areas.Admin.Controllers
             client.Dispose();
             return View(book);
         }
+
+        //update status active
+        public async Task<IActionResult> UpdateStatus(int bookId, bool status)
+        {
+            HttpClient client = factory.CreateClient();
+            client.BaseAddress = new Uri(BASE_URL);
+            var stringContent = new StringContent("", Encoding.UTF8, "application/json");
+            var result = await client.PostAsync($"/api/book/status/{bookId}/{status}", stringContent);
+            if (result.IsSuccessStatusCode)
+            {
+                ViewData["success"] = "Updated Book successful.";
+            }
+            return RedirectToAction("ShowBooks");
+        }
+        //end update status
     }
 }

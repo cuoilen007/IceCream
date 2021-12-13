@@ -28,8 +28,21 @@ namespace IceCreamClient.Controllers
             //cần kiểm tra return code => để xem có dữ liệu hay ko? :tự làm
             var data = await result.Content.ReadAsStringAsync();
             var books = JsonConvert.DeserializeObject<List<BookIceCream>>(data);
+            ViewData["ListBook"] = books;
             client.Dispose();
-            return View(books);//trả về view obj book hiện tại để hiển thị thông tin book, ko có sẽ bị lỗi null model khi show list bên ShowEmps.cshtml
+            return View(books);//trả về view obj book hiện tại để hiển thị thông tin book, ko có sẽ bị lỗi null model khi show list bên ShowBooks.cshtml
+        }
+        //end view book
+
+        //view book by category
+        public async Task<IActionResult> ShowBookByCategory(int CatId)
+        {
+            HttpClient client = factory.CreateClient();
+            var result = await client.GetStringAsync(BASE_URL + $"/api/book/category/{CatId}");//GetStringAsync ko cần ReadAsStringAsync()
+            var book = JsonConvert.DeserializeObject<List<BookIceCream>>(result);
+
+            client.Dispose();
+            return View(book);
         }
         //end view book
 

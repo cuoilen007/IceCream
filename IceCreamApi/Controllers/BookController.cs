@@ -36,6 +36,19 @@ namespace IceCreamApi.Controllers
         }
         //END VIEW
 
+        //VIEW BOOK BY CATEGORY
+        [HttpGet("category/{CatId}")] //fix lỗi swagger
+        public async Task<ActionResult<List<BookIceCream>>> GetBooksByCate(int CatId)
+        {
+            var result = await ctx.BookIceCreams.Where(c => c.CatId == CatId).ToListAsync();
+            if (result == null)
+            {
+                return NotFound();//mã 404
+            }
+            return Ok(result);//tìm thấy mã 200->299, mã 300 redirect
+        }
+        //END VIEW
+
         //CREATE
         //post create
         [HttpPost] //fix lỗi swagger
@@ -72,5 +85,26 @@ namespace IceCreamApi.Controllers
             return NoContent();
         }
         //end update
+
+        //update active status
+        [HttpPost("status/{bookId}/{status}")]// dùng post thì bên kia phải là PostAsync
+        public async Task<bool> GetStatusBook(int bookId, bool status)
+        {
+            var result = await ctx.BookIceCreams.SingleOrDefaultAsync(c => c.BookId == bookId);
+            if (result == null)
+            {
+                return false; //mã 404
+            }
+            result.Active = status;
+            try
+            {
+                return (await ctx.SaveChangesAsync() > 0);//có record
+            }
+            catch
+            {
+
+                return false;
+            }
+        }
     }
 }

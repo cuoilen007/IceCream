@@ -16,17 +16,6 @@
                 </ul>
             </div>
         </div>
-        <div class="col-sm-6 clearfix">
-            <div class="user-profile pull-right">
-                <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
-                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Message</a>
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Log Out</a>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <!-- page title area end -->
@@ -50,8 +39,8 @@
                                 <form asp-action="CreateBook" enctype="multipart/form-data">
                                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                     <div class="form-group">
-                                        <label class="col-form-label">Category</label>
-                                        <select asp-for="CatId" class="form-control">
+                                        <label asp-for="CatId" class="control-label">Category</label>
+                                        <select asp-for="CatId" class="form-control" style="height:fit-content">
                                             <option value="1" selected>Ice Cream</option>
                                             <option value="2">Dessert</option>
                                         </select>
@@ -83,7 +72,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Active" class="control-label"></label>
-                                        <select asp-for="Active" class="form-control">
+                                        <select asp-for="Active" class="form-control" style="height:fit-content">
                                             <option value="true" selected>Yes</option>
                                             <option value="false">No</option>
                                         </select>

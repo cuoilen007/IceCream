@@ -16,17 +16,6 @@
                 </ul>
             </div>
         </div>
-        <div class="col-sm-6 clearfix">
-            <div class="user-profile pull-right">
-                <img class="avatar user-thumb" src="assets/images/author/avatar.png" alt="avatar">
-                <h4 class="user-name dropdown-toggle" data-toggle="dropdown">Kumkum Rai <i class="fa fa-angle-down"></i></h4>
-                <div class="dropdown-menu">
-                    <a class="dropdown-item" href="#">Message</a>
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Log Out</a>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 <!-- page title area end -->
@@ -55,7 +44,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="CatId" class="control-label"></label>
-                                        <select asp-for="CatId" class="form-control">
+                                        <select asp-for="CatId" class="form-control" style="height:fit-content">
                                             @if (Model.CatId == 1)
                                             {
                                                 <option value="1" selected>Ice Cream</option>
@@ -89,19 +78,21 @@
                                         <span asp-validation-for="Price" class="text-danger"></span>
                                     </div>
                                     <div class="form-group">
-                                        <label asp-for="Image" class="control-label"></label>
                                         @* hiển thị image cũ trong db trước khi update *@
                                         @if (Model.Image != null)
                                         {
+                                            <p>Old Image</p>
                                             <div>
                                                 <img src="~/images/book/@Model.Image" alt="picture" style="width: 100px; height: 100px;" />
                                             </div>
+                                            <hr />
                                         }
+                                        <label asp-for="Image" class="control-label">New Image</label>
                                         <input type="file" asp-for="Image" name="Image" class="form-control" />
                                     </div>
                                     <div class="form-group">
                                         <label asp-for="Active" class="control-label"></label>
-                                        <select asp-for="Active" class="form-control">
+                                        <select asp-for="Active" class="form-control" style="height:fit-content">
                                             @if (Model.Active == true)
                                             {
                                                 <option value="true" selected>Yes</option>
