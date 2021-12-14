@@ -90,5 +90,40 @@ namespace IceCreamClient.Controllers
             }
             return View("Index");
         }
+
+        public IActionResult CheckOrder()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CheckOrder(string phone)
+        {
+
+            HttpClient client = _factory.CreateClient();
+            var resultID = await client.GetAsync(API_URl + $"/api/Order/Phone/{phone}");
+            if (resultID.IsSuccessStatusCode && resultID.StatusCode == System.Net.HttpStatusCode.OK)
+            {
+                var dataID = await resultID.Content.ReadAsStringAsync();
+                int id = JsonConvert.DeserializeObject<int>(dataID);
+
+                var result = await client.GetAsync(API_URl + $"/api/Order/GetOrder/{id}");
+                var data = await result.Content.ReadAsStringAsync();
+                var order = JsonConvert.DeserializeObject<BookOrder>(data);
+                ViewBag.Order = order;
+
+                var result2 = await client.GetAsync(API_URl + $"/api/Order/OrderDetail/{id}");
+                var data2 = await result2.Content.ReadAsStringAsync();
+                var details = JsonConvert.DeserializeObject<List<BookOrderDetail>>(data2);
+                ViewBag.Details = details;
+                client.Dispose();
+                return View();
+            }
+            else
+            {
+                ViewBag["Error"] = "The phone is not exist";
+                return View();
+            }
+        }
     }
 }

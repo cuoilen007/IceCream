@@ -96,5 +96,16 @@ namespace IceCreamApi.Controllers
             await db.SaveChangesAsync();
             return Ok(foundOrder);
         }
+
+        [HttpGet("Phone/{phone}")]
+        public async Task<IActionResult> DetailByPHone(string phone)
+        {
+            var foundOrder = await db.BookOrders.SingleOrDefaultAsync(m => m.Phone == phone);
+            if (foundOrder == null)
+            {
+                return NotFound();
+            }
+            return Ok(foundOrder.Id);
+        }
     }
 }
