@@ -18,13 +18,11 @@ namespace IceCreamClient.Areas.Admin.Controllers
     {
         const String BASE_URL = "http://localhost:47255";
         HttpClient _client;
-        IWebHostEnvironment env;
 
-        public RecipeController(HttpClient client, IWebHostEnvironment env)
+        public RecipeController(HttpClient client)
         {
             _client = client;
             _client.BaseAddress = new Uri(BASE_URL);
-            this.env = env;
         }
 
         public async Task<IActionResult> Index()
@@ -38,6 +36,8 @@ namespace IceCreamClient.Areas.Admin.Controllers
             //{
                 var data = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<List<Recipe>>(data);
+
+            _client.Dispose();
                 return View(result);
             //}
             //return RedirectToAction("ErrorPage");
@@ -54,7 +54,9 @@ namespace IceCreamClient.Areas.Admin.Controllers
             //{
                 var data = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<Recipe>(data);
-                return View(result);
+
+            _client.Dispose();
+            return View(result);
             //}
             //return RedirectToAction("ErrorPage");
         }
@@ -99,6 +101,8 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 }
             }
             TempData["Error"] = "Input error !";
+
+            _client.Dispose();
             return View();
         }
 
@@ -116,6 +120,8 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 return View(result);
             }
             TempData["Error"] = "Server error. Cannot fetch data !";
+
+            _client.Dispose();
             return RedirectToAction("Index");
         }
 
@@ -150,6 +156,8 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 }
             }
             TempData["Error"] = "Input error !";
+
+            _client.Dispose();
             return RedirectToAction("Edit");
         }
 
@@ -167,6 +175,8 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             TempData["Error"] = "Input error !";
+
+            _client.Dispose();
             return RedirectToAction("Index"); ;
         }
 
@@ -184,6 +194,8 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 return RedirectToAction("Index");
             }
             TempData["Error"] = "Input error !";
+
+            _client.Dispose();
             return RedirectToAction("Index");
         }
     }

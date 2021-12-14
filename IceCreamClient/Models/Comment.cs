@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-#nullable disable
-
-namespace IceCreamApi.Models
+namespace IceCreamClient.Models
 {
-    public partial class Comment
+    public class Comment
     {
         public int Id { get; set; }
         public string Content { get; set; }

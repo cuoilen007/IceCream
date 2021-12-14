@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace IceCreamClient.Controllers
@@ -27,7 +28,9 @@ namespace IceCreamClient.Controllers
             //{
                 var data = await response.Content.ReadAsStringAsync();
                 var result = JsonConvert.DeserializeObject<List<Recipe>>(data);
-                return View(result);
+
+            _client.Dispose();
+            return View(result);
             //}
             //return RedirectToAction("ErrorPage");
         }
@@ -42,10 +45,39 @@ namespace IceCreamClient.Controllers
             var latestData = await responseLatest.Content.ReadAsStringAsync();
             var latest = JsonConvert.DeserializeObject<List<Recipe>>(latestData);
 
+            var responseComment = await _client.GetAsync($"/api/comment/byRecipe/{RecipeId}");
+            var commentData = await responseComment.Content.ReadAsStringAsync();
+            var comment = JsonConvert.DeserializeObject<List<Comment>>(commentData);
+
+            _client.Dispose();
+
             ViewData["Details"] = details;
             ViewData["Latest"] = latest;
+            ViewData["Comment"] = comment;
 
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Comment(Comment comment)
+        {
+            comment.isReplied = false;
+            //comment.EmailUser = ;
+            //comment.NameUser = ;
+
+            var json = JsonConvert.SerializeObject(comment);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _client.PostAsync("/api/comment", content);
+
+            _client.Dispose();
+            if (response.IsSuccessStatusCode)
+            {
+                TempData["Success"] = "Comment success";
+                return RedirectToAction("Details");
+            }
+
+            TempData["Error"] = "Comment error !";
+            return RedirectToAction("Details");
         }
     }
 }
