@@ -26,7 +26,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            return View();
+            return RedirectToAction("Index", "Recipe");
         }
         public IActionResult Login()
         {
@@ -104,7 +104,8 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult Logout()
         {
-            HttpContext.Session.Clear();
+            HttpContext.Session.Remove("adname");
+            HttpContext.Session.Remove("id_ad");
             return RedirectToAction("Login");
         }
 

@@ -1,4 +1,5 @@
 ﻿using IceCreamClient.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;
@@ -33,8 +34,13 @@ namespace IceCreamClient.Controllers
                 {
                     var data = await result.Content.ReadAsStringAsync();
                     var member = JsonConvert.DeserializeObject<Member>(data);
+                    HttpContext.Session.SetString("user_detail", JsonConvert.SerializeObject(member));
                     client.Dispose();
                     return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    ViewData["errorLogin"] = "wrong username or password";
                 }
             }
             return View();
@@ -64,7 +70,6 @@ namespace IceCreamClient.Controllers
         }
         [HttpGet]
         public async Task<IActionResult> Detail(string id)
-
         {
             HttpClient client = _factory.CreateClient();
             var result = await client.GetAsync(API_URl + $"/api/Member/Detail/{id}");
@@ -93,7 +98,7 @@ namespace IceCreamClient.Controllers
                 client.Dispose();
                 return View(member);
             }
-            return NoContent();
+            return View("Error", "Home");
         }
 
         [HttpPost]
@@ -106,10 +111,16 @@ namespace IceCreamClient.Controllers
             client.Dispose();
             if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                client.Dispose();
-                return View("Detail", member.Id.ToString());
+                var data = await result.Content.ReadAsStringAsync();
+                var mem = JsonConvert.DeserializeObject<Member>(data);
+                return View("Detail",mem);
             }
-            return NoContent();
+            else
+            {
+                return View("Error", "Home");
+            }
+                        
+            return View();
         }
 
         [HttpGet]
@@ -141,21 +152,26 @@ namespace IceCreamClient.Controllers
                 if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     client.Dispose();
-                    ViewData["ChangePassSuccess"] = "Change password successfully";
+                    TempData["ChangePassSuccess"] = "Change password successfully";
                     return RedirectToAction("ChangePassword", "Member", id);
                 }
                 else
                 {
-                    ViewData["ChangePassError"] = "Old Password doesn't correct";
+                    TempData["ChangePassError"] = "Old Password doesn't correct";
                     return RedirectToAction("ChangePassword", "Member", id);
                 }
             }
             else
             {
-                ViewData["ChangePassError"] = "New Password must match to each other";
+                TempData["ChangePassError"] = "New Password must match to each other";
                 return RedirectToAction("ChangePassword", "Member", id);
             }
 
+        }
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Remove("user_detail");
+            return View("Index","Home");
         }
     }
 }

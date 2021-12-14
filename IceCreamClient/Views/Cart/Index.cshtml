@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Cart";
 }
 @using Newtonsoft.Json.Linq
@@ -64,8 +63,8 @@
                                             <div class="column-box">
                                                 <form asp-controller="Cart" asp-action="AddToCart" method="get">
                                                 <div class="remove-btn">
-                                                    <input name="Id" value="@cart.BookIceCream.BookId"hidden/>
-                                                    <input name="Quantity" value="@cart.Quantity" hidden/>
+                                                    <input name="id" value="@cart.BookIceCream.BookId"hidden/>
+                                                    <input name="quantity" value="@cart.Quantity" hidden/>
                                                     <input name="button" value="delete" hidden>
                                                     <button type="submit"><i class="fal fa-times"></i></button>                                                  
                                                 </div>
@@ -81,8 +80,10 @@
                                         <td class="price">$@cart.Price</td>
                                         <td class="qty">
                                             <div class="item-quantity">
-                                                <form asp-controller="Cart" asp-action="AddToCart">
-                                                <input @*class="quantity-spinner"*@ type="number" value="1" name="quantity" min=1>
+                                                <form asp-controller="Cart" asp-action="AddToCart" method="get">
+                                                <input name="id" value="@cart.BookIceCream.BookId" hidden/>
+                                                <input class="quantity-spinner" type="number" value="@cart.Quantity" name="quantity" min=1>
+                                                <input type="submit" value="Update">
                                                 </form>
                                             </div>
                                         </td>

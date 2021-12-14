@@ -15,9 +15,9 @@ namespace IceCreamApi.Controllers
         projectContext db = new projectContext();
 
         [HttpGet("AllOrder")]
-        public async Task<ActionResult> ViewAll(int id)
+        public async Task<ActionResult> ViewAll()
         {
-            var foundOrders = await db.BookOrders.ToListAsync();
+            var foundOrders = await db.BookOrders.OrderByDescending(c => c.Id).ToListAsync();
 
             if (foundOrders == null)
             {
@@ -29,7 +29,7 @@ namespace IceCreamApi.Controllers
         [HttpGet("GetOrder/{id}")]
         public async Task<ActionResult> GetOrder(int id)
         {
-            var foundOrder = await db.BookOrders.Where(o => o.Id==id).SingleOrDefaultAsync();
+            var foundOrder = await db.BookOrders.Where(o => o.Id == id).SingleOrDefaultAsync();
 
             if (foundOrder == null)
             {
@@ -42,14 +42,26 @@ namespace IceCreamApi.Controllers
         [HttpGet("OrderDetail/{id}")]
         public async Task<ActionResult> ViewAllDetail(int id)
         {
-            var foundDetails = await db.BookOrderDetails.Where(o=>o.BookOrderId==id).ToListAsync();
+            var foundDetails = await db.BookOrderDetails.Where(o => o.BookOrderId == id).ToListAsync();
 
             if (foundDetails == null)
             {
                 return NotFound();
             }
-
-            return Ok(foundDetails);
+            List<OrderDetailService> detailServices = new List<OrderDetailService>();
+            foreach (BookOrderDetail detail in foundDetails)
+            {
+                BookIceCream book = await db.BookIceCreams.SingleOrDefaultAsync(c => c.BookId == detail.BookId);
+                OrderDetailService orderDetailService = new OrderDetailService();
+                orderDetailService.BookIceCream = book;
+                orderDetailService.Id = detail.Id;
+                orderDetailService.Quantity = detail.Quantity;
+                orderDetailService.Price = detail.Price;
+                orderDetailService.BookOrderId = detail.BookOrderId;
+                orderDetailService.BookOrderId = detail.BookOrderId;
+                detailServices.Add(orderDetailService);                
+            }
+            return Ok(detailServices);
         }
 
 
@@ -100,7 +112,7 @@ namespace IceCreamApi.Controllers
         [HttpGet("Phone/{phone}")]
         public async Task<IActionResult> DetailByPHone(string phone)
         {
-            var foundOrder = await db.BookOrders.SingleOrDefaultAsync(m => m.Phone == phone);
+            var foundOrder = await db.BookOrders.Where(m => m.Phone == phone).OrderByDescending(c=>c.Id).FirstOrDefaultAsync();
             if (foundOrder == null)
             {
                 return NotFound();

@@ -1,6 +1,6 @@
-﻿namespace IceCreamClient.Models
+﻿namespace IceCreamApi.Models
 {
-    public class BookOrderDetail
+    public class OrderDetailService
     {
         public int Id { get; set; }
         public int? BookOrderId { get; set; }

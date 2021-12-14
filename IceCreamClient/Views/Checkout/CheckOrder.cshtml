@@ -27,6 +27,9 @@
                         <div class="contact-info-inner">
                             <div class="single-box">
                                 <form asp-action="CheckOrder" asp-controller="Checkout">
+                                    @if(ViewData["Error"] != null){
+                                    <div>@ViewData["Error"]</div>
+                                    }
                                     <div class="form-group">
                                         <label>Input your phone</label>
                                         <input class="form-control" placeholder="Your phone *" name="phone"/>
@@ -88,15 +91,15 @@
                             <table>
                                 <thead>
                                     <tr>
-                                         <th>BookId</th>
+                                         <th>Book Title</th>
                                          <th>Price</th>
                                          <th>Quantity</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(BookOrderDetail detail in ViewBag.Details){
+                                    @foreach(var detail in ViewBag.Details){
                                     <tr>
-                                        <td>@detail.BookId</td>
+                                        <td>@detail.BookIceCream.Title</td>
                                         <td>@detail.Price</td>
                                         <td>@detail.Quantity</td>
                                     </tr>

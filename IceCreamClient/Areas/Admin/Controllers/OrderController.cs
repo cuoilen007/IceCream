@@ -51,7 +51,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
 
             var result2 = await client.GetAsync(API_URl + $"/api/Order/OrderDetail/{id}");
             var data2 = await result2.Content.ReadAsStringAsync();
-            var details = JsonConvert.DeserializeObject<List<BookOrderDetail>>(data2);           
+            var details = JsonConvert.DeserializeObject<List<OrderDetailService>>(data2);           
             client.Dispose();
             return View("Details", details);
         }

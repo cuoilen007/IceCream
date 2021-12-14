@@ -35,9 +35,9 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     string json = HttpContextAccessor.HttpContext.Session.GetString("cart");
-    //string json_user_detail = HttpContextAccessor.HttpContext.Session.GetString("user_detail");
+    string json_user_detail = HttpContextAccessor.HttpContext.Session.GetString("user_detail");
     List<Cart> listCart = new List<Cart>();
-    //Member user = null;
+    Member user = null;
     if (json != null)
     {
         JArray jsonResponse = JArray.Parse(json);
@@ -49,11 +49,11 @@
         }
     }
 
-    //if (json_user_detail != null)
-    //{
-    //    JObject jsonResponse = JObject.Parse(json_user_detail);
-    //    user = JsonConvert.DeserializeObject<Member>(json_user_detail.ToString());
-    //}
+    if (json_user_detail != null)
+    {
+        JObject jsonResponse = JObject.Parse(json_user_detail);
+        user = JsonConvert.DeserializeObject<Member>(json_user_detail.ToString());
+    }
 
 }
 
@@ -92,7 +92,7 @@
         <!-- preloader end -->
 
 
-        <div class="product-sidebar">
+        @*<div class="product-sidebar">
             <div class="xs-sidebar-group info-group info-sidebar">
                 <div class="xs-overlay xs-bg-black"></div>
                 <div class="xs-sidebar-widget">
@@ -159,7 +159,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
 
         <!-- main header -->
@@ -168,7 +168,7 @@
             <div class="header-lower">
                 <div class="outer-box">
                     <div class="logo-box">
-                        <figure class="logo"><a href="index.html"><img src="~/assets/images/logo-5.png" alt=""></a></figure>
+                        <figure class="logo"><a asp-controller="Home" asp-action="Index"><img src="~/assets/images/logo-5.png" alt=""></a></figure>
                     </div>
                     <div class="menu-area">
                         <!--Mobile Navigation Toggler-->
@@ -180,51 +180,39 @@
                         <nav class="main-menu navbar-expand-md navbar-light">
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li class="current">
-                                        <a asp-controller="Home" asp-action="Index">Home</a>
-                                    </li>
-                                    <li class="current">
-                                        <a asp-controller="Recipe" asp-action="Index">Recipe</a>
-                                    </li>
-                                    <li class="current">
-                                        <a asp-controller="Book" asp-action="Index">Book</a>
-                                    </li>
-                                    <li class="current">
-                                        <a asp-controller="Home" asp-action="About">About Us</a>
-                                    </li>
-                                    <li class="current">
-                                        <a asp-controller="Home" asp-action="Faq">FAQ's</a>
-                                    </li>
+                                    <li class="current"><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li class="current"><a asp-controller="Recipe" asp-action="Index">Recipe</a></li>
+                                    <li class="current"><a asp-controller="Book" asp-action="Index">Book</a></li>
+                                    <li class="current"><a asp-controller="Home" asp-action="About">About Us</a></li>
+                                    <li class="current"> <a asp-controller="Home" asp-action="Faq">FAQ's</a></li>
                                     <li class="current"><a asp-controller="Contact" asp-action="Index">Contact Us</a></li>
+                                    <li class="current"><a asp-controller="Checkout" asp-action="CheckOrder">Check Order</a></li>
+                                    @if(user ==null){
+                                    <li class="current"><a asp-controller="Member" asp-action="Login">Login</a></li>
+                                    <li class="current"><a asp-controller="Member" asp-action="Register">Register</a></li>
+                                    }else{
+                                    <li class="current"><a asp-controller="Member" asp-action="Logout">Logout</a></li>
+                                    }
                                 </ul>
                             </div>
                         </nav>
                     </div>
                     <ul class="menu-right-content clearfix">
+                        @if (user != null)
+                        {
                         <li class="search-box-outer">
-                            <div class="dropdown">
-                                <button class="search-box-btn" style="background-image: url(/assets/images/icons/icon-bg-6.png);" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-Search"></i></button>
-                                <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu3">
-                                    <div class="form-container">
-                                        <form method="post" action="blog.html">
-                                            <div class="form-group">
-                                                <input type="search" name="search-field" value="" placeholder="Search...." required="">
-                                                <button type="submit" class="search-btn"><span class="fas fa-search"></span></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                            Hello, @user.Username
+                        </li>                        
                         <li class="user-btn">
-                            <a asp-action="Login" asp-controller="Member" style="background-image: url(/assets/images/icons/icon-bg-6.png);">
+                            <a asp-action="Detail" asp-controller="Member" asp-route-id="@user.Id" style="background-image: url(/assets/images/icons/icon-bg-6.png);">
                                 <i class="icon-Profile"></i>
                             </a>
                         </li>
+                        }
                         <li class="cart-btn">
                             <a asp-action="Index" asp-controller="Cart" style="background-image: url(/assets/images/icons/icon-bg-6.png);">
                                 <i class="icon-Bag"></i>
-                                <span>3</span>
+                                <span>@listCart.Count</span>
                             </a>
                         </li>
                     </ul>
@@ -243,30 +231,21 @@
                         </nav>
                     </div>
                     <ul class="menu-right-content clearfix">
+                        @if (user != null)
+                        {
                         <li class="search-box-outer">
-                            <div class="dropdown">
-                                <button class="search-box-btn" style="background-image: url(/assets/images/icons/icon-bg-1.png);" type="button" id="dropdownMenu4" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-Search"></i></button>
-                                <div class="dropdown-menu search-panel" aria-labelledby="dropdownMenu4">
-                                    <div class="form-container">
-                                        <form method="post" action="blog.html">
-                                            <div class="form-group">
-                                                <input type="search" name="search-field" value="" placeholder="Search...." required="">
-                                                <button type="submit" class="search-btn"><span class="fas fa-search"></span></button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                            Hello, @user.Username
+                        </li>                        
                         <li class="user-btn">
-                            <a href="index.html" style="background-image: url(/assets/images/icons/icon-bg-1.png);">
+                            <a asp-action="Detail" asp-controller="Member" asp-route-id="@user.Id" style="background-image: url(/assets/images/icons/icon-bg-6.png);">
                                 <i class="icon-Profile"></i>
                             </a>
                         </li>
+                        }
                         <li class="cart-btn">
-                            <a href="shop-1.html" style="background-image: url(/assets/images/icons/icon-bg-1.png);">
+                            <a asp-action="Index" asp-controller="Cart" style="background-image: url(/assets/images/icons/icon-bg-6.png);">
                                 <i class="icon-Bag"></i>
-                                <span>3</span>
+                                <span>@listCart.Count</span>
                             </a>
                         </li>
                     </ul>
@@ -301,25 +280,12 @@
         <!-- main-footer -->
         <footer class="main-footer" style="background-image: url(/assets/images/background/footer-1.jpg);">
             <div class="auto-container">
-                <div class="subscribe-inner clearfix">
-                    <div class="text pull-left">
-                        <h2>Subscribe Newsletter</h2>
-                    </div>
-                    <div class="form-inner pull-right">
-                        <form action="index.html" method="post" class="subscribe-form">
-                            <div class="form-group">
-                                <input type="email" name="email" placeholder="Your email" required="">
-                                <button type="submit" class="theme-btn-one">Subscribe Now</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
                 <div class="footer-top">
                     <div class="widget-section">
                         <div class="row clearfix">
                             <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
                                 <div class="footer-widget logo-widget">
-                                    <figure class="footer-logo"><a href="index.html"><img src="~/assets/images/footer-logo.png" alt=""></a></figure>
+                                    <figure class="footer-logo"><a asp-controller="Home" asp-action="Index"><img src="~/assets/images/footer-logo.png" alt=""></a></figure>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-6 col-sm-12 footer-column">
@@ -348,11 +314,11 @@
                                     </div>
                                     <div class="widget-content">
                                         <ul class="links-list clearfix">
-                                            <li><a href="index.html"><i class="fas fa-angle-right"></i>Company History</a></li>
-                                            <li><a href="index.html"><i class="fas fa-angle-right"></i>About Us</a></li>
-                                            <li><a href="index.html"><i class="fas fa-angle-right"></i>Contact Us</a></li>
-                                            <li><a href="index.html"><i class="fas fa-angle-right"></i>Services</a></li>
-                                            <li><a href="index.html"><i class="fas fa-angle-right"></i>Privacy Policy</a></li>
+                                            <li><a asp-controller="Recipe" asp-action="Index"><i class="fas fa-angle-right"></i>Recipe</a></li>
+                                            <li><a asp-controller="Home" asp-action="About"><i class="fas fa-angle-right"></i>About Us</a></li>
+                                            <li><a asp-controller="Contact" asp-action="Index"><i class="fas fa-angle-right"></i>Contact Us</a></li>
+                                            <li><a asp-controller="Book" asp-action="Index"><i class="fas fa-angle-right"></i>Books</a></li>
+                                            <li><a asp-controller="Home" asp-action="Faq"><i class="fas fa-angle-right"></i>Faq</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -370,7 +336,7 @@
                                             <li>Wednesday: <span>09 AM - 06PM</span></li>
                                             <li>Thursday: <span>09 AM - 06PM</span></li>
                                             <li>Friday: <span>09 AM - 06PM</span></li>
-                                            <li>Saterday - Sunday: <span>Closed</span></li>
+                                            <li>Saturday - Sunday: <span>Closed</span></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -382,12 +348,8 @@
             <div class="footer-bottom">
                 <div class="auto-container clearfix">
                     <div class="copyright pull-left">
-                        <p><a href="index.html">Bagery</a> &copy; 2020 All Right Reserved</p>
+                        <p><a asp-controller="home" asp-action="Index">Bagery</a> &copy; 2021 All Right Reserved</p>
                     </div>
-                    <ul class="footer-nav pull-right">
-                        <li><a href="index.html">Terms of Service</a></li>
-                        <li><a href="index.html">Privacy Policy</a></li>
-                    </ul>
                 </div>
             </div>
         </footer>
@@ -413,6 +375,8 @@
     <script src="~/assets/js/jquery.nice-select.min.js"></script>
     <script src="~/assets/js/nav-tool.js"></script>
     <script src="~/assets/js/bxslider.js"></script>
+    <script src="~/assets/js/jquery.bootstrap-touchspin.js"></script>
+    <script src="~/assets/js/jquery-ui.js"></script>
 
     <!-- main-js -->
     <script src="~/assets/js/script.js"></script>

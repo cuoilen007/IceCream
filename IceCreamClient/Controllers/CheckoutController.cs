@@ -114,14 +114,14 @@ namespace IceCreamClient.Controllers
 
                 var result2 = await client.GetAsync(API_URl + $"/api/Order/OrderDetail/{id}");
                 var data2 = await result2.Content.ReadAsStringAsync();
-                var details = JsonConvert.DeserializeObject<List<BookOrderDetail>>(data2);
+                var details = JsonConvert.DeserializeObject<List<OrderDetailService>>(data2);
                 ViewBag.Details = details;
                 client.Dispose();
                 return View();
             }
             else
             {
-                ViewBag["Error"] = "The phone is not exist";
+                ViewData["Error"] = "The phone is not exist";
                 return View();
             }
         }
