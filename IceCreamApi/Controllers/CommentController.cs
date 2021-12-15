@@ -75,10 +75,10 @@ namespace IceCreamApi.Controllers
         }
 
         [HttpPut("/api/comment/{id}")]
-        public async Task<ActionResult> replyComment(int id, String reply)
+        public async Task<ActionResult> replyComment(int id, Comment cmt)
         {
             var comment = await _context.Comments.SingleOrDefaultAsync(c => c.Id == id);
-            comment.Reply = reply;
+            comment.Reply = cmt.Reply;
             comment.isReplied = true;
 
             if (await _context.SaveChangesAsync() > 0)

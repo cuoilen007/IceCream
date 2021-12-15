@@ -61,13 +61,15 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
-            var json = JsonConvert.SerializeObject(reply);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await _client.PutAsync($"/api/comment/{id}", content);
+            var comment = new Comment();
+            comment.Reply = reply;
+            var json = JsonConvert.SerializeObject(comment);
+            var contentStr = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await _client.PutAsync($"/api/comment/{id}", contentStr);
 
             if (response.IsSuccessStatusCode)
             {
-                TempData["Success"] = "Update success";
+                TempData["Success"] = "Reply success";
                 return RedirectToAction("Index");
             }
 
