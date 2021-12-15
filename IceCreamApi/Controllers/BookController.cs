@@ -49,7 +49,7 @@ namespace IceCreamApi.Controllers
         }
         //END VIEW
 
-        //CREATE
+        //CREATE BOOK
         //post create
         [HttpPost] //fix lỗi swagger
         public async Task<ActionResult<BookIceCream>> CreateBook(BookIceCream book)//đặt post ở đầu để đảm bảo post và fix lỗi swagger
@@ -57,7 +57,7 @@ namespace IceCreamApi.Controllers
             ctx.BookIceCreams.Add(book);
             await ctx.SaveChangesAsync();
 
-            //tìm employee vừa tạo
+            //tìm book vừa tạo
             var b = await ctx.BookIceCreams.OrderByDescending(c => c.BookId).SingleOrDefaultAsync();
             return CreatedAtAction("GetBooks", new { BookID = b.BookId }, b);
         }
@@ -109,7 +109,7 @@ namespace IceCreamApi.Controllers
 
         //Related Book
         [HttpGet("relatedBook/{number}")]
-        public async Task<ActionResult<List<Recipe>>> findLatestRecipe(int number)
+        public async Task<ActionResult<List<Recipe>>> findRelatedBook(int number)
         {
             var book = await ctx.BookIceCreams.OrderByDescending(b => b.BookId).Take(number).ToListAsync();
             if (book != null)

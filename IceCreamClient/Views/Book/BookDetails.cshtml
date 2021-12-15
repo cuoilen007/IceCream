@@ -1,11 +1,9 @@
-﻿
+﻿@model IceCreamClient.Models.BookIceCream
 @{
     ViewData["Title"] = "BookDetails";
     //show IEnumerable model relatedbook in detail page model
     IEnumerable<BookIceCream> relatedBook = ViewData["RelateBook"] as IEnumerable<BookIceCream>;
-    BookIceCream book = ViewData["Details"] as BookIceCream;
 }
-
 <h1>BookDetails</h1>
 
 
@@ -38,11 +36,11 @@
                                 <ul class="thumb-box">
                                     <li>
                                         @* hiển thị image*@
-                                        @if (Html.Raw(book.Image) != null)
+                                        @if (Model.Image != null)
                                         {
                                             <a class="active" data-slide-index="0" href="#">
                                                 <figure>
-                                                    <img src="~/images/book/@Html.Raw(book.Image)" alt="picture">
+                                                    <img src="~/images/book/@Model.Image" alt="picture">
                                                 </figure>
                                             </a>
                                         }
@@ -50,11 +48,11 @@
                                 </ul>
                             </div>
                             <div class="product-image">
-                                @if (Html.Raw(book.Image) != null)
+                                @if (Model.Image != null)
                                 {
                                     <figure class="image">
-                                        <a href="~/images/book/@Html.Raw(book.Image)" class="lightbox-image" data-fancybox="gallery">
-                                            <img src="~/images/book/@Html.Raw(book.Image)" alt="picture">
+                                        <a href="~/images/book/@Model.Image" class="lightbox-image" data-fancybox="gallery">
+                                            <img src="~/images/book/@Model.Image" alt="picture">
                                         </a>
                                     </figure>
                                 }
@@ -64,8 +62,8 @@
                 </div>
                 <div class="col-lg-6 col-md-12 col-sm-12 content-column">
                     <div class="product-details">
-                        <h2>@Html.Raw(book.Title)</h2>
-                        <h3>@Html.Raw(book.Price)</h3>
+                        <h2>@Model.Title</h2>
+                        <h3>$@Model.Price</h3>
                         <div class="customer-rating clearfix">
                             <ul class="rating pull-left">
                                 <li><i class="icon-Star"></i></li>
@@ -77,9 +75,6 @@
                             <div class="review pull-left">
                                 <a href="shop-details.html">( 1 Customer Review )</a>
                             </div>
-                        </div>
-                        <div class="text">
-                            <p>Consectetur adipiscing sed do eiusmod tempor incididunt labore dolore magna aliqua. enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                         </div>
                         <div class="addto-cart-box">
                             <ul class="clearfix">
@@ -116,9 +111,8 @@
                 <div class="tabs-content">
                     <div class="tab active-tab" id="tab-1">
                         <div class="content-box">
-                            <h3>Product Description</h3>
-                            @* Description *@
-                            @Html.Raw(book.Description)
+                            @* Description: Display text decoding html entity*@
+                            @Html.Raw(Model.Description)
                         </div>
                     </div>
                 </div>
@@ -135,13 +129,20 @@
                 {
                     <div class="col-lg-3 col-md-6 col-sm-12 shop-block">
                         <div class="shop-block-one">
-                            <div class="inner-box">
+                            <div class="inner-box" style="min-height:500px;">
                                 <figure class="image-box">
-                                    <img src="~/images/book/@Html.Raw(item.Image)" alt="">
+                                    <img src="~/images/book/@Html.Raw(item.Image)" alt="No image" style="height:270px; width:100%">
                                 </figure>
                                 <div class="lower-content">
-                                    <span class="price-box">$100</span>
+                                    <span class="price-box">$@item.Price</span>
                                     <h3><a href="@Url.Action("BookDetails", "Book", new { bookId = item.BookId})">@Html.Raw(item.Title)</a></h3>
+                                    <ul class="rating clearfix">
+                                        <li><i class="icon-Star"></i></li>
+                                        <li><i class="icon-Star"></i></li>
+                                        <li><i class="icon-Star"></i></li>
+                                        <li><i class="icon-Star"></i></li>
+                                        <li><i class="icon-Star"></i></li>
+                                    </ul>
                                     @*add to Cart *@
                                     <div class="cart-btn">
                                         <form asp-action="AddToCart" asp-controller="Cart" method="get">

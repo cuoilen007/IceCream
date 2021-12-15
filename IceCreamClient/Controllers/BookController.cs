@@ -29,6 +29,13 @@ namespace IceCreamClient.Controllers
             var data = await result.Content.ReadAsStringAsync();
             var books = JsonConvert.DeserializeObject<List<BookIceCream>>(data);
             ViewData["ListBook"] = books;
+
+            //show Category
+            var responseCate = await client.GetStringAsync(BASE_URL + $"/api/category");
+            var cate = JsonConvert.DeserializeObject<List<Category>>(responseCate);
+            TempData["Categories"] = cate;
+            //end
+
             client.Dispose();
             return View(books);//trả về view obj book hiện tại để hiển thị thông tin book, ko có sẽ bị lỗi null model khi show list bên ShowBooks.cshtml
         }
@@ -40,6 +47,12 @@ namespace IceCreamClient.Controllers
             HttpClient client = factory.CreateClient();
             var result = await client.GetStringAsync(BASE_URL + $"/api/book/category/{CatId}");//GetStringAsync ko cần ReadAsStringAsync()
             var book = JsonConvert.DeserializeObject<List<BookIceCream>>(result);
+
+            //show Category
+            var responseCate = await client.GetStringAsync(BASE_URL + $"/api/category");
+            var cate = JsonConvert.DeserializeObject<List<Category>>(responseCate);
+            TempData["Categories"] = cate;
+            //end
 
             client.Dispose();
             return View(book);
@@ -54,15 +67,14 @@ namespace IceCreamClient.Controllers
             client.BaseAddress = new Uri(BASE_URL);
             var response = await client.GetStringAsync($"/api/book/{bookId}");
             var book = JsonConvert.DeserializeObject<BookIceCream>(response);
-            ViewData["Details"] = book;
 
             //show relate book
-            var responseRelate = await client.GetStringAsync($"/api/book/relatedBook/5");
+            var responseRelate = await client.GetStringAsync($"/api/book/relatedBook/4");
             var relateBook = JsonConvert.DeserializeObject<List<BookIceCream>>(responseRelate);
             ViewData["RelateBook"] = relateBook;
 
             client.Dispose();
-            return View();
+            return View(book);
         }
     }
 }

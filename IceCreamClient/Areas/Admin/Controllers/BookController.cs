@@ -40,14 +40,20 @@ namespace IceCreamClient.Areas.Admin.Controllers
             //cần kiểm tra return code => để xem có dữ liệu hay ko? :tự làm
             var data = await result.Content.ReadAsStringAsync();
             var books = JsonConvert.DeserializeObject<List<BookIceCream>>(data);
+
             client.Dispose();
             return View(books);//trả về view obj book hiện tại để hiển thị thông tin book, ko có sẽ bị lỗi null model khi show list bên ShowEmps.cshtml
         }
         //end view book
 
         //create
-        public IActionResult CreateBook()
+        public async Task<IActionResult> CreateBook()
         {
+            //display dropdown list category in create
+            HttpClient client = factory.CreateClient();//tạo và nhận data
+            var resultCate = await client.GetStringAsync(BASE_URL + "/api/category");
+            var cate = JsonConvert.DeserializeObject<List<Category>>(resultCate);
+            TempData["ListCate"] = cate;
             return View();
         }
 
@@ -60,10 +66,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 return RedirectToAction("Login", "Home");
             }
 
+            HttpClient client = factory.CreateClient();//tạo và nhận data
+
             if (ModelState.IsValid)//validate
             {
-                HttpClient client = factory.CreateClient();//tạo và nhận data
-
                 if (Image != null)
                     {
                     //ADD IMAGE
@@ -90,6 +96,13 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 client.Dispose();
                 return RedirectToAction("ShowBooks");
             }
+            //display dropdown list category
+            //fix lỗi null categories khi return view() validate field bên CreateBook
+            var resultCate = await client.GetStringAsync(BASE_URL + "/api/category");
+            var cate = JsonConvert.DeserializeObject<List<Category>>(resultCate);
+            TempData["ListCate"] = cate;
+            //end
+
             return View();
         }
         //end create
@@ -99,8 +112,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
         {
             HttpClient client = factory.CreateClient();
             //chuyển đối tượng customer thành chuỗi json để truyền đi
-            client.BaseAddress = new Uri(BASE_URL);
-            var response = await client.GetStringAsync($"/api/book/{id}");
+            var response = await client.GetStringAsync(BASE_URL + $"/api/book/{id}");
             var book = JsonConvert.DeserializeObject<BookIceCream>(response);
             client.Dispose();
             return book;
@@ -117,9 +129,16 @@ namespace IceCreamClient.Areas.Admin.Controllers
             }
 
             HttpClient client = factory.CreateClient();
-            client.BaseAddress = new Uri(BASE_URL);
-            var response = await client.GetStringAsync($"/api/book/{bookId}");
+
+            var response = await client.GetStringAsync(BASE_URL + $"/api/book/{bookId}");
             var book = JsonConvert.DeserializeObject<BookIceCream>(response);
+
+            //dropdown list category
+            var resultCate = await client.GetStringAsync(BASE_URL + "/api/category");
+            var cate = JsonConvert.DeserializeObject<List<Category>>(resultCate);
+            TempData["ListCate"] = cate;
+            //end
+            
             client.Dispose();
             return View(book);//trả về view obj customer hiện tại để hiển thị thông tin sau edit, ko có sẽ bị lỗi null model khi show list bên showEmps.cshtml
         }
@@ -127,10 +146,18 @@ namespace IceCreamClient.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateBook(int bookId, BookIceCream book, IFormFile Image)
         {
+            HttpClient client = factory.CreateClient();
+            client.BaseAddress = new Uri(BASE_URL);
+
+            //display dropdown list category
+            //fix lỗi null categories khi dùng return view() validate field bên UpdateBook
+            var resultCate = await client.GetStringAsync(BASE_URL + "/api/category");
+            var cate = JsonConvert.DeserializeObject<List<Category>>(resultCate);
+            TempData["ListCate"] = cate;
+            //end
+
             if (ModelState.IsValid)//validate
             {
-                HttpClient client = factory.CreateClient();
-
                 if (Image != null) //checking if upload new image
                 {
                     //ADD IMAGE
@@ -154,10 +181,10 @@ namespace IceCreamClient.Areas.Admin.Controllers
                     var oldImage = await GetBook(bookId);
                     book.Image = oldImage.Image;
                 }
-                client.BaseAddress = new Uri(BASE_URL);
                 var json = JsonConvert.SerializeObject(book);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
                 var result = await client.PutAsync("/api/book", stringContent);
+
                 if (result.IsSuccessStatusCode)
                 {
                     ViewData["success"] = "Updated Book successful.";
@@ -191,9 +218,8 @@ namespace IceCreamClient.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateStatus(int bookId, bool status)
         {
             HttpClient client = factory.CreateClient();
-            client.BaseAddress = new Uri(BASE_URL);
             var stringContent = new StringContent("", Encoding.UTF8, "application/json");
-            var result = await client.PostAsync($"/api/book/status/{bookId}/{status}", stringContent);
+            var result = await client.PostAsync(BASE_URL + $"/api/book/status/{bookId}/{status}", stringContent);
             if (result.IsSuccessStatusCode)
             {
                 ViewData["success"] = "Updated Book successful.";

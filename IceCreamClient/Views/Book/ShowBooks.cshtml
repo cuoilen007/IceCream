@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "ShowBooks";
+    //show IEnumerable model categories in show list page model
+    IEnumerable<Category> categories = TempData["Categories"] as IEnumerable<Category>;
 }
 
 
@@ -41,8 +43,10 @@
                             <div class="widget-content">
                                 <ul class="categories-list clearfix">
                                     <li><a href="@Url.ActionLink("ShowBooks", "Book")">All</a></li>
-                                    <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = 1 })">Ice Cream</a></li>
-                                    <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = 2 })">Desert</a></li>
+                                    @foreach (var item in categories)
+                                    {
+                                        <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = item.CatId })">@item.Name</a></li>
+                                    }
                                 </ul>
                             </div>
                         </div>
@@ -105,11 +109,11 @@
                                     //show all
                                     <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
                                         <div class="shop-block-one">
-                                            <div class="inner-box">
+                                            <div class="inner-box" style="min-height:500px;">
                                                 <figure class="image-box">
                                                     @if (item.Image != null)
                                                     {
-                                                        <img src="~/images/book/@item.Image" alt="no image" />
+                                                        <img src="~/images/book/@item.Image" alt="no image" style="height:270px; width:100%"/>
                                                     }
                                                     else
                                                     {
@@ -117,11 +121,9 @@
                                                     }
                                                 </figure>
                                                 <div class="lower-content">
-                                                    <span class="price-box">$100</span>
-                                                    <h3>
-                                                        <a href="@Url.ActionLink("BookDetails", "Book", new { bookId = item.BookId })">
-                                                            @Html.DisplayFor(modelItem => item.Title)
-                                                        </a>
+                                                    <span class="price-box">$@item.Price</span>
+                                                    <h3 style="min-height:100px;">
+                                                        <a href="@Url.ActionLink("BookDetails", "Book", new { bookId = item.BookId })">@item.Title</a>
                                                     </h3>
                                                     <ul class="rating clearfix">
                                                         <li><i class="icon-Star"></i></li>
