@@ -59,12 +59,12 @@ namespace IceCreamApi.Controllers
             _context.Comments.Add(new Comment
             {
                 Content = comment.Content,
-                NameUser = comment.Content,
+                NameUser = comment.NameUser,
                 EmailUser = comment.EmailUser,
                 RecipeId = comment.RecipeId,
                 Reply = comment.Reply,
                 isReplied = Convert.ToBoolean(comment.isReplied) ? true : false,
-                CreateAt = DateTime.Today
+                CreateAt = DateTime.Now
             });
 
             if (await _context.SaveChangesAsync() > 0)

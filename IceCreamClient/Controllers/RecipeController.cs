@@ -61,9 +61,8 @@ namespace IceCreamClient.Controllers
         [HttpPost]
         public async Task<IActionResult> Comment(Comment comment)
         {
+
             comment.isReplied = false;
-            //comment.EmailUser = ;
-            //comment.NameUser = ;
 
             var json = JsonConvert.SerializeObject(comment);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
@@ -73,11 +72,11 @@ namespace IceCreamClient.Controllers
             if (response.IsSuccessStatusCode)
             {
                 TempData["Success"] = "Comment success";
-                return RedirectToAction("Details");
+                return RedirectToAction("Details", new { RecipeId = comment.RecipeId });
             }
 
             TempData["Error"] = "Comment error !";
-            return RedirectToAction("Details");
+            return RedirectToAction("Details", new { RecipeId = comment.RecipeId });
         }
     }
 }
