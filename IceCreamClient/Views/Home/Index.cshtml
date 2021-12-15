@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    IEnumerable<BookIceCream> ListBooks = TempData["ListBook"] as IEnumerable<BookIceCream>;
 }
  <!-- banner-section -->
         <section class="banner-section style-one">
@@ -174,82 +175,39 @@
                     <h2>Our all Delicious <br />Products.</h2>
                 </div>
                 <div class="four-item-carousel owl-carousel owl-theme owl-dots-none nav-style-one">
-                    <div class="shop-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/assets/images/resource/shop/shop-2.jpg" alt="">
-                            </figure>
-                            <div class="lower-content">
-                                <span class="price-box">$100</span>
-                                <h3><a href="shop-details.html">Vanilla Ice Cream</a></h3>
-                                <ul class="rating clearfix">
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                </ul>
-                                <div class="cart-btn"><a href="shop-details.html" class="theme-btn-two">Add to cart</a></div>
+                    @* View Books *@
+                    @foreach (var item in ListBooks)
+                    {
+                        <div class="shop-block-one">
+                            <div class="inner-box">
+                                <figure class="image-box">
+                                    <img src="~/images/book/@item.Image" alt="No image" style="height:270px; width:100%">
+                                </figure>
+                                <div class="lower-content">
+                                    <span class="price-box">$@item.Price</span>
+                                    <h3 style="min-height:100px;">
+                                        <a href="@Url.ActionLink("BookDetails", "Book", new { bookId = item.BookId })">@item.Title</a>
+                                    </h3>
+                                    <ul class="rating clearfix">
+                                        <li><i class="icon-Star"></i></li>
+                                        <li><i class="icon-Star"></i></li>
+                                        <li><i class="icon-Star"></i></li>
+                                        <li><i class="icon-Star"></i></li>
+                                        <li><i class="icon-Star"></i></li>
+                                    </ul>
+                                    @* Add to cart *@
+                                    <div class="cart-btn">
+                                        <form asp-action="AddToCart" asp-controller="Cart" method="get">
+                                            <input type="hidden" name="id" value="@item.BookId">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <button type="submit" class="theme-btn-two" value="add">Add to cart</button>
+                                        </form>
+                                        @*<a href="shop-details.html" class="theme-btn-two">Add to cart</a>*@
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="shop-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/assets/images/resource/shop/shop-2.jpg" alt="">
-                            </figure>
-                            <div class="lower-content">
-                                <span class="price-box">$70</span>
-                                <h3><a href="shop-details.html">Slice Super Cake</a></h3>
-                                <ul class="rating clearfix">
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                </ul>
-                                <div class="cart-btn"><a href="shop-details.html" class="theme-btn-two">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/assets/images/resource/shop/shop-3.jpg" alt="">
-                            </figure>
-                            <div class="lower-content">
-                                <span class="price-box">$80</span>
-                                <h3><a href="shop-details.html">Cone Ice Cream</a></h3>
-                                <ul class="rating clearfix">
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                </ul>
-                                <div class="cart-btn"><a href="shop-details.html" class="theme-btn-two">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="shop-block-one">
-                        <div class="inner-box">
-                            <figure class="image-box">
-                                <img src="~/assets/images/resource/shop/shop-4.jpg" alt="">
-                            </figure>
-                            <div class="lower-content">
-                                <span class="price-box">$120</span>
-                                <h3><a href="shop-details.html">Quality Ice Cream</a></h3>
-                                <ul class="rating clearfix">
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                    <li><i class="icon-Star"></i></li>
-                                </ul>
-                                <div class="cart-btn"><a href="shop-details.html" class="theme-btn-two">Add to cart</a></div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
             </div>
         </section>
