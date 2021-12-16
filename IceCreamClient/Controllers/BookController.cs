@@ -24,10 +24,8 @@ namespace IceCreamClient.Controllers
         public async Task<IActionResult> ShowBooks()
         {
             HttpClient client = factory.CreateClient();//tạo và nhận data
-            var result = await client.GetAsync(BASE_URL + "/api/book");
-            //cần kiểm tra return code => để xem có dữ liệu hay ko? :tự làm
-            var data = await result.Content.ReadAsStringAsync();
-            var books = JsonConvert.DeserializeObject<List<BookIceCream>>(data);
+            var result = await client.GetStringAsync(BASE_URL + "/api/book");
+            var books = JsonConvert.DeserializeObject<List<BookIceCream>>(result);
             ViewData["ListBook"] = books;
 
             //show Category
@@ -65,6 +63,7 @@ namespace IceCreamClient.Controllers
             HttpClient client = factory.CreateClient();
             //chuyển đối tượng customer thành chuỗi json để truyền đi
             client.BaseAddress = new Uri(BASE_URL);
+
             var response = await client.GetStringAsync($"/api/book/{bookId}");
             var book = JsonConvert.DeserializeObject<BookIceCream>(response);
 
@@ -76,5 +75,29 @@ namespace IceCreamClient.Controllers
             client.Dispose();
             return View(book);
         }
+
+        //Search Title
+        public IActionResult ShowSearch()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SearchTitle(string title)
+        {
+            HttpClient client = factory.CreateClient();
+            var result = await client.GetStringAsync(BASE_URL + $"/api/book/searchTitle/{title}");//GetStringAsync ko cần ReadAsStringAsync()
+            var books = JsonConvert.DeserializeObject<List<BookIceCream>>(result);
+
+            //show Category
+            var responseCate = await client.GetStringAsync(BASE_URL + $"/api/category");
+            var cate = JsonConvert.DeserializeObject<List<Category>>(responseCate);
+            TempData["Categories"] = cate;
+            //end
+
+            client.Dispose();
+            return View("ShowBooks", books);
+        }
+        //end find salary
     }
 }

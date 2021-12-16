@@ -7,99 +7,101 @@
 }
 
 
-    <!--Page Title-->
-        <section class="page-title centred" style="background-image: url(assets/images/background/page-title.jpg);">
-            <div class="auto-container">
-                <div class="content-box">
-                    <div class="title">
-                        <h1>Book</h1>
+<!--Page Title-->
+<section class="page-title centred" style="background-image: url(assets/images/background/page-title.jpg);">
+    <div class="auto-container">
+        <div class="content-box">
+            <div class="title">
+                <h1>Book</h1>
+            </div>
+            <ul class="bread-crumb clearfix">
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li>Show Book</li>
+            </ul>
+        </div>
+    </div>
+</section>
+<!--End Page Title-->
+<!-- shop-page-section -->
+<section class="shop-page-section shop-page-1">
+    <div class="auto-container">
+        <div class="row clearfix">
+            <div class="col-lg-3 col-md-12 col-sm-12 sidebar-side">
+                <div class="shop-sidebar default-sidebar">
+                    <div class="sidebar-widget sidebar-search">
+                        <form asp-action="SearchTitle" class="search-form">
+                            <div class="form-group">
+                                <input type="search" name="title" placeholder="Search..." required="">
+                                <button type="submit"><i class="icon-Search"></i></button>
+                            </div>
+                        </form>
                     </div>
-                    <ul class="bread-crumb clearfix">
-                        <li><a asp-action="Index" asp-controller="Home">Home</a></li>
-                        <li>Show Book</li>
-                    </ul>
+                    <div class="sidebar-widget sidebar-categories">
+                        <div class="widget-title">
+                            <h3>Shop by Categories</h3>
+                        </div>
+                        <div class="widget-content">
+                            <ul class="categories-list clearfix">
+                                <li><a href="@Url.ActionLink("ShowBooks", "Book")">All</a></li>
+                                @foreach (var item in categories)
+                                {
+                                    <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = item.CatId })">@item.Name</a></li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                    @* remove price-filter to fix error preloader stuck *@
+                    <div class="sidebar-widget post-widget">
+                        <div class="widget-title">
+                            <h3>Featured Products</h3>
+                        </div>
+                        <div class="post-inner">
+                            <div class="post">
+                                <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-1.jpg" alt=""></a></figure>
+                                <h5><a href="shop-details.html">Vanilla Ice Cream</a></h5>
+                                <p>$50.00</p>
+                            </div>
+                            <div class="post">
+                                <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-2.jpg" alt=""></a></figure>
+                                <h5><a href="shop-details.html">Donuts Cake</a></h5>
+                                <p>$35.00</p>
+                            </div>
+                            <div class="post">
+                                <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-3.jpg" alt=""></a></figure>
+                                <h5><a href="shop-details.html">Corne Ice Cream</a></h5>
+                                <p>$60.00</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-<!--End Page Title-->
-    <!-- shop-page-section -->
-    <section class="shop-page-section shop-page-1">
-        <div class="auto-container">
-            <div class="row clearfix">
-                <div class="col-lg-3 col-md-12 col-sm-12 sidebar-side">
-                    <div class="shop-sidebar default-sidebar">
-                        <div class="sidebar-widget sidebar-search">
-                            <form action="shop-1.html" method="post" class="search-form">
-                                <div class="form-group">
-                                    <input type="search" name="search-field" placeholder="Search..." required="">
-                                    <button type="submit"><i class="icon-Search"></i></button>
-                                </div>
-                            </form>
+            <div class="col-lg-9 col-md-12 col-sm-12 content-side">
+                <div class="our-shop">
+                    <div class="item-shorting clearfix">
+                        <div class="left-column pull-left clearfix">
+                            <div class="text"><p>Showing 1–12 of 50 Results</p></div>
                         </div>
-                        <div class="sidebar-widget sidebar-categories">
-                            <div class="widget-title">
-                                <h3>Shop by Categories</h3>
-                            </div>
-                            <div class="widget-content">
-                                <ul class="categories-list clearfix">
-                                    <li><a href="@Url.ActionLink("ShowBooks", "Book")">All</a></li>
-                                    @foreach (var item in categories)
-                                    {
-                                        <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = item.CatId })">@item.Name</a></li>
-                                    }
-                                </ul>
-                            </div>
-                        </div>
-                        @* remove price-filter to fix error preloader stuck *@
-                        <div class="sidebar-widget post-widget">
-                            <div class="widget-title">
-                                <h3>Featured Products</h3>
-                            </div>
-                            <div class="post-inner">
-                                <div class="post">
-                                    <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-1.jpg" alt=""></a></figure>
-                                    <h5><a href="shop-details.html">Vanilla Ice Cream</a></h5>
-                                    <p>$50.00</p>
+                        <div class="right-column pull-right clearfix">
+                            <div class="short-box clearfix">
+                                <p>Short by</p>
+                                <div class="select-box">
+                                    <select class="wide">
+                                        <option data-display="Popularity">Popularity</option>
+                                        <option value="1">New Collection</option>
+                                        <option value="2">Top Sell</option>
+                                        <option value="4">Top Ratted</option>
+                                    </select>
                                 </div>
-                                <div class="post">
-                                    <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-2.jpg" alt=""></a></figure>
-                                    <h5><a href="shop-details.html">Donuts Cake</a></h5>
-                                    <p>$35.00</p>
-                                </div>
-                                <div class="post">
-                                    <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-3.jpg" alt=""></a></figure>
-                                    <h5><a href="shop-details.html">Corne Ice Cream</a></h5>
-                                    <p>$60.00</p>
-                                </div>
+                            </div>
+                            <div class="menu-box">
+                                <a href="shop.html"><i class="icon-Menu"></i></a>
+                                <a href="shop.html"><i class="icon-List-View"></i></a>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-9 col-md-12 col-sm-12 content-side">
-                    <div class="our-shop">
-                        <div class="item-shorting clearfix">
-                            <div class="left-column pull-left clearfix">
-                                <div class="text"><p>Showing 1–12 of 50 Results</p></div>
-                            </div>
-                            <div class="right-column pull-right clearfix">
-                                <div class="short-box clearfix">
-                                    <p>Short by</p>
-                                    <div class="select-box">
-                                        <select class="wide">
-                                            <option data-display="Popularity">Popularity</option>
-                                            <option value="1">New Collection</option>
-                                            <option value="2">Top Sell</option>
-                                            <option value="4">Top Ratted</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="menu-box">
-                                    <a href="shop.html"><i class="icon-Menu"></i></a>
-                                    <a href="shop.html"><i class="icon-List-View"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        
+
+                    @if (Model != null && Model.Count() > 0) // nếu search tìm thấy record trong db thì hiển thị
+                    {
                         <div class="row clearfix">
                             @* ShowBooks *@
                             @foreach (var item in Model)
@@ -113,7 +115,7 @@
                                                 <figure class="image-box">
                                                     @if (item.Image != null)
                                                     {
-                                                        <img src="~/images/book/@item.Image" alt="no image" style="height:270px; width:100%"/>
+                                                        <img src="~/images/book/@item.Image" alt="no image" style="height:270px; width:100%" />
                                                     }
                                                     else
                                                     {
@@ -150,20 +152,22 @@
                             }
                             @* End ShowBooks *@
                         </div>
-
-                            <div class="pagination-wrapper centred">
-                                <ul class="pagination">
-                                    <li><a href="shop-1.html">Prev</a></li>
-                                    <li><a href="shop-1.html">1</a></li>
-                                    <li><a href="shop-1.html" class="active">2</a></li>
-                                    <li><a href="shop-1.html">3</a></li>
-                                    <li><a href="shop-1.html">4</a></li>
-                                    <li><a href="shop-1.html">5</a></li>
-                                    <li><a href="shop-1.html">Next</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                    }
+                    @* end search if *@
+                    <div class="pagination-wrapper centred">
+                        <ul class="pagination">
+                            <li><a href="shop-1.html">Prev</a></li>
+                            <li><a href="shop-1.html">1</a></li>
+                            <li><a href="shop-1.html" class="active">2</a></li>
+                            <li><a href="shop-1.html">3</a></li>
+                            <li><a href="shop-1.html">4</a></li>
+                            <li><a href="shop-1.html">5</a></li>
+                            <li><a href="shop-1.html">Next</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+

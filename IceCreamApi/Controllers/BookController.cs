@@ -118,5 +118,18 @@ namespace IceCreamApi.Controllers
             }
             return NotFound();
         }
+
+        //FindbyTitle filter by title
+        //route: /api/book/searchTitle/{title}
+        [HttpGet("searchTitle/{title}")] //fix lỗi swagger
+        public async Task<ActionResult<List<BookIceCream>>> SearchByTitle(string title)
+        {
+            var result = await ctx.BookIceCreams.Where(t => t.Title.Contains(title)).Select(tt => new BookIceCream { BookId = tt.BookId, CatId = tt.CatId, Title = tt.Title, Author = tt.Author, Description = tt.Description, Price = tt.Price, Image = tt.Image, Active = tt.Active, CreateAt = tt.CreateAt }).ToListAsync();
+            if (result == null)
+            {
+                return NotFound();
+            }
+            return Ok(result);
+        }
     }
 }
