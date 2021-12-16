@@ -138,7 +138,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> AddAdmin(tbAdmin admin)
+        public async Task<IActionResult> AddAdmin(ITbAdmin iadmin)
         {
             if (HttpContext.Session.GetString("adname") == null)
             {
@@ -146,7 +146,16 @@ namespace IceCreamClient.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
-                HttpClient client = _factory.CreateClient();
+                if(iadmin.Password != iadmin.Password2)
+                {
+                    ViewData["Error"] = "Password must match to each other!";
+                    return View();
+                }
+                tbAdmin admin = new tbAdmin();
+                admin.Username = iadmin.Username;
+                admin.Password = iadmin.Password;
+                admin.Username = iadmin.Username;
+                  HttpClient client = _factory.CreateClient();
                 var adminJson = JsonConvert.SerializeObject(admin);
                 var stringContent = new StringContent(adminJson, Encoding.UTF8, "application/json");
                 var result = await client.PostAsync(API_URl + "/api/Admin/Add", stringContent);

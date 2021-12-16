@@ -135,7 +135,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
 
         [Area("Admin")]
         [HttpPost]
-        public async Task<IActionResult> AddMember(Member member)
+        public async Task<IActionResult> AddMember(IMember imember)
         {
             if (HttpContext.Session.GetString("adname") == null)
             {
@@ -143,6 +143,17 @@ namespace IceCreamClient.Areas.Admin.Controllers
             }
             if (ModelState.IsValid)
             {
+                if(imember.Password != imember.Password2)
+                {
+                    ViewData["Error"] = "Password must match to each other";
+                    return View();
+                }
+                Member member = new Member();
+                member.Username = imember.Username;
+                member.Password = imember.Password;
+                member.Email = imember.Email;
+                member.Fullname = imember.Fullname;
+                member.IdMemberOption = imember.IdMemberOption;
                 HttpClient client = _factory.CreateClient();
                 var memberJson = JsonConvert.SerializeObject(member);
                 var stringContent = new StringContent(memberJson, Encoding.UTF8, "application/json");
@@ -155,7 +166,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 }
                 else
                 {
-                    TempData["Error"] = "Username already exists!";
+                    ViewData["Error"] = "Username already exists!";
                 }
             }
             
