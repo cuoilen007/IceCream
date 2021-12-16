@@ -46,14 +46,17 @@ namespace IceCreamClient.Controllers
             var latest = JsonConvert.DeserializeObject<List<Recipe>>(latestData);
 
             var responseComment = await _client.GetAsync($"/api/comment/byRecipe/{RecipeId}");
-            var commentData = await responseComment.Content.ReadAsStringAsync();
-            var comment = JsonConvert.DeserializeObject<List<Comment>>(commentData);
+            if (responseComment.IsSuccessStatusCode)
+            {
+                var commentData = await responseComment.Content.ReadAsStringAsync();
+                var comment = JsonConvert.DeserializeObject<List<Comment>>(commentData);
+                ViewData["Comment"] = comment;
+            }
 
             _client.Dispose();
 
             ViewData["Details"] = details;
-            ViewData["Latest"] = latest;
-            ViewData["Comment"] = comment;
+            ViewData["Latest"] = latest;          
 
             return View();
         }
