@@ -34,6 +34,12 @@ namespace IceCreamClient.Controllers
             TempData["Categories"] = cate;
             //end
 
+            //show relate book
+            var responseRelate = await client.GetStringAsync(BASE_URL + $"/api/book/relatedBook/3");
+            var relateBook = JsonConvert.DeserializeObject<List<BookIceCream>>(responseRelate);
+            ViewData["RelateBook"] = relateBook;
+            //end
+
             client.Dispose();
             return View(books);//trả về view obj book hiện tại để hiển thị thông tin book, ko có sẽ bị lỗi null model khi show list bên ShowBooks.cshtml
         }
@@ -46,11 +52,21 @@ namespace IceCreamClient.Controllers
             var result = await client.GetStringAsync(BASE_URL + $"/api/book/category/{CatId}");//GetStringAsync ko cần ReadAsStringAsync()
             var book = JsonConvert.DeserializeObject<List<BookIceCream>>(result);
 
+            //FIX ERROR NULL OBJ
+
             //show Category
             var responseCate = await client.GetStringAsync(BASE_URL + $"/api/category");
             var cate = JsonConvert.DeserializeObject<List<Category>>(responseCate);
             TempData["Categories"] = cate;
             //end
+
+            //show relate book
+            var responseRelate = await client.GetStringAsync(BASE_URL + $"/api/book/relatedBook/3");
+            var relateBook = JsonConvert.DeserializeObject<List<BookIceCream>>(responseRelate);
+            ViewData["RelateBook"] = relateBook;
+            //end
+
+            //END FIX
 
             client.Dispose();
             return View(book);
@@ -77,10 +93,6 @@ namespace IceCreamClient.Controllers
         }
 
         //Search Title
-        public IActionResult ShowSearch()
-        {
-            return View();
-        }
 
         [HttpPost]
         public async Task<IActionResult> SearchTitle(string title)
@@ -89,11 +101,21 @@ namespace IceCreamClient.Controllers
             var result = await client.GetStringAsync(BASE_URL + $"/api/book/searchTitle/{title}");//GetStringAsync ko cần ReadAsStringAsync()
             var books = JsonConvert.DeserializeObject<List<BookIceCream>>(result);
 
+            //FIX ERROR NULL OBJ
+
             //show Category
             var responseCate = await client.GetStringAsync(BASE_URL + $"/api/category");
             var cate = JsonConvert.DeserializeObject<List<Category>>(responseCate);
             TempData["Categories"] = cate;
             //end
+
+            //show relate book
+            var responseRelate = await client.GetStringAsync(BASE_URL + $"/api/book/relatedBook/3");
+            var relateBook = JsonConvert.DeserializeObject<List<BookIceCream>>(responseRelate);
+            ViewData["RelateBook"] = relateBook;
+            //end
+
+            //END FIX
 
             client.Dispose();
             return View("ShowBooks", books);

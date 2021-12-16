@@ -4,6 +4,8 @@
     ViewData["Title"] = "ShowBookByCategory";
     //show IEnumerable model categories in show list page model
     IEnumerable<Category> categories = TempData["Categories"] as IEnumerable<Category>;
+    //show IEnumerable model relatedbook Feature Book in showbooks page model
+    IEnumerable<BookIceCream> relatedBook = ViewData["RelateBook"] as IEnumerable<BookIceCream>;
 }
 
 <h1>ShowBookByCategory</h1>
@@ -30,9 +32,9 @@
             <div class="col-lg-3 col-md-12 col-sm-12 sidebar-side">
                 <div class="shop-sidebar default-sidebar">
                     <div class="sidebar-widget sidebar-search">
-                        <form action="shop-1.html" method="post" class="search-form">
+                        <form asp-action="SearchTitle" class="search-form">
                             <div class="form-group">
-                                <input type="search" name="search-field" placeholder="Search..." required="">
+                                <input type="search" name="title" placeholder="Search..." required="">
                                 <button type="submit"><i class="icon-Search"></i></button>
                             </div>
                         </form>
@@ -52,28 +54,25 @@
                         </div>
                     </div>
                     @* remove price-filter to fix error preloader stuck *@
-                    <div class="sidebar-widget post-widget">
-                        <div class="widget-title">
-                            <h3>Featured Products</h3>
-                        </div>
-                        <div class="post-inner">
-                            <div class="post">
-                                <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-1.jpg" alt=""></a></figure>
-                                <h5><a href="shop-details.html">Vanilla Ice Cream</a></h5>
-                                <p>$50.00</p>
-                            </div>
-                            <div class="post">
-                                <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-2.jpg" alt=""></a></figure>
-                                <h5><a href="shop-details.html">Donuts Cake</a></h5>
-                                <p>$35.00</p>
-                            </div>
-                            <div class="post">
-                                <figure class="image-box"><a href="shop-details.html"><img src="~/assets/images/resource/shop/post-3.jpg" alt=""></a></figure>
-                                <h5><a href="shop-details.html">Corne Ice Cream</a></h5>
-                                <p>$60.00</p>
-                            </div>
-                        </div>
+                <div class="sidebar-widget post-widget">
+                    <div class="widget-title">
+                        <h3>Newest Books</h3>
                     </div>
+                    <div class="post-inner">
+                        @foreach (var item in relatedBook)
+                        {
+                            <div class="post">
+                                <figure class="image-box">
+                                    <a href="@Url.Action("BookDetails", "Book", new { bookId = item.BookId})">
+                                        <img src="~/images/book/@item.Image" alt="">
+                                    </a>
+                                </figure>
+                                <h5><a href="@Url.Action("BookDetails", "Book", new { bookId = item.BookId})">@item.Title</a></h5>
+                                <p>$@item.Price</p>
+                            </div>
+                        }
+                    </div>
+                </div>
                 </div>
             </div>
             <div class="col-lg-9 col-md-12 col-sm-12 content-side">
@@ -84,66 +83,74 @@
                         </div>
                         <div class="right-column pull-right clearfix">
                             <div class="short-box clearfix">
-                                <p>Short by</p>
-                                <div class="select-box">
-                                    <select class="wide">
-                                        <option data-display="Popularity">Popularity</option>
-                                        <option value="1">New Collection</option>
-                                        <option value="2">Top Sell</option>
-                                        <option value="4">Top Ratted</option>
-                                    </select>
-                                </div>
+
                             </div>
                             <div class="menu-box">
-                                <a href="shop.html"><i class="icon-Menu"></i></a>
-                                <a href="shop.html"><i class="icon-List-View"></i></a>
+                                <a href="#"><i class="icon-Menu"></i></a>
                             </div>
                         </div>
                     </div>
 
-                    <div class="row clearfix">
-                        @* ShowBooks *@
-                        @foreach (var item in Model)
-                        {
-                            @if (item.Active == true)
+                    @if (Model != null && Model.Count() > 0) // nếu search tìm thấy record trong db thì hiển thị
+                    {
+                        <div class="row clearfix">
+                            @* ShowBooks *@
+                            @foreach (var item in Model)
                             {
-                                //show all
-                                <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
-                                    <div class="shop-block-one">
-                                        <div class="inner-box" style="min-height:500px;">
-                                            <figure class="image-box">
-                                                @if (item.Image != null)
-                                                {
-                                                    <img src="~/images/book/@item.Image" alt="no image" style="height:270px; width:100%"/>
-                                                }
-                                                else
-                                                {
-                                                    @: No Image
-                                                }
-                                            </figure>
-                                            <div class="lower-content">
-                                                <span class="price-box">$@item.Price</span>
-                                                <h3 style="min-height:100px;">
-                                                    <a href="@Url.ActionLink("BookDetails", "Book", new { bookId = item.BookId })">
-                                                        @Html.DisplayFor(modelItem => item.Title)
-                                                    </a>
-                                                </h3>
-                                                <ul class="rating clearfix">
-                                                    <li><i class="icon-Star"></i></li>
-                                                    <li><i class="icon-Star"></i></li>
-                                                    <li><i class="icon-Star"></i></li>
-                                                    <li><i class="icon-Star"></i></li>
-                                                    <li><i class="icon-Star"></i></li>
-                                                </ul>
-                                                <div class="cart-btn"><a href="shop-details.html" class="theme-btn-two">Add to cart</a></div>
+                                @if (item.Active == true)
+                                {
+                                    //show all
+                                    <div class="col-lg-4 col-md-6 col-sm-12 shop-block">
+                                        <div class="shop-block-one">
+                                            <div class="inner-box" style="min-height:500px;">
+                                                <figure class="image-box">
+                                                    @if (item.Image != null)
+                                                    {
+                                                        <img src="~/images/book/@item.Image" alt="no image" style="height:270px; width:100%" />
+                                                    }
+                                                    else
+                                                    {
+                                                        @: No Image
+                                                    }
+                                                </figure>
+                                                <div class="lower-content">
+                                                    <span class="price-box">$@item.Price</span>
+                                                    <h3 style="min-height:100px;">
+                                                        <a href="@Url.ActionLink("BookDetails", "Book", new { bookId = item.BookId })">@item.Title</a>
+                                                    </h3>
+                                                    <ul class="rating clearfix">
+                                                        <li><i class="icon-Star"></i></li>
+                                                        <li><i class="icon-Star"></i></li>
+                                                        <li><i class="icon-Star"></i></li>
+                                                        <li><i class="icon-Star"></i></li>
+                                                        <li><i class="icon-Star"></i></li>
+                                                    </ul>
+                                                    @* Add to cart *@
+                                                    <div class="cart-btn">
+                                                        <form asp-action="AddToCart" asp-controller="Cart" method="get">
+                                                            <input type="hidden" name="id" value="@item.BookId">
+                                                            <input type="hidden" name="quantity" value="1">
+                                                            <button type="submit" class="theme-btn-two" value="add">Add to cart</button>
+                                                        </form>
+
+                                                        @*<a href="shop-details.html" class="theme-btn-two">Add to cart</a>*@
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                }
                             }
-                        }
-                        @* End ShowBooks *@
-                    </div>
+                            @* End ShowBooks *@
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="row clearfix">
+                            <h5>No keyword for search match name of book</h5>
+                        </div>
+                    }
+                    @* end search if *@
 
                     <div class="pagination-wrapper centred">
                         <ul class="pagination">
