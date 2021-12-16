@@ -206,10 +206,16 @@ namespace IceCreamClient.Areas.Admin.Controllers
             }
 
             HttpClient client = factory.CreateClient();
-            //chuyển đối tượng customer thành chuỗi json để truyền đi
-            client.BaseAddress = new Uri(BASE_URL);
-            var response = await client.GetStringAsync($"/api/book/{bookId}");
+            var response = await client.GetStringAsync(BASE_URL + $"/api/book/{bookId}");
             var book = JsonConvert.DeserializeObject<BookIceCream>(response);
+
+            //display dropdown list category
+            //fix lỗi null categories khi dùng return view() validate field bên UpdateBook
+            var resultCate = await client.GetStringAsync(BASE_URL + "/api/category");
+            var cate = JsonConvert.DeserializeObject<List<Category>>(resultCate);
+            TempData["ListCate"] = cate;
+            //end
+
             client.Dispose();
             return View(book);
         }

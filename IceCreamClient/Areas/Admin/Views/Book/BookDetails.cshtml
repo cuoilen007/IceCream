@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "BookDetails";
+    List<Category> categories = TempData["ListCate"] as List<Category>;
 }
 
 <!-- page title area start -->
@@ -40,16 +41,17 @@
                                 @Html.DisplayName("Category")
                             </dt>
                             @* Category *@
-                            <dd class="col-sm-10">
-                                @if (Model.CatId == 1)
+                        <dd class="col-sm-10">
+
+                            @foreach (var item in categories)
+                            {
+                                if (Model.CatId == item.CatId)
                                 {
-                                    @:Ice Cream
+                                    @item.Name
+                                    break;
                                 }
-                                else
-                                {
-                                    @:Desert
-                                }
-                            </dd>
+                            }
+                        </dd>
                             <dt class="col-sm-2">
                                 @Html.DisplayNameFor(model => model.Title)
                             </dt>
