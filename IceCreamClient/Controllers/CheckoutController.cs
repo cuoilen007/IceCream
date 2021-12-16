@@ -49,14 +49,14 @@ namespace IceCreamClient.Controllers
                 }
                 order.TotalPrice = Convert.ToInt32(total_money);
             }
-            
+
 
             if (ModelState.IsValid)
             {
                 HttpClient client = _factory.CreateClient();
                 var memberJson = JsonConvert.SerializeObject(order);
                 var stringContent = new StringContent(memberJson, Encoding.UTF8, "application/json");
-                var result = await client.PostAsync(API_URl + $"/api/Order/",stringContent);
+                var result = await client.PostAsync(API_URl + $"/api/Order/", stringContent);
                 if (result.IsSuccessStatusCode && result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var data = await result.Content.ReadAsStringAsync();
@@ -80,13 +80,13 @@ namespace IceCreamClient.Controllers
 
                     var detailsJSON = JsonConvert.SerializeObject(details);
                     var stringContent2 = new StringContent(detailsJSON, Encoding.UTF8, "application/json");
-                    var result2 = await client.PostAsync(API_URl + $"/api/Order/Detail",stringContent2);
+                    var result2 = await client.PostAsync(API_URl + $"/api/Order/Detail", stringContent2);
                     client.Dispose();
                     if (result2.IsSuccessStatusCode && result2.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        return RedirectToAction("Index","Home");
-                    }     
-                }          
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
             }
             return View("Index");
         }
@@ -104,15 +104,11 @@ namespace IceCreamClient.Controllers
             var resultID = await client.GetAsync(API_URl + $"/api/Order/Phone/{phone}");
             if (resultID.IsSuccessStatusCode && resultID.StatusCode == System.Net.HttpStatusCode.OK)
             {
-                var dataID = await resultID.Content.ReadAsStringAsync();
-                int id = JsonConvert.DeserializeObject<int>(dataID);
-
-                var result = await client.GetAsync(API_URl + $"/api/Order/GetOrder/{id}");
-                var data = await result.Content.ReadAsStringAsync();
+                var data = await resultID.Content.ReadAsStringAsync();
                 var order = JsonConvert.DeserializeObject<BookOrder>(data);
                 ViewBag.Order = order;
 
-                var result2 = await client.GetAsync(API_URl + $"/api/Order/OrderDetail/{id}");
+                var result2 = await client.GetAsync(API_URl + $"/api/Order/OrderDetail/{order.Id}");
                 var data2 = await result2.Content.ReadAsStringAsync();
                 var details = JsonConvert.DeserializeObject<List<OrderDetailService>>(data2);
                 ViewBag.Details = details;

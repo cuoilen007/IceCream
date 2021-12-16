@@ -59,7 +59,7 @@ namespace IceCreamApi.Controllers
                 orderDetailService.Price = detail.Price;
                 orderDetailService.BookOrderId = detail.BookOrderId;
                 orderDetailService.BookOrderId = detail.BookOrderId;
-                detailServices.Add(orderDetailService);                
+                detailServices.Add(orderDetailService);
             }
             return Ok(detailServices);
         }
@@ -112,12 +112,12 @@ namespace IceCreamApi.Controllers
         [HttpGet("Phone/{phone}")]
         public async Task<IActionResult> DetailByPHone(string phone)
         {
-            var foundOrder = await db.BookOrders.Where(m => m.Phone == phone).OrderByDescending(c=>c.Id).FirstOrDefaultAsync();
+            var foundOrder = await db.BookOrders.Where(m => m.Phone == phone).OrderByDescending(c => c.Id).FirstOrDefaultAsync();
             if (foundOrder == null)
             {
                 return NotFound();
             }
-            return Ok(foundOrder.Id);
+            return Ok(foundOrder);
         }
     }
 }

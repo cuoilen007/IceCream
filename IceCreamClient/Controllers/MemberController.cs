@@ -43,7 +43,7 @@ namespace IceCreamClient.Controllers
                     ViewData["errorLogin"] = "wrong username or password";
                 }
             }
-            return View();
+            return Redirect(Request.Headers["Referer"].ToString());
         }
 
         public IActionResult Register()
@@ -119,8 +119,6 @@ namespace IceCreamClient.Controllers
             {
                 return View("Error", "Home");
             }
-                        
-            return View();
         }
 
         [HttpGet]
@@ -171,7 +169,7 @@ namespace IceCreamClient.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Remove("user_detail");
-            return View("Index","Home");
+            return RedirectToAction("Index","Home");
         }
     }
 }

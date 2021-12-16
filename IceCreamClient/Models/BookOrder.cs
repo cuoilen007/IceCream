@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace IceCreamClient.Models
 {
@@ -15,5 +16,6 @@ namespace IceCreamClient.Models
         public string Phone { get; set; }
 
         public bool? IsCompleted { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

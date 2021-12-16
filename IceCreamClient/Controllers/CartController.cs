@@ -76,19 +76,9 @@ namespace IceCreamClient.Controllers
             }
 
             HttpContext.Session.SetString("cart", JsonConvert.SerializeObject(listCart));
-            //return Redirect(Request.Headers["Referer"].ToString());
-            return RedirectToAction("Index", "Home");
+            return Redirect(Request.Headers["Referer"].ToString());
+            //return RedirectToAction("Index", "Home");
         }
-        
-
-        [HttpGet]
-        public IActionResult Checkout()
-        {
-            // view checkout, liệt kê danh sách product ở trong session ra
-            //this.GetRootCategory();
-            ViewBag.Alert = TempData["alert"];
-            ViewBag.Message = TempData["message"];
-            return View("~/Views/Order/Checkout.cshtml");
-        }
+       
     }
 }
