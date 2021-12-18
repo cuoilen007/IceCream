@@ -10,10 +10,10 @@
     <div class="auto-container">
         <div class="content-box">
             <div class="title">
-                <h1>Shop Details</h1>
+                <h1>Shop Book Details</h1>
             </div>
             <ul class="bread-crumb clearfix">
-                <li><a href="index.html">Home</a></li>
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
                 <li>Details</li>
             </ul>
         </div>
@@ -71,15 +71,19 @@
                             </ul>
                         </div>
                         <div class="addto-cart-box">
-                            <ul class="clearfix">
-                                <li><input type="text" name="quentity" placeholder="1"></li>
-                                <li><button type="button" class="theme-btn-one">Add To Cart</button></li>
-                            </ul>
+                            @* Add to cart *@
+                            <form asp-action="AddToCart" asp-controller="Cart" method="get">
+                                <ul class="clearfix">
+                                    <li><input type="hidden" name="id" value="@Model.BookId"></li>
+                                    <li><input type="number" min="1" max="1000" name="quantity" value="1" placeholder="1" style="width:fit-content;height:50px;"></li>
+                                    <li><button type="submit" class="theme-btn-two" value="add">Add to cart</button></li>
+                                </ul>
+                            </form>
                         </div>
                         <div class="other-links">
                             <ul class="category list">
                                 <li>Category:</li>
-                                <li><a href="#">Ice Cream</a></li>
+                                <li>Ice Cream</li>
                             </ul>
                         </div>
                     </div>
