@@ -109,7 +109,7 @@ namespace IceCreamApi.Controllers
 
         //Related Book
         [HttpGet("relatedBook/{number}")]
-        public async Task<ActionResult<List<Recipe>>> findRelatedBook(int number)
+        public async Task<ActionResult<List<BookIceCream>>> findRelatedBook(int number)
         {
             var book = await ctx.BookIceCreams.OrderByDescending(b => b.BookId).Take(number).ToListAsync();
             if (book != null)

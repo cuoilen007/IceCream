@@ -43,10 +43,10 @@
                         </div>
                         <div class="widget-content">
                             <ul class="categories-list clearfix">
-                                <li><a href="@Url.ActionLink("ShowBooks", "Book")">All</a></li>
+                                <li><a href="@Url.ActionLink("ShowBooks", "Book", new {page = 1})">All</a></li>
                                 @foreach (var item in categories)
                                 {
-                                    <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = item.CatId })">@item.Name</a></li>
+                                    <li><a href="@Url.ActionLink("ShowBookByCategory", "Book", new { CatId = item.CatId, page = 1 })">@item.Name</a></li>
                                 }
                             </ul>
                         </div>
@@ -152,13 +152,41 @@
 
                     <div class="pagination-wrapper centred">
                         <ul class="pagination">
-                            <li><a href="shop-1.html">Prev</a></li>
-                            <li><a href="shop-1.html">1</a></li>
-                            <li><a href="shop-1.html" class="active">2</a></li>
-                            <li><a href="shop-1.html">3</a></li>
-                            <li><a href="shop-1.html">4</a></li>
-                            <li><a href="shop-1.html">5</a></li>
-                            <li><a href="shop-1.html">Next</a></li>
+                            @* PAGINATION BOOKS WITH VIEW ALL *@
+                            @{
+                                int currentPage = Convert.ToInt32(TempData["CurrentPage"]);
+                                int totalPage = Convert.ToInt32(TempData["TotalPage"]);
+                                if (currentPage != 1)
+                                {
+                                    <li><a asp-action="ShowBookByCategory" asp-controller="Book" asp-route-page="@(Convert.ToInt32(currentPage - 1))">Prev</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="javascript:void(0)">Prev</a></li>
+                                }
+
+                                for (int i = 1; i <= totalPage; i++)
+                                {
+                                    if (currentPage == i)
+                                    {
+                                        <li><a href="javascript:void(0)" class="active">@i</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-action="ShowBookByCategory" asp-controller="Book" asp-route-CatId="@TempData["CategoryID"]" asp-route-page="@i">@i</a></li>
+                                    }
+                                }
+
+                                if (currentPage < totalPage)
+                                {
+                                    <li><a asp-action="ShowBookByCategory" asp-controller="Book" asp-route-CatId="@TempData["CategoryID"]" asp-route-page="@(Convert.ToInt32(currentPage + 1))">Next</a></li>
+                                }
+
+                                if (currentPage == totalPage)
+                                {
+                                    <li><a href="javascript:void(0)">Next</a></li>
+                                }
+                            }
                         </ul>
                     </div>
                 </div>
