@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using PagedList;
 
 namespace IceCreamClient.Controllers
 {
@@ -31,6 +32,17 @@ namespace IceCreamClient.Controllers
             var resultBook = await client.GetStringAsync(BASE_URL + "/api/book");
             var books = JsonConvert.DeserializeObject<List<BookIceCream>>(resultBook);
             TempData["ListBook"] = books;
+
+            var responseIceCream = await client.GetAsync(BASE_URL + $"/api/recipe/latest/1/3");
+            var dataIceCream = await responseIceCream.Content.ReadAsStringAsync();
+            var IceCreamRecipe = JsonConvert.DeserializeObject<List<Recipe>>(dataIceCream);
+            TempData["IceCreamRecipe"] = IceCreamRecipe;
+
+            var responseDessert = await client.GetAsync(BASE_URL + $"/api/recipe/latest/2/3");
+            var dataDessert = await responseDessert.Content.ReadAsStringAsync();
+            var DessertRecipe = JsonConvert.DeserializeObject<List<Recipe>>(dataDessert);
+            TempData["DessertRecipe"] = DessertRecipe;
+
             client.Dispose();
 
             return View();

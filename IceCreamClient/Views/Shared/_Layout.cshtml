@@ -169,7 +169,7 @@
             <div class="header-lower">
                 <div class="outer-box">
                     <div class="logo-box">
-                        <figure class="logo"><a asp-controller="Home" asp-action="Index"><img src="~/assets/images/logo-5.png" alt=""></a></figure>
+                        <a asp-controller="Home" asp-action="Index"><figure class="logo"><img src="~/assets/images/logo-5.png" alt=""></figure></a>
                     </div>
                     <div class="menu-area">
                         <!--Mobile Navigation Toggler-->
@@ -181,18 +181,24 @@
                         <nav class="main-menu navbar-expand-md navbar-light">
                             <div class="collapse navbar-collapse show clearfix" id="navbarSupportedContent">
                                 <ul class="navigation clearfix">
-                                    <li class="current"><a asp-controller="Home" asp-action="Index">Home</a></li>
-                                    <li class="current"><a asp-controller="Recipe" asp-action="Index">Recipe</a></li>
-                                    <li class="current"><a asp-controller="Book" asp-action="Index">Book</a></li>
-                                    <li class="current"><a asp-controller="Home" asp-action="About">About Us</a></li>
-                                    <li class="current"> <a asp-controller="Home" asp-action="Faq">FAQ's</a></li>
-                                    <li class="current"><a asp-controller="Contact" asp-action="Index">Contact Us</a></li>
-                                    <li class="current"><a asp-controller="Checkout" asp-action="CheckOrder">Check Order</a></li>
+                                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                                    <li class="dropdown">
+                                        <a asp-controller="Recipe" asp-action="Index" asp-route-page="1">Recipe</a>
+                                        <ul>
+                                            <li><a asp-controller="Recipe" asp-action="Index" asp-route-CategoryID="1" asp-route-page="1">Ice Cream</a></li>
+                                            <li><a asp-controller="Recipe" asp-action="Index" asp-route-CategoryID="2" asp-route-page="1">Dessert</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a asp-controller="Book" asp-action="Index">Book</a></li>
+                                    <li><a asp-controller="Home" asp-action="About">About Us</a></li>
+                                    <li> <a asp-controller="Home" asp-action="Faq">FAQ's</a></li>
+                                    <li><a asp-controller="Contact" asp-action="Index">Contact Us</a></li>
+                                    <li><a asp-controller="Checkout" asp-action="CheckOrder">Check Order</a></li>
                                     @if(user ==null){
-                                    <li class="current"><a asp-controller="Member" asp-action="Login">Login</a></li>
-                                    <li class="current"><a asp-controller="Member" asp-action="Register">Register</a></li>
+                                    <li><a asp-controller="Member" asp-action="Login">Login</a></li>
+                                    <li><a asp-controller="Member" asp-action="Register">Register</a></li>
                                     }else{
-                                    <li class="current"><a asp-controller="Member" asp-action="Logout">Logout</a></li>
+                                    <li><a asp-controller="Member" asp-action="Logout">Logout</a></li>
                                     }
                                 </ul>
                             </div>

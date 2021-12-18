@@ -106,6 +106,14 @@
                         <div class="group-title">
                             <h3>Comment</h3>
                         </div>
+                        @if (TempData["CommentSuccess"] != null)
+                        {
+                            <p style="font-weight: bold; color: darkgreen;">@TempData["CommentSuccess"]</p>
+                        }
+                        @if (TempData["CommentError"] != null)
+                        {
+                            <p style="font-weight: bold; color: darkred;">@TempData["CommentError"]</p>
+                        }
                         <form asp-action="Comment" asp-controller="Recipe" method="post" class="comment-form">
                             <div class="row clearfix">
                                 @if (json_user_detail != null)
