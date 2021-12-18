@@ -11,7 +11,7 @@
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
                 <ul class="breadcrumbs pull-left">
-                    <li><a href="#">Book</a></li>
+                    <li><a asp-action="ShowBooks" asp-controller="Book">Book</a></li>
                     <li><span>Update</span></li>
                 </ul>
             </div>
@@ -30,7 +30,7 @@
                         <h4 style="text-align:center">@Html.DisplayFor(model => model.Title)</h4>
                         <hr />
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
                                 @if (ViewData["success"] != null)
                                 {
                                     <h4 style="color:forestgreen">@ViewData["success"]</h4>
