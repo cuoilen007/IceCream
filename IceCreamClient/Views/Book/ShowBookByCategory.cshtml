@@ -8,8 +8,6 @@
     IEnumerable<BookIceCream> relatedBook = ViewData["RelateBook"] as IEnumerable<BookIceCream>;
 }
 
-<h1>ShowBookByCategory</h1>
-
 <!--Page Title-->
 <section class="page-title centred" style="background-image: url(assets/images/background/page-title.jpg);">
     <div class="auto-container">
@@ -64,7 +62,7 @@
                             <div class="post">
                                 <figure class="image-box">
                                     <a href="@Url.Action("BookDetails", "Book", new { bookId = item.BookId})">
-                                        <img src="~/images/book/@item.Image" alt="">
+                                        <img src="~/images/book/@item.Image" alt="" style="height:100%; width:100%">
                                     </a>
                                 </figure>
                                 <h5><a href="@Url.Action("BookDetails", "Book", new { bookId = item.BookId})">@item.Title</a></h5>
