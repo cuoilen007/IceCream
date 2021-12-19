@@ -24,15 +24,17 @@
 </section>
 <!--End Page Title-->
 <!-- shop-page-section -->
-<section class="shop-page-section shop-page-1">
+<section class="shop-page-section shop-page-1" style="background-image: url('/assets/images/background/shop-1.jpg');">
     <div class="auto-container">
         <div class="row clearfix">
             <div class="col-lg-3 col-md-12 col-sm-12 sidebar-side">
                 <div class="shop-sidebar default-sidebar">
                     <div class="sidebar-widget sidebar-search">
-                        <form asp-action="SearchTitle" class="search-form">
+                        <form asp-action="ShowBooks" class="search-form">
                             <div class="form-group">
                                 <input type="search" name="title" placeholder="Search..." required="">
+                                @*pass value page = 1 to showbooks(title, page) to active page 1 when search*@
+                                <input type="hidden" name="page" value="1" />
                                 <button type="submit"><i class="icon-Search"></i></button>
                             </div>
                         </form>
