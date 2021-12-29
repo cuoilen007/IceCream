@@ -16,7 +16,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
     [Area("Admin")]//thêm route /admin/book cho trang admin
     public class BookController : Controller
     {
-        const string BASE_URL = "http://localhost:47255";
+        const string BASE_URL = "http://localhost/IceCreamApi";
         IHttpClientFactory factory;
         IWebHostEnvironment env; //upload image
 
@@ -147,7 +147,6 @@ namespace IceCreamClient.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateBook(int bookId, BookIceCream book, IFormFile Image)
         {
             HttpClient client = factory.CreateClient();
-            client.BaseAddress = new Uri(BASE_URL);
 
             //display dropdown list category
             //fix lỗi null categories khi dùng return view() validate field bên UpdateBook
@@ -183,7 +182,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
                 }
                 var json = JsonConvert.SerializeObject(book);
                 var stringContent = new StringContent(json, Encoding.UTF8, "application/json");
-                var result = await client.PutAsync("/api/book", stringContent);
+                var result = await client.PutAsync(BASE_URL + "/api/book", stringContent);
 
                 if (result.IsSuccessStatusCode)
                 {

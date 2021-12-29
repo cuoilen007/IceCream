@@ -12,7 +12,7 @@ namespace IceCreamClient.Controllers
 {
     public class CartController : Controller
     {
-        const string API_URl = "http://localhost:47255";
+        const string API_URl = "http://localhost/IceCreamApi";
         IHttpClientFactory _factory;
 
         public CartController(IHttpClientFactory factory)

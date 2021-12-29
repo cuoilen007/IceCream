@@ -16,7 +16,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
     [Area("Admin")]
     public class RecipeController : Controller
     {
-        const String BASE_URL = "http://localhost:47255";
+        const String BASE_URL = "http://localhost/IceCreamApi";
         HttpClient _client;
 
         public RecipeController(HttpClient client)

@@ -11,7 +11,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
     [Area("Admin")]
     public class FeedbackController : Controller
     {
-        const string API_URl = "http://localhost:47255";
+        const string API_URl = "http://localhost/IceCreamApi";
         IHttpClientFactory _factory;
 
         public FeedbackController(IHttpClientFactory factory)

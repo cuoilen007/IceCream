@@ -13,7 +13,7 @@ namespace IceCreamClient.Controllers
 {
     public class BookController : Controller
     {
-        const string BASE_URL = "http://localhost:47255";
+        const string BASE_URL = "http://localhost/IceCreamApi";
         IHttpClientFactory factory;
 
         public BookController(IHttpClientFactory factory)
@@ -154,14 +154,12 @@ namespace IceCreamClient.Controllers
         public async Task<IActionResult> BookDetails(int bookId) // bookId phải giống với link bookId = item.BookId bên ShowBooks.cshtml
         {
             HttpClient client = factory.CreateClient();
-            //chuyển đối tượng customer thành chuỗi json để truyền đi
-            client.BaseAddress = new Uri(BASE_URL);
 
-            var response = await client.GetStringAsync($"/api/book/{bookId}");
+            var response = await client.GetStringAsync(BASE_URL + $"/api/book/{bookId}");
             var book = JsonConvert.DeserializeObject<BookIceCream>(response);
 
             //show relate book
-            var responseRelate = await client.GetStringAsync($"/api/book/relatedBook/4");
+            var responseRelate = await client.GetStringAsync(BASE_URL + $"/api/book/relatedBook/4");
             var relateBook = JsonConvert.DeserializeObject<List<BookIceCream>>(responseRelate);
             ViewData["RelateBook"] = relateBook;
 

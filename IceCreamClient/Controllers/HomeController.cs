@@ -14,7 +14,7 @@ namespace IceCreamClient.Controllers
 {
     public class HomeController : Controller
     {
-        const string BASE_URL = "http://localhost:47255";
+        const string BASE_URL = "http://localhost/IceCreamApi";
         IHttpClientFactory factory;
 
         private readonly ILogger<HomeController> _logger;
