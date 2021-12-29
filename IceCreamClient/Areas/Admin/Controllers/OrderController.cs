@@ -11,7 +11,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
     [Area("Admin")]
     public class OrderController : Controller
     {
-        const string API_URl = "http://localhost/IceCreamApi";
+        const string API_URl = "http://localhost:47255";
         IHttpClientFactory _factory;
 
         public OrderController(IHttpClientFactory factory)

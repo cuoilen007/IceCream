@@ -9,7 +9,7 @@ namespace IceCreamClient.Controllers
 {
     public class ContactController : Controller
     {
-        const string API_URl = "http://localhost/IceCreamApi";
+        const string API_URl = "http://localhost:47255";
         IHttpClientFactory _factory;
 
         public ContactController(IHttpClientFactory factory)

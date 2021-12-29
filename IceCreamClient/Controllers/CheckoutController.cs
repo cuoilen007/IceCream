@@ -13,7 +13,7 @@ namespace IceCreamClient.Controllers
 {
     public class CheckoutController : Controller
     {
-        const string API_URl = "http://localhost/IceCreamApi";
+        const string API_URl = "http://localhost:47255";
         IHttpClientFactory _factory;
         IHttpContextAccessor _HttpContextAccessor;
 

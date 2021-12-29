@@ -12,7 +12,7 @@ namespace IceCreamClient.Areas.Admin.Controllers
     [Area("Admin")]
     public class HomeController : Controller
     {
-        const string API_URl = "http://localhost/IceCreamApi";
+        const string API_URl = "http://localhost:47255";
         IHttpClientFactory _factory;
 
         public HomeController(IHttpClientFactory factory)

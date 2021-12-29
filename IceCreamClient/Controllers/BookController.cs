@@ -13,7 +13,7 @@ namespace IceCreamClient.Controllers
 {
     public class BookController : Controller
     {
-        const string BASE_URL = "http://localhost/IceCreamApi";
+        const string BASE_URL = "http://localhost:47255";
         IHttpClientFactory factory;
 
         public BookController(IHttpClientFactory factory)
